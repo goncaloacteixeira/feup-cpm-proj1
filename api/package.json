@@ -1,0 +1,23 @@
+{
+  "name": "api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-session": "^1.17.2",
+    "express-session-sqlite": "^2.0.10",
+    "morgan": "~1.9.1",
+    "njwt": "^1.2.0",
+    "nnode": "^0.3.3",
+    "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2"
+  }
+}

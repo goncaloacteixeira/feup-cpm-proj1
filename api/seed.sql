@@ -46,7 +46,7 @@ create table "transactions"
 create table transaction_items
 (
     id               integer primary key autoincrement,
-    transaction_uuid integer not null,
+    transaction_uuid text not null,
     item_uuid        text not null,
     constraint tr_fk foreign key (transaction_uuid) references transactions (uuid) on delete cascade,
     constraint item_fk foreign key (item_uuid) references items (uuid) on delete cascade

@@ -38,9 +38,43 @@ exports.registerUser = async (req, res) => {
     console.error(e)
     return res.json({message: "ERROR", content: e.message});
   }
+};
+
+exports.loginUser = async (req, res) => {
+  console.log(req.body)
+
+  let properties = [
+    'email',
+    'password',
+  ];
+
+  for (let property of properties) {
+    if (!req.body[property]) {
+      return res.json({message: "ERROR", content: "One or more fields missing!"});
+    }
+  }
+
+  try {
+    let user = await users.getUserByEmail(req.body.email);
+    if (!user) {
+      return res.json({message: "ERROR", content: "User not found."});
+    }
+    bcrypt.compare(req.body.password, user.password, async function (err, result) {
+      if (result) {
+        return res.json({message: "OK", content: user})
+      } else {
+        return res.json({message: "ERROR", content: "Wrong password."});
+      }
+    });
+  } catch (e) {
+    console.error(e)
+    return res.json({message: "ERROR", content: e.message});
+  }
 }
 
 exports.getUserByUUID = async (req, res) => {
   let user = await users.getUserByUUID(req.params.uuid);
   return res.json(user);
 };
+
+

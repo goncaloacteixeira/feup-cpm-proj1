@@ -7,3 +7,7 @@ exports.insertUser = async function ({name, email, password, vat, address, card_
 exports.getUserByUUID = async function (uuid) {
   return await dao.get("SELECT * FROM users WHERE uuid = ?", [uuid]);
 }
+
+exports.getUserByEmail = async function (email) {
+  return await dao.get("SELECT * FROM users WHERE email = ?", [email]);
+}

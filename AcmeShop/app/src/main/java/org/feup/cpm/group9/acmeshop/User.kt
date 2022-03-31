@@ -61,6 +61,28 @@ class User(
 
             queue.add(stringRequest)
         }
+
+        fun login(context: Context, email: String, password: String, callback: (Boolean) -> Unit) {
+            val queue = Volley.newRequestQueue(context)
+            val url = "http://10.0.2.2:3000/users/login"
+            val attributes = mapOf(
+                "email" to email,
+                "password" to password
+            )
+
+            val request = JsonObjectRequest(
+                Request.Method.POST, url, JSONObject(attributes),
+                { response ->
+                    Log.i("User", "login: Response is: $response")
+                    callback(response.get("message") == "OK")
+                },
+                { error ->
+                    Log.i("User", "login: error: $error")
+                    callback(false)
+                })
+
+            queue.add(request)
+        }
     }
 
     override fun toString(): String {

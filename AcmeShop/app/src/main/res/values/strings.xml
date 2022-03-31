@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Acme Shop</string>
+    <string name="login_lbl">Login</string>
+    <string name="signup_lbl">Sign Up</string>
+    <string name="submit_lbl">Submit</string>
+
+    <!-- SignUp Strings -->
+    <string name="name_lbl">Name</string>
+    <string name="email_lbl">Email Address</string>
+    <string name="password_lbl">Password</string>
+    <string name="confirm_password_lbl">Confirm Password</string>
+    <string name="address_lbl">Address</string>
+    <string name="card_number_lbl">Card Number</string>
+    <string name="card_validity_lbl">Card Validity</string>
+    <string name="card_type_lbl">Card Type</string>
+    <string name="vat_lbl">VAT number</string>
+</resources>

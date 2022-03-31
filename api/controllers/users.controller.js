@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 exports.registerUser = async (req, res) => {
+  console.log(req.body)
+
   let properties = [
     'name',
     'email',
@@ -17,12 +19,12 @@ exports.registerUser = async (req, res) => {
 
   for (let property of properties) {
     if (!req.body[property]) {
-      return res.status(400).send("One or more fields missing!");
+      return res.json({message: "ERROR", content: "One or more fields missing!"});
     }
   }
 
   if (req.body.vat.toString().length !== 9) {
-    return res.status(400).send("VAT must have 9 digits!");
+    return res.json({message: "ERROR", content: "VAT must have 9 digits!"});
   }
 
   try {
@@ -30,11 +32,11 @@ exports.registerUser = async (req, res) => {
     bcrypt.hash(req.body.password, saltRounds, async function (err, hash) {
       req.body.password = hash;
       await users.insertUser(req.body, newUUID);
-      return res.status(200).send(newUUID)
+      return res.json({message: "OK", content: newUUID})
     });
   } catch (e) {
     console.error(e)
-    return res.status(400).send(e.message);
+    return res.json({message: "ERROR", content: e.message});
   }
 }
 

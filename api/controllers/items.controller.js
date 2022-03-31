@@ -1,4 +1,4 @@
-const repository =  require('../repositories/repository');
+const repository =  require('../repositories/items');
 
 exports.getAllItems = async (req, res) => {
   let items = await repository.getAllItems();

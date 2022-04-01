@@ -16,6 +16,9 @@ class MainActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val user = result.data?.extras?.get("result")
             Log.i(TAG, "Login Result: $user")
+            val intent = Intent(this, HomePageActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

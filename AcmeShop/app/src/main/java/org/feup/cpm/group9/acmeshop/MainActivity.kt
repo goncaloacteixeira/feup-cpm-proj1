@@ -14,9 +14,10 @@ class MainActivity : AppCompatActivity() {
 
     private val startForResultLogin = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val user = result.data?.extras?.get("result")
+            val user: User = result.data?.extras?.get("result") as User
             Log.i(TAG, "Login Result: $user")
             val intent = Intent(this, HomePageActivity::class.java)
+            intent.putExtra("user", user)
             startActivity(intent)
             finish()
         }

@@ -22,6 +22,10 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Drawer -->
+    <string name="menu_prev_transactions">Previous Transactions</string>
+    <string name="menu_shop">Shop</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>

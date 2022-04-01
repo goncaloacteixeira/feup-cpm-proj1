@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/name_lbl"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/user_address_edt"
@@ -32,7 +33,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/address_lbl"
-            android:inputType="textPostalAddress" />
+            android:inputType="textPostalAddress"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/user_email_edt"
@@ -40,7 +42,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/email_lbl"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/user_vat_edt"
@@ -48,7 +51,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/vat_lbl"
-            android:inputType="number" />
+            android:inputType="number"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/user_password_edt"
@@ -56,7 +60,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/password_lbl"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/user_confirm_password_edt"
@@ -64,7 +69,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/confirm_password_lbl"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
 
     </LinearLayout>
 
@@ -86,6 +92,7 @@
             android:ems="10"
             android:hint="@string/card_number_lbl"
             android:inputType="number"
+            android:minHeight="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -104,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:minHeight="48dp"
                 android:hint="@string/card_type_lbl"
                 android:inputType="textPersonName" />
 
@@ -113,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:minHeight="48dp"
                 android:hint="@string/card_validity_lbl"
                 android:inputType="textPersonName" />
         </LinearLayout>

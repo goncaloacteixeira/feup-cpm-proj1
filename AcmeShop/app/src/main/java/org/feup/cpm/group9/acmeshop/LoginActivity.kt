@@ -1,11 +1,13 @@
 package org.feup.cpm.group9.acmeshop
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = "org.feup.cpm.group9.acmeshop.LoginActivity"
@@ -19,11 +21,14 @@ class LoginActivity : AppCompatActivity() {
             val password = findViewById<EditText>(R.id.login_password_edt).text.toString()
 
             Log.i(TAG, "onCreate: login for: $email, $password")
-            User.login(this, email, password) {
-                Log.i(TAG, "onCreate: Login Result: $it")
-                if (it) {
-                    // TODO: Change to homescreen logged in
-                    Toast.makeText(this, "User logged in", Toast.LENGTH_LONG).show()
+            User.login(this, email, password) { user ->
+                Log.i(TAG, "onCreate: Login Result: $user")
+                if (user != null) {
+                    Toast.makeText(this, "User logged in: UUID: ${user.uuid}", Toast.LENGTH_LONG).show()
+                    val returnIntent = Intent()
+                    returnIntent.putExtra("result", user)
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
                 } else {
                     Toast.makeText(this, "Invalid Login info", Toast.LENGTH_LONG).show()
                 }

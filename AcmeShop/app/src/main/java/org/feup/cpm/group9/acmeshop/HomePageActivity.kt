@@ -13,11 +13,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.github.pavlospt.roundedletterview.RoundedLetterView
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.snackbar.Snackbar
 import org.feup.cpm.group9.acmeshop.databinding.ActivityHomePageBinding
 import java.util.*
-import kotlin.Boolean
-import kotlin.Int
 
 class HomePageActivity : AppCompatActivity() {
 
@@ -32,10 +29,6 @@ class HomePageActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarHomePage.toolbar)
 
-        binding.appBarHomePage.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_home_page)

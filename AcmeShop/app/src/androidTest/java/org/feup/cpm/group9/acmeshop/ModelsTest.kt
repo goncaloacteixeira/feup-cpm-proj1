@@ -20,7 +20,7 @@ class ModelsTest {
 
     @Test
     fun testGetUser() {
-        User.getUser(instrumentationContext, "ebed6b52-2e5c-4244-aaaf-ffee4063b149") {
+        User.getUser(instrumentationContext, "35") {
             Log.i(TAG, "testGetUser: User: $it")
             assert(it != null)
         }

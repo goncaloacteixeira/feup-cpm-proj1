@@ -29,7 +29,6 @@ class LoginUser(
 ): Serializable {
     @SerializedName("public_key")
     lateinit var publicKey: String
-    @Transient
     lateinit var uuid: String
 
     companion object {

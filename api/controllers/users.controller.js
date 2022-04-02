@@ -1,6 +1,8 @@
 const users = require('../repositories/users');
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
+const {getPastTransactions, getItemsForTransaction} = require("../repositories/transactions");
+const transactions = require("../repositories/transactions");
 const saltRounds = 10;
 
 exports.registerUser = async (req, res) => {
@@ -74,6 +76,12 @@ exports.loginUser = async (req, res) => {
 
 exports.getUserByUUID = async (req, res) => {
   let user = await users.getUserByUUID(req.params.uuid);
+  let transactions = await getPastTransactions(req.params.uuid);
+  for (let tr of transactions) {
+    tr.items = await getItemsForTransaction(tr.uuid);
+  }
+  user.transactions = transactions
+  console.log(user)
   return res.json(user);
 };
 

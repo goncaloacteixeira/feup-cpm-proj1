@@ -1,5 +1,6 @@
 package org.feup.cpm.group9.acmeshop.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,9 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>) : Recycle
             val itemViewModel = itemList[position]
             holder.name?.text = itemViewModel.name
             holder.description?.text = itemViewModel.description
-            holder.price?.text = holder.itemView.context!!.getString(R.string.price_template_eur, itemViewModel.price)
+            holder.price?.text = holder.itemView.context!!.getString(R.string.price_template_eur, itemViewModel.price * itemViewModel.quantity)
+            holder.quantity?.text = itemViewModel.quantity.toString()
+
         } else {
             holder.button?.setOnClickListener {
                 Toast.makeText(holder.itemView.context, "Payment not implemented yet!", Toast.LENGTH_LONG)
@@ -53,13 +56,21 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>) : Recycle
         val name: TextView? = itemView.findViewById(R.id.item_name)
         val description: TextView? = itemView.findViewById(R.id.item_description)
         val price: TextView? = itemView.findViewById(R.id.item_price)
+        val quantity: TextView? = itemView.findViewById(R.id.item_quantity)
 
         // button
         val button: Button? = itemView.findViewById(R.id.pay_btn)
     }
 
     fun addItem(item: Item) {
-        itemList.add(item)
-        notifyItemInserted(itemList.size)
+        Log.d("HomeAdapter", "addItem: $item")
+        if (itemList.contains(item)) {
+            val index = itemList.indexOf(item)
+            itemList[index].quantity++
+            notifyItemChanged(index)
+        } else {
+            itemList.add(item)
+            notifyItemInserted(itemList.size)
+        }
     }
 }

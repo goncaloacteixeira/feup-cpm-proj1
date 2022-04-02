@@ -1,7 +1,6 @@
 package org.feup.cpm.group9.acmeshop.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import org.feup.cpm.group9.acmeshop.adapters.CurrentTransactionAdapter
 import org.feup.cpm.group9.acmeshop.databinding.FragmentHomeBinding
 import org.feup.cpm.group9.acmeshop.models.Item
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -79,7 +77,7 @@ class HomeFragment : Fragment() {
 
 
         view.findViewById<FloatingActionButton>(R.id.add_item_fab).setOnClickListener {
-            adapter.addItem(Item(UUID.randomUUID().toString(), "Added by FAB", "Example Description", 123123123123, 25.0))
+            adapter.addItem(Item("item_fab", "Added by FAB", "Example Description", 123123123123, 25.0))
         }
 
         super.onViewCreated(view, savedInstanceState)

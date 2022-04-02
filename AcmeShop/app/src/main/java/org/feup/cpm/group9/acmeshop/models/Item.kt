@@ -15,9 +15,30 @@ class Item(
     val barcode: Number,
     val price: Double
 ) {
-    override fun toString(): String {
-        return "Item(uuid=$uuid, name='$name', description='$description', barcode=$barcode, price=$price)"
+    @Transient
+    var quantity = 1
+
+
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Item
+
+        if (uuid != other.uuid) return false
+
+        return true
     }
+
+    override fun hashCode(): Int {
+        return uuid.hashCode()
+    }
+
+    override fun toString(): String {
+        return "Item(uuid='$uuid', name='$name', description='$description', barcode=$barcode, price=$price, quantity=$quantity)"
+    }
+
 
     companion object {
         private val gson = Gson()

@@ -12,7 +12,7 @@ import org.json.JSONObject
 import java.io.Serializable
 
 
-class User(
+class LoginUser(
     val name: String,
     val address: String,
     val email: String,
@@ -35,8 +35,8 @@ class User(
     companion object {
         private val gson = Gson()
 
-        fun signupUser(context: Context, user: User, callback: (Boolean) -> Unit) {
-            if (user.confirm_password != user.password) {
+        fun signupUser(context: Context, loginUser: LoginUser, callback: (Boolean) -> Unit) {
+            if (loginUser.confirm_password != loginUser.password) {
                 callback(false)
             }
             // TODO: check for missing values
@@ -46,10 +46,10 @@ class User(
 
             val publicKeyBytes: ByteArray =
                 Base64.encode(Crypto.generateKey().public.encoded, Base64.NO_WRAP)
-            user.publicKey = String(publicKeyBytes)
+            loginUser.publicKey = String(publicKeyBytes)
 
             val stringRequest = JsonObjectRequest(
-                Request.Method.POST, url, JSONObject(gson.toJson(user)),
+                Request.Method.POST, url, JSONObject(gson.toJson(loginUser)),
                 { response ->
                     Log.i("User", "signupUser: Response is: $response")
                     callback(response.get("message") == "OK")
@@ -62,7 +62,7 @@ class User(
             queue.add(stringRequest)
         }
 
-        fun login(context: Context, email: String, password: String, callback: (User?) -> Unit) {
+        fun login(context: Context, email: String, password: String, callback: (LoginUser?) -> Unit) {
             val queue = Volley.newRequestQueue(context)
             val url = "$API_URL/users/login"
             val attributes = mapOf(
@@ -80,7 +80,7 @@ class User(
                             var map: Map<String, Any> = HashMap()
                             map = gson.fromJson(content.toString(), map.javaClass)
 
-                            val user = gson.fromJson(content.toString(), User::class.java)
+                            val user = gson.fromJson(content.toString(), LoginUser::class.java)
                             user.uuid = map["uuid"] as String
                             callback(user)
                         }

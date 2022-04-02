@@ -24,9 +24,9 @@ class SignUpActivity : AppCompatActivity() {
             val cardType = findViewById<EditText>(R.id.user_card_type_edt).text.toString()
             val cardValidity = findViewById<EditText>(R.id.user_card_validity_edt).text.toString()
 
-            val user = User(name, address, email, vat, password, confirmPassword, cardNumber, cardType, cardValidity)
+            val user = LoginUser(name, address, email, vat, password, confirmPassword, cardNumber, cardType, cardValidity)
 
-            User.signupUser(this, user) {
+            LoginUser.signupUser(this, user) {
                 Log.i(TAG, "onCreate: Signup: $user")
                 Log.i(TAG, "onCreate: Result: $it")
                 if (it) {

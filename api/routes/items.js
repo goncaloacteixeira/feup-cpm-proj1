@@ -3,6 +3,6 @@ const express = require('express');
 const router = express.Router()
 
 router.get("/", itemsController.getAllItems);
-router.get("/:id", itemsController.getItemById)
+router.get("/:uuid", itemsController.getItemByUUID)
 
 module.exports = router

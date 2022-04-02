@@ -49,14 +49,14 @@ class HomePageActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val user: User = (intent.extras?.get("user") as User)
-        setupDrawer(navView, user)
+        val loginUser: LoginUser = (intent.extras?.get("user") as LoginUser)
+        setupDrawer(navView, loginUser)
     }
 
-    private fun setupDrawer(navView: NavigationView, user: User) {
-        navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_name).text = user.name
-        navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_email).text = user.email
-        val letter = user.name[0].toString()
+    private fun setupDrawer(navView: NavigationView, loginUser: LoginUser) {
+        navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_name).text = loginUser.name
+        navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_email).text = loginUser.email
+        val letter = loginUser.name[0].toString()
         val rnd = Random()
         val color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
 

@@ -10,6 +10,8 @@ exports.getPastTransactions = async (req, res) => {
     tr.items = await transactions.getItemsForTransaction(tr.uuid);
   }
 
+  console.log(past_transactions)
+
   res.send(past_transactions);
 }
 

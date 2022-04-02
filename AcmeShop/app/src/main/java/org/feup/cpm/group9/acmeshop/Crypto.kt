@@ -6,8 +6,6 @@ import java.security.*
 import java.util.*
 
 class Crypto {
-
-
     companion object {
         private const val alias = "ACME_KEY"
 

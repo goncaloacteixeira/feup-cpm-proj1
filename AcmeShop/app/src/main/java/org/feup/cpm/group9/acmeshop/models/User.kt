@@ -9,6 +9,9 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import org.feup.cpm.group9.acmeshop.API_URL
+import org.feup.cpm.group9.acmeshop.Crypto
+import org.json.JSONObject
+import java.security.Signature
 
 class User(
     val name: String,
@@ -28,6 +31,13 @@ class User(
 ) {
     @Transient
     lateinit var transactions: List<Transaction>
+
+    data class Purchase(
+        @SerializedName("user_uuid")
+        val userUUID: String,
+        val items: ArrayList<Item>,
+        val signature: String
+    )
 
     companion object {
         private val gson = Gson()
@@ -60,6 +70,27 @@ class User(
                 { error ->
                     Log.i("User", "login: error: $error")
                     callback(null)
+                })
+
+            queue.add(request)
+        }
+
+        fun pay(context: Context, userUUID: String, items: ArrayList<Item>) {
+            val algorithm = Signature.getInstance("SHA256withRSA")
+            val sign = algorithm.initSign(Crypto.loadKey())
+
+            val queue = Volley.newRequestQueue(context)
+            val url = "$API_URL/transactions"
+
+            val purchase = Purchase(userUUID, items, sign.toString())
+
+            val request = JsonObjectRequest(
+                Request.Method.POST, url, JSONObject(gson.toJson(purchase)),
+                { response ->
+                    Log.i("User", "pay: response: $response")
+                },
+                { error ->
+                    Log.i("User", "pay: error: $error")
                 })
 
             queue.add(request)

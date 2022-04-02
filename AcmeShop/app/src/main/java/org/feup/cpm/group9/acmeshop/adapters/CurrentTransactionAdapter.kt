@@ -41,8 +41,8 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>) : Recycle
 
         } else {
             holder.button?.setOnClickListener {
-                Toast.makeText(holder.itemView.context, "Payment not implemented yet!", Toast.LENGTH_LONG)
-                    .show()
+
+
             }
         }
     }

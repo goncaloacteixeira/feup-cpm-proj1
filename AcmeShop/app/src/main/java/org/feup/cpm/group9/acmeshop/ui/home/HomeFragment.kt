@@ -1,9 +1,13 @@
 package org.feup.cpm.group9.acmeshop.ui.home
 
+import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -73,7 +77,7 @@ class HomeFragment : Fragment() {
         val data = ArrayList<Item>()
 
         // This will pass the ArrayList to our Adapter
-        val adapter = CurrentTransactionAdapter(data, this::onItemClick) {
+        val adapter = CurrentTransactionAdapter(data, this::showDialog) {
             User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, it) { tr ->
                 if (tr != null) {
                     Toast.makeText(context, "Transaction completed: ${tr.uuid}", Toast.LENGTH_LONG).show()
@@ -116,8 +120,45 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun onItemClick(item: Item) {
-        Toast.makeText(requireContext(), "Clicked on ${item.name}", Toast.LENGTH_LONG).show()
+    private fun showDialog(item: Item, adapter: CurrentTransactionAdapter) {
+        val dialog = Dialog(requireContext())
+        
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.basket_item_dialog)
+        val name = dialog.findViewById(R.id.basket_item_name) as TextView
+        val make = dialog.findViewById(R.id.basket_item_make) as TextView
+        val description = dialog.findViewById(R.id.basket_item_description) as TextView
+        val quantity = dialog.findViewById(R.id.basket_item_quantity) as TextView
+
+        name.text = item.name
+        make.text = item.make.uppercase()
+        description.text = item.description
+        quantity.text = item.quantity.toString()
+
+        val increaseBtn = dialog.findViewById<Button>(R.id.basket_increase_btn)
+        val decreaseBtn = dialog.findViewById<Button>(R.id.basket_decrease_btn)
+        val removeBtn = dialog.findViewById<Button>(R.id.basket_remove_item_btn)
+        increaseBtn.setOnClickListener {
+            quantity.text = (quantity.text.toString().toInt() + 1).toString()
+        }
+        decreaseBtn.setOnClickListener {
+            if (quantity.text.toString().toInt() >= 1) {
+                quantity.text = (quantity.text.toString().toInt() - 1).toString()
+            }
+        }
+        removeBtn.setOnClickListener {
+            quantity.text = "0"
+            dialog.dismiss()
+        }
+        
+        dialog.setOnDismissListener {
+            Log.d(TAG, "showDialog: dismissed")
+            item.quantity = quantity.text.toString().toInt()
+            adapter.updateItem(item)
+        }
+
+        dialog.show()
     }
 
     override fun onDestroyView() {

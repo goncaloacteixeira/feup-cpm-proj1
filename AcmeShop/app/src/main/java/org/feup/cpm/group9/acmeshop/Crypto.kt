@@ -32,6 +32,9 @@ class Crypto {
         fun loadKey() : KeyPair {
             val keyStore: KeyStore = KeyStore.getInstance("AndroidKeyStore")
             keyStore.load(null)
+            if (keyStore.getEntry(alias, null) == null) {
+                generateKey()
+            }
             val entry: KeyStore.Entry = keyStore.getEntry(alias, null)
             val privateKey = (entry as KeyStore.PrivateKeyEntry).privateKey
             val publicKey = keyStore.getCertificate(alias).publicKey

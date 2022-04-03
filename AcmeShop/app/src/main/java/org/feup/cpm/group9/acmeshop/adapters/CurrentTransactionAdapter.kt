@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -12,7 +13,7 @@ import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.models.Item
 
 
-class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val payCallback: (ArrayList<Item>) -> Unit)
+class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemClickListener: (Item) -> Unit, val payCallback: (ArrayList<Item>) -> Unit)
     : RecyclerView.Adapter<CurrentTransactionAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == R.layout.item_row) {
@@ -35,13 +36,17 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val payCa
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position != itemList.size) {
             val itemViewModel = itemList[position]
-            holder.name?.text = itemViewModel.name
-            holder.description?.text = itemViewModel.description
-            holder.price?.text = holder.itemView.context!!.getString(R.string.price_template_eur, itemViewModel.price * itemViewModel.quantity)
-            holder.quantity?.text = itemViewModel.quantity.toString()
+            holder.bind(itemViewModel)
 
+            holder.name.text = itemViewModel.name
+            holder.description.text = itemViewModel.description
+            holder.price.text = holder.itemView.context!!.getString(R.string.price_template_eur, itemViewModel.price * itemViewModel.quantity)
+            holder.quantity.text = itemViewModel.quantity.toString()
+
+            holder.itemView.setOnClickListener { itemClickListener(itemViewModel) }
         } else {
-            holder.button?.setOnClickListener {
+            holder.bind(null)
+            holder.button.setOnClickListener {
                 payCallback(itemList)
             }
         }
@@ -53,13 +58,22 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val payCa
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val name: TextView? = itemView.findViewById(R.id.item_name)
-        val description: TextView? = itemView.findViewById(R.id.item_description)
-        val price: TextView? = itemView.findViewById(R.id.item_price)
-        val quantity: TextView? = itemView.findViewById(R.id.item_quantity)
+        lateinit var name: TextView
+        lateinit var description: TextView
+        lateinit var price: TextView
+        lateinit var quantity: TextView
+        lateinit var button: Button
 
-        // button
-        val button: Button? = itemView.findViewById(R.id.pay_btn)
+        fun bind(item: Item?) {
+            if (item != null) {
+                name = itemView.findViewById(R.id.item_name)
+                description = itemView.findViewById(R.id.item_description)
+                price = itemView.findViewById(R.id.item_price)
+                quantity = itemView.findViewById(R.id.item_quantity)
+            } else {
+                button = itemView.findViewById(R.id.pay_btn)
+            }
+        }
     }
 
     fun addItem(item: Item) {

@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
         val data = ArrayList<Item>()
 
         // This will pass the ArrayList to our Adapter
-        val adapter = CurrentTransactionAdapter(data) {
+        val adapter = CurrentTransactionAdapter(data, this::onItemClick) {
             User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, it) { tr ->
                 if (tr != null) {
                     Toast.makeText(context, "Transaction completed: ${tr.uuid}", Toast.LENGTH_LONG).show()
@@ -114,6 +114,10 @@ class HomeFragment : Fragment() {
         }
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun onItemClick(item: Item) {
+        Toast.makeText(requireContext(), "Clicked on ${item.name}", Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroyView() {

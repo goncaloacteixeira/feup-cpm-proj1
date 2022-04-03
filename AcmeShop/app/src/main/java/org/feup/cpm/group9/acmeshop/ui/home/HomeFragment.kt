@@ -1,7 +1,6 @@
 package org.feup.cpm.group9.acmeshop.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,13 +12,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.journeyapps.barcodescanner.ScanContract
+import com.journeyapps.barcodescanner.ScanIntentResult
+import com.journeyapps.barcodescanner.ScanOptions
 import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.adapters.CurrentTransactionAdapter
 import org.feup.cpm.group9.acmeshop.databinding.FragmentHomeBinding
 import org.feup.cpm.group9.acmeshop.models.Item
 import org.feup.cpm.group9.acmeshop.models.User
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class HomeFragment : Fragment() {
     private val TAG = "HomeFragment"
@@ -88,8 +90,25 @@ class HomeFragment : Fragment() {
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
 
+        val barcodeLauncher = registerForActivityResult(ScanContract()) { result: ScanIntentResult ->
+            if (result.contents == null) {
+                Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Scanned: " + result.contents,
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
         view.findViewById<FloatingActionButton>(R.id.add_item_fab).setOnClickListener {
-            adapter.addItem(Item("item_fab", "Added by FAB", "Example Description", 123123123123, 25.0))
+            val options = ScanOptions()
+            options.setDesiredBarcodeFormats(ScanOptions.UPC_A)
+            options.setOrientationLocked(false)
+            options.setBeepEnabled(false)
+            options.setBarcodeImageEnabled(true)
+            barcodeLauncher.launch(options)
         }
 
         super.onViewCreated(view, savedInstanceState)

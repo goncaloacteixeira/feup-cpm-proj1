@@ -14,6 +14,13 @@ exports.getItemsForTransaction = async (tr_uuid) => {
   );
 }
 
+exports.getTransactionByUUID = async (tr_uuid) => {
+  return await dao.get(
+    "SELECT * FROM transactions WHERE uuid = ?",
+    [tr_uuid]
+  )
+}
+
 exports.getTransactionByToken = async (tr_token) => {
   return await dao.get(
     "SELECT * FROM transactions WHERE token = ?",

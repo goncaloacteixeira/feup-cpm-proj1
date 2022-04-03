@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -27,8 +28,6 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,12 +76,17 @@ class HomeFragment : Fragment() {
 
         // This will pass the ArrayList to our Adapter
         val adapter = CurrentTransactionAdapter(data) {
-            User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, it)
+            User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, it) { tr ->
+                if (tr != null) {
+                    Toast.makeText(context, "Transaction completed: ${tr.uuid}", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(context, "Transaction failed!", Toast.LENGTH_LONG).show()
+                }
+            }
         }
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
-
 
         view.findViewById<FloatingActionButton>(R.id.add_item_fab).setOnClickListener {
             adapter.addItem(Item("item_fab", "Added by FAB", "Example Description", 123123123123, 25.0))

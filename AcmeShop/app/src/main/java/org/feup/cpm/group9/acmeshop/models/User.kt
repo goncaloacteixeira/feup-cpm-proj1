@@ -76,7 +76,7 @@ class User(
             queue.add(request)
         }
 
-        fun pay(context: Context, userUUID: String, items: ArrayList<Item>) {
+        fun pay(context: Context, userUUID: String, items: ArrayList<Item>, callback: (Transaction?) -> Unit) {
             val keyPair = Crypto.loadKey()
             //We sign the data with the private key. We use RSA algorithm along SHA-256 digest algorithm
             val signature: ByteArray? = Signature.getInstance("SHA256withRSA").run {
@@ -98,9 +98,23 @@ class User(
                 Request.Method.POST, url, JSONObject(gson.toJson(purchase)),
                 { response ->
                     Log.i("User", "pay: response: $response")
+
+                    if (response.getString("message") == "OK") {
+                        val transaction = gson.fromJson(response.getJSONObject("content").toString(), Transaction::class.java)
+                        val itemsType = object : TypeToken<List<Item>>() {}.type
+                        val itemsList = gson.fromJson<List<Item>>(response.getJSONObject("content").getJSONArray("items").toString(), itemsType)
+                        transaction.items = itemsList
+                        transaction.token = Crypto.decryptToken(transaction.token)
+
+                        Log.i("User", "pay: transaction: $transaction")
+                        callback(transaction)
+                    } else {
+                        callback(null)
+                    }
                 },
                 { error ->
                     Log.i("User", "pay: error: $error")
+                    callback(null)
                 })
 
             queue.add(request)

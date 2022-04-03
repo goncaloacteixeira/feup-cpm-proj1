@@ -13,7 +13,7 @@ import org.feup.cpm.group9.acmeshop.API_URL
 
 class Transaction(
     val uuid: String,
-    val token: String,
+    var token: String,
     @SerializedName("total_price")
     val totalPrice: Double,
     @SerializedName("token_valid")

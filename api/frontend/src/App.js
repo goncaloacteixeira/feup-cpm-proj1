@@ -24,7 +24,7 @@ const columns = [
 
         var canvas = createCanvas(200, 200);
 
-        JsBarcode("#barcode", params.value)
+        JsBarcode("#barcode", params.value, {format: 'UPC', flat: true})
       };
 
       return <Button onClick={onClick}>Show</Button>;

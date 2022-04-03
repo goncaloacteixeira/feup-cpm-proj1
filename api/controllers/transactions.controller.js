@@ -59,7 +59,7 @@ exports.processPayment = async (req, res) => {
         const tr_uuid = uuid.v4()
         await transactions.addTransaction({tr_uuid: tr_uuid, token: uuid.v4(), user_uuid})
         for (let item of items) {
-            await transactions.addTransactionItem({tr_uuid: tr_uuid, item_uuid: '1' /* TODO - change this to actual */})
+            await transactions.addTransactionItem({tr_uuid: tr_uuid, item_uuid: item.uuid})
         }
         const tr = await transactions.getTransactionByUUID(tr_uuid)
         tr.items = await transactions.getItemsForTransaction(tr_uuid)
@@ -67,9 +67,7 @@ exports.processPayment = async (req, res) => {
         // encrypt with public key to avoid Man in the Middle attacks
         tr.token = encrypt_token(tr.token, publicKey)
 
-        console.log("public_key:", publicKey)
-        console.log("token:", tr.token)
-        // console.log("Signature OK: Transaction", tr)
+        console.log("Signature OK: Transaction", tr)
         return res.json({message: "OK", content: tr})
 
     } else {

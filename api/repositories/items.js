@@ -8,3 +8,7 @@ exports.getAllItems = async () => {
 exports.getItemByUUID = async (uuid) => {
   return await dao.get("SELECT * FROM items WHERE uuid = ?", [uuid])
 }
+
+exports.getItemByBarcode = async (barcode) => {
+  return await dao.get("SELECT * FROM items WHERE barcode = ?", [barcode])
+}

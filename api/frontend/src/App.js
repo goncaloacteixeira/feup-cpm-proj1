@@ -2,7 +2,6 @@ import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import axios from "axios";
-import Item from "./components/Item";
 import {DataGrid} from "@mui/x-data-grid";
 import {Button} from "@mui/material";
 var JsBarcode = require('jsbarcode');

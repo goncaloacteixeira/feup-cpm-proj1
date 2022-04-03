@@ -72,10 +72,6 @@ class HomeFragment : Fragment() {
         // ArrayList of class ItemsViewModel
         val data = ArrayList<Item>()
 
-        for (i in 1..20) {
-            data.add(Item(UUID.randomUUID().toString(), "Example name", "Example Description", 123123123123, 11.52))
-        }
-
         // This will pass the ArrayList to our Adapter
         val adapter = CurrentTransactionAdapter(data) {
             User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, it) { tr ->
@@ -99,6 +95,12 @@ class HomeFragment : Fragment() {
                     "Scanned: " + result.contents,
                     Toast.LENGTH_LONG
                 ).show()
+
+                Item.getItemByBarcode(requireContext(), result.contents.toLong()) {item ->
+                    if (item != null) {
+                        adapter.addItem(item)
+                    }
+                }
             }
         }
 

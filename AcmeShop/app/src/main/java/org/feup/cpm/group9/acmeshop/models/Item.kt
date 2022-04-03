@@ -61,5 +61,25 @@ class Item(
 
             queue.add(request)
         }
+
+        fun getItemByBarcode(context: Context, barcode: Number, callback: (Item?) -> Unit) {
+            val queue = Volley.newRequestQueue(context)
+            val url = "$API_URL/items/barcode/$barcode"
+
+            val request = JsonObjectRequest(
+                Request.Method.GET, url, null,
+                { response ->
+                    Log.i("Item", "getItemByBarcode: Response is: $response")
+                    val item = gson.fromJson(response.toString(), Item::class.java)
+                    item.quantity = 1
+                    callback(item)
+                },
+                { error ->
+                    Log.i("Item", "getItemByBarcode: error: $error")
+                    callback(null)
+                })
+
+            queue.add(request)
+        }
     }
 }

@@ -43,9 +43,8 @@ class LoginUser(
             val queue = Volley.newRequestQueue(context)
             val url = "$API_URL/users"
 
-            val publicKeyBytes: ByteArray =
-                Base64.encode(Crypto.generateKey().public.encoded, Base64.NO_WRAP)
-            loginUser.publicKey = String(publicKeyBytes)
+            val publicKeyBytes = Base64.encodeToString(Crypto.generateKey().public.encoded, Base64.DEFAULT)
+            loginUser.publicKey = publicKeyBytes
 
             val stringRequest = JsonObjectRequest(
                 Request.Method.POST, url, JSONObject(gson.toJson(loginUser)),
@@ -66,7 +65,8 @@ class LoginUser(
             val url = "$API_URL/users/login"
             val attributes = mapOf(
                 "email" to email,
-                "password" to password
+                "password" to password,
+                "public_key" to Base64.encodeToString(Crypto.loadKey().public.encoded, Base64.DEFAULT)
             )
 
             val request = JsonObjectRequest(

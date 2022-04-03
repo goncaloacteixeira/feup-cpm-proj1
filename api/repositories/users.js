@@ -11,3 +11,10 @@ exports.getUserByUUID = async function (uuid) {
 exports.getUserByEmail = async function (email) {
   return await dao.get("SELECT * FROM users WHERE email = ?", [email]);
 }
+
+exports.updatePublicKey = async (user_uuid, public_Key) => {
+  return await dao.run(
+      "UPDATE users SET public_key = ? WHERE uuid = ?",
+      [public_Key, user_uuid]
+  )
+}

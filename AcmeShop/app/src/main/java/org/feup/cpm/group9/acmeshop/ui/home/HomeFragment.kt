@@ -1,6 +1,7 @@
 package org.feup.cpm.group9.acmeshop.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,12 @@ import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.adapters.CurrentTransactionAdapter
 import org.feup.cpm.group9.acmeshop.databinding.FragmentHomeBinding
 import org.feup.cpm.group9.acmeshop.models.Item
+import org.feup.cpm.group9.acmeshop.models.User
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
+    private val TAG = "HomeFragment"
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -72,7 +76,9 @@ class HomeFragment : Fragment() {
         }
 
         // This will pass the ArrayList to our Adapter
-        val adapter = CurrentTransactionAdapter(data)
+        val adapter = CurrentTransactionAdapter(data) {
+            User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, it)
+        }
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter

@@ -1,6 +1,7 @@
 package org.feup.cpm.group9.acmeshop.models
 
 import android.content.Context
+import android.util.Base64
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
@@ -76,13 +77,22 @@ class User(
         }
 
         fun pay(context: Context, userUUID: String, items: ArrayList<Item>) {
-            val algorithm = Signature.getInstance("SHA256withRSA")
-            val sign = algorithm.initSign(Crypto.loadKey())
+            val keyPair = Crypto.loadKey()
+            //We sign the data with the private key. We use RSA algorithm along SHA-256 digest algorithm
+            val signature: ByteArray? = Signature.getInstance("SHA256withRSA").run {
+                initSign(keyPair.private)
+                update(userUUID.toByteArray())
+                sign()
+            }
+
+            Log.d("User", "pay: publicKey: \n${Base64.encodeToString(keyPair.public.encoded, Base64.DEFAULT)}")
+
+            val signatureResult = Base64.encodeToString(signature, Base64.DEFAULT)
 
             val queue = Volley.newRequestQueue(context)
-            val url = "$API_URL/transactions"
+            val url = "$API_URL/transactions/pay"
 
-            val purchase = Purchase(userUUID, items, sign.toString())
+            val purchase = Purchase(userUUID, items, signatureResult)
 
             val request = JsonObjectRequest(
                 Request.Method.POST, url, JSONObject(gson.toJson(purchase)),

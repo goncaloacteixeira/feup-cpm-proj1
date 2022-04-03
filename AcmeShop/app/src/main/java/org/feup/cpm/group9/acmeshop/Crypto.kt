@@ -2,8 +2,9 @@ package org.feup.cpm.group9.acmeshop
 
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import java.security.*
-import java.util.*
+import java.security.KeyPair
+import java.security.KeyPairGenerator
+import java.security.KeyStore
 
 class Crypto {
     companion object {
@@ -19,7 +20,8 @@ class Crypto {
                     alias,
                     KeyProperties.PURPOSE_SIGN or KeyProperties.PURPOSE_VERIFY or KeyProperties.PURPOSE_ENCRYPT
                 )
-                    .setDigests(KeyProperties.DIGEST_SHA256, KeyProperties.DIGEST_SHA512)
+                    .setDigests(KeyProperties.DIGEST_SHA256)
+                    .setSignaturePaddings(KeyProperties.SIGNATURE_PADDING_RSA_PKCS1)
                     .setKeySize(2048)
                     .build()
             )
@@ -27,11 +29,14 @@ class Crypto {
             return kpg.generateKeyPair()
         }
 
-        fun loadKey() : PrivateKey {
+        fun loadKey() : KeyPair {
             val keyStore: KeyStore = KeyStore.getInstance("AndroidKeyStore")
             keyStore.load(null)
             val entry: KeyStore.Entry = keyStore.getEntry(alias, null)
-            return (entry as KeyStore.PrivateKeyEntry).privateKey
+            val privateKey = (entry as KeyStore.PrivateKeyEntry).privateKey
+            val publicKey = keyStore.getCertificate(alias).publicKey
+
+            return KeyPair(publicKey, privateKey)
         }
     }
 }

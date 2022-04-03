@@ -48,6 +48,7 @@ exports.loginUser = async (req, res) => {
   let properties = [
     'email',
     'password',
+    'public_key'
   ];
 
   for (let property of properties) {
@@ -63,6 +64,8 @@ exports.loginUser = async (req, res) => {
     }
     bcrypt.compare(req.body.password, user.password, async function (err, result) {
       if (result) {
+        await users.updatePublicKey(user.uuid, req.body.public_key)
+        user.public_key = req.body.public_key
         return res.json({message: "OK", content: user})
       } else {
         return res.json({message: "ERROR", content: "Wrong password."});

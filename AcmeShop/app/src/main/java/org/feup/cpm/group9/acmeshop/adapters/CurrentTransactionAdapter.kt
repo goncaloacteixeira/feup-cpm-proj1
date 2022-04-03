@@ -12,7 +12,8 @@ import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.models.Item
 
 
-class CurrentTransactionAdapter(private val itemList: ArrayList<Item>) : RecyclerView.Adapter<CurrentTransactionAdapter.ViewHolder>() {
+class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val payCallback: (ArrayList<Item>) -> Unit)
+    : RecyclerView.Adapter<CurrentTransactionAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == R.layout.item_row) {
             val view = LayoutInflater.from(parent.context)
@@ -41,8 +42,7 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>) : Recycle
 
         } else {
             holder.button?.setOnClickListener {
-
-
+                payCallback(itemList)
             }
         }
     }

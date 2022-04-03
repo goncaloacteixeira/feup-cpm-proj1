@@ -46,6 +46,7 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
             holder.itemView.setOnClickListener { itemClickListener(itemViewModel) }
         } else {
             holder.bind(null)
+            holder.button.text = holder.itemView.context!!.getString(R.string.pay_template_eur, calculateTotal())
             holder.button.setOnClickListener {
                 payCallback(itemList)
             }
@@ -76,6 +77,14 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
         }
     }
 
+    private fun calculateTotal(): Double {
+        var total = 0.0
+        for (item in itemList) {
+            total += item.quantity * item.price
+        }
+        return total
+    }
+
     fun addItem(item: Item) {
         Log.d("HomeAdapter", "addItem: $item")
         if (itemList.contains(item)) {
@@ -86,5 +95,6 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
             itemList.add(item)
             notifyItemInserted(itemList.size)
         }
+        notifyItemChanged(itemList.size)
     }
 }

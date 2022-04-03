@@ -4,10 +4,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.models.Item
@@ -39,7 +37,7 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
             holder.bind(itemViewModel)
 
             holder.name.text = itemViewModel.name
-            holder.description.text = itemViewModel.description
+            holder.make.text = itemViewModel.make.uppercase()
             holder.price.text = holder.itemView.context!!.getString(R.string.price_template_eur, itemViewModel.price * itemViewModel.quantity)
             holder.quantity.text = itemViewModel.quantity.toString()
 
@@ -60,7 +58,7 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         lateinit var name: TextView
-        lateinit var description: TextView
+        lateinit var make: TextView
         lateinit var price: TextView
         lateinit var quantity: TextView
         lateinit var button: Button
@@ -68,7 +66,7 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
         fun bind(item: Item?) {
             if (item != null) {
                 name = itemView.findViewById(R.id.item_name)
-                description = itemView.findViewById(R.id.item_description)
+                make = itemView.findViewById(R.id.item_make)
                 price = itemView.findViewById(R.id.item_price)
                 quantity = itemView.findViewById(R.id.item_quantity)
             } else {

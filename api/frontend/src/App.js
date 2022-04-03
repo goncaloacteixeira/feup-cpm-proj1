@@ -13,6 +13,7 @@ const columns = [
   { field: 'description', headerName: 'Description', minWidth: 300 },
   { field: 'price', headerName: 'Price', minWidth: 100,
     renderCell: (params) => params.value + "€"},
+  { field: 'make', headerName: 'Make', minWidth: 250},
   {
     field: "barcode",
     headerName: "Barcode",
@@ -43,7 +44,8 @@ function App() {
             name: row.name,
             description: row.description,
             price: row.price,
-            barcode: row.barcode
+            barcode: row.barcode,
+            make: row.make,
           };
         })
         setItems(data)

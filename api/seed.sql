@@ -29,6 +29,7 @@ create table items
     name        text    not null,
     description text    not null,
     barcode     numeric not null unique,
+    make        text    not null,
     price       numeric not null
 );
 
@@ -126,506 +127,987 @@ insert into users (uuid, name, vat, address, email, card_number, card_type, card
 insert into users (uuid, name, vat, address, email, card_number, card_type, card_validity, public_key) values (49, 'Sunny Pardew', 907155967, '4 Almo Plaza', 'spardew1c@dailymail.co.uk', '4386026787050', 'visa', '5/23', '1HyYHih4vfgNZEusPyHX7JN5ZLP7xUgB98');
 insert into users (uuid, name, vat, address, email, card_number, card_type, card_validity, public_key) values (50, 'Sofie Swayland', 935102540, '4841 Daystar Way', 'sswayland1d@unicef.org', '5048379681013414', 'mastercard', '4/22', '1Lp81NRcRepL3kVcZJMiqih2B8GVUtEfF8');
 
-insert into items (uuid, name, description, barcode, price) values (1, 'Muffin Chocolate Individual Wrap', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 44161122489, 43.01);
-insert into items (uuid, name, description, barcode, price) values (2, 'Coffee - Decafenated', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 99880128013, 7.58);
-insert into items (uuid, name, description, barcode, price) values (3, 'Sprouts - Peppercress', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 90071802016, 56.27);
-insert into items (uuid, name, description, barcode, price) values (4, 'Creme De Cacao Mcguines', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 33094424788, 22.43);
-insert into items (uuid, name, description, barcode, price) values (5, 'Sprouts - Alfalfa', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 73984677937, 86.97);
-insert into items (uuid, name, description, barcode, price) values (6, 'Chocolate - Chips Compound', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 61506730535, 88.06);
-insert into items (uuid, name, description, barcode, price) values (7, 'Bandage - Fexible 1x3', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 23406911148, 14.89);
-insert into items (uuid, name, description, barcode, price) values (8, 'Beer - Blue Light', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 37213707773, 39.13);
-insert into items (uuid, name, description, barcode, price) values (9, 'Muffin - Banana Nut Individual', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 78293415153, 74.81);
-insert into items (uuid, name, description, barcode, price) values (10, 'Cheese Cloth No 100', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 29782641761, 86.85);
-insert into items (uuid, name, description, barcode, price) values (11, 'Bandage - Finger Cots', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 62996040036, 34.4);
-insert into items (uuid, name, description, barcode, price) values (12, 'Pepper - Yellow Bell', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 58116084441, 47.08);
-insert into items (uuid, name, description, barcode, price) values (13, 'Blueberries', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 21418480661, 17.44);
-insert into items (uuid, name, description, barcode, price) values (14, 'Puree - Mocha', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 26511145389, 88.87);
-insert into items (uuid, name, description, barcode, price) values (15, 'Relish', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 28319030913, 89.33);
-insert into items (uuid, name, description, barcode, price) values (16, 'Schnappes Peppermint - Walker', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 72853603926, 59.21);
-insert into items (uuid, name, description, barcode, price) values (17, 'Wine - Jaboulet Cotes Du Rhone', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 21596187910, 36.62);
-insert into items (uuid, name, description, barcode, price) values (18, 'Cheese - Stilton', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 60444346159, 5.06);
-insert into items (uuid, name, description, barcode, price) values (19, 'Cheese - Swiss', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 43085780324, 8.25);
-insert into items (uuid, name, description, barcode, price) values (20, 'Lettuce - Iceberg', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 89268846062, 37.55);
-insert into items (uuid, name, description, barcode, price) values (21, 'Wine - Baron De Rothschild', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 21464304529, 91.49);
-insert into items (uuid, name, description, barcode, price) values (22, 'Sauce - Chili', 'Fusce consequat. Nulla nisl. Nunc nisl.', 28971418915, 76.44);
-insert into items (uuid, name, description, barcode, price) values (23, 'Lemonade - Black Cherry, 591 Ml', 'Fusce consequat. Nulla nisl. Nunc nisl.', 61285713873, 67.15);
-insert into items (uuid, name, description, barcode, price) values (24, 'Filter - Coffee', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 59763939204, 1.01);
-insert into items (uuid, name, description, barcode, price) values (25, 'Salami - Genova', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 22618166339, 52.03);
-insert into items (uuid, name, description, barcode, price) values (26, 'Ice Cream - Super Sandwich', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 53747636180, 41.91);
-insert into items (uuid, name, description, barcode, price) values (27, 'Pepper - Cubanelle', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 27777430963, 29.47);
-insert into items (uuid, name, description, barcode, price) values (28, 'Bread - 10 Grain', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 68116150987, 53.24);
-insert into items (uuid, name, description, barcode, price) values (29, 'Brandy Cherry - Mcguinness', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 37387822940, 66.29);
-insert into items (uuid, name, description, barcode, price) values (30, 'Shrimp - 150 - 250', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 97428886529, 34.76);
-insert into items (uuid, name, description, barcode, price) values (31, 'Veal - Provimi Inside', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 63487427172, 96.1);
-insert into items (uuid, name, description, barcode, price) values (32, 'Veal - Heart', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 32371071282, 31.89);
-insert into items (uuid, name, description, barcode, price) values (33, 'Cookie Double Choco', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 62727015074, 98.14);
-insert into items (uuid, name, description, barcode, price) values (34, 'Scallop - St. Jaques', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 89703538972, 58.79);
-insert into items (uuid, name, description, barcode, price) values (35, 'Turnip - Mini', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 11432898880, 6.43);
-insert into items (uuid, name, description, barcode, price) values (36, 'Longos - Penne With Pesto', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 21243178921, 1.77);
-insert into items (uuid, name, description, barcode, price) values (37, 'Energy Drink - Redbull 355ml', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 61129335244, 6.78);
-insert into items (uuid, name, description, barcode, price) values (38, 'Cinnamon Rolls', 'Fusce consequat. Nulla nisl. Nunc nisl.', 70526404341, 78.8);
-insert into items (uuid, name, description, barcode, price) values (39, 'Sardines', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 60626078481, 50.91);
-insert into items (uuid, name, description, barcode, price) values (40, 'Arctic Char - Fresh, Whole', 'Fusce consequat. Nulla nisl. Nunc nisl.', 38943875242, 22.25);
-insert into items (uuid, name, description, barcode, price) values (41, 'Appetizer - Crab And Brie', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 18542244229, 12.87);
-insert into items (uuid, name, description, barcode, price) values (42, 'Beans - Soya Bean', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 94932751356, 76.87);
-insert into items (uuid, name, description, barcode, price) values (43, 'Bread - Raisin Walnut Pull', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 70041514715, 92.57);
-insert into items (uuid, name, description, barcode, price) values (44, 'Rolled Oats', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 53918062101, 31.28);
-insert into items (uuid, name, description, barcode, price) values (45, 'Wine - Ruffino Chianti', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 23524285271, 61.85);
-insert into items (uuid, name, description, barcode, price) values (46, 'Wine - German Riesling', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 54102697392, 79.41);
-insert into items (uuid, name, description, barcode, price) values (47, 'Filter - Coffee', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 62058592929, 42.65);
-insert into items (uuid, name, description, barcode, price) values (48, 'Yogurt - French Vanilla', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 54593402856, 97.66);
-insert into items (uuid, name, description, barcode, price) values (49, 'The Pop Shoppe - Cream Soda', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 30266937406, 56.69);
-insert into items (uuid, name, description, barcode, price) values (50, 'Milk - 1%', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 31907502703, 24.01);
-insert into items (uuid, name, description, barcode, price) values (51, 'Pail - 15l White, With Handle', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 64800449253, 82.64);
-insert into items (uuid, name, description, barcode, price) values (52, 'Pepper - Chilli Seeds Mild', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 82399362783, 21.08);
-insert into items (uuid, name, description, barcode, price) values (53, 'Wine - Tribal Sauvignon', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 29793741080, 24.79);
-insert into items (uuid, name, description, barcode, price) values (54, 'Eggplant Oriental', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 24898958427, 30.11);
-insert into items (uuid, name, description, barcode, price) values (55, 'Food Colouring - Blue', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 78827204866, 64.82);
-insert into items (uuid, name, description, barcode, price) values (56, 'Icecream - Dstk Cml And Fdg', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 41980548203, 32.72);
-insert into items (uuid, name, description, barcode, price) values (57, 'Wine - Rhine Riesling Wolf Blass', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 96133361211, 28.27);
-insert into items (uuid, name, description, barcode, price) values (58, 'Jam - Strawberry, 20 Ml Jar', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 33329995121, 83.04);
-insert into items (uuid, name, description, barcode, price) values (59, 'Lychee', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 35044719989, 61.06);
-insert into items (uuid, name, description, barcode, price) values (60, 'Coffee - Decafenated', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 97323274682, 88.31);
-insert into items (uuid, name, description, barcode, price) values (61, 'Pasta - Spaghetti, Dry', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 40323939058, 96.09);
-insert into items (uuid, name, description, barcode, price) values (62, 'Pork - Butt, Boneless', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 90837770896, 69.18);
-insert into items (uuid, name, description, barcode, price) values (63, 'Cake - Box Window 10x10x2.5', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 26055892497, 93.05);
-insert into items (uuid, name, description, barcode, price) values (64, 'Corn - Mini', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 59403565675, 52.44);
-insert into items (uuid, name, description, barcode, price) values (65, 'Spice - Greek 1 Step', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 58112180653, 16.51);
-insert into items (uuid, name, description, barcode, price) values (66, 'Wine - Alicanca Vinho Verde', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 20796668205, 19.46);
-insert into items (uuid, name, description, barcode, price) values (67, 'Beets - Pickled', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 90180298132, 97.29);
-insert into items (uuid, name, description, barcode, price) values (68, 'Mushroom - Morels, Dry', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 79988033312, 11.57);
-insert into items (uuid, name, description, barcode, price) values (69, 'Ham - Virginia', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 90891568406, 49.77);
-insert into items (uuid, name, description, barcode, price) values (70, 'Rabbit - Saddles', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 62355671546, 2.37);
-insert into items (uuid, name, description, barcode, price) values (71, 'Wine - Acient Coast Caberne', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 62597598901, 94.59);
-insert into items (uuid, name, description, barcode, price) values (72, 'Everfresh Products', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 29780588306, 57.11);
-insert into items (uuid, name, description, barcode, price) values (73, 'Wine - Red, Cabernet Merlot', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 54788638443, 59.26);
-insert into items (uuid, name, description, barcode, price) values (74, 'Salmon - Canned', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 33080012210, 32.82);
-insert into items (uuid, name, description, barcode, price) values (75, 'Radish', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 69179698695, 58.99);
-insert into items (uuid, name, description, barcode, price) values (76, 'Jicama', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 73246412050, 70.03);
-insert into items (uuid, name, description, barcode, price) values (77, 'Cheese - Parmesan Cubes', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 84505105467, 40.77);
-insert into items (uuid, name, description, barcode, price) values (78, 'Shark - Loin', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 75054738504, 87.05);
-insert into items (uuid, name, description, barcode, price) values (79, 'Carbonated Water - Wildberry', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 28026174757, 78.97);
-insert into items (uuid, name, description, barcode, price) values (80, 'Cinnamon - Ground', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 29302074872, 71.66);
-insert into items (uuid, name, description, barcode, price) values (81, 'Persimmons', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 64226181243, 64.72);
-insert into items (uuid, name, description, barcode, price) values (82, 'Mushroom - White Button', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 89018827077, 4.13);
-insert into items (uuid, name, description, barcode, price) values (83, 'Stock - Fish', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 87428341621, 72.63);
-insert into items (uuid, name, description, barcode, price) values (84, 'Capon - Whole', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 54910864895, 21.51);
-insert into items (uuid, name, description, barcode, price) values (85, 'Potatoes - Yukon Gold, 80 Ct', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 50981989916, 9.9);
-insert into items (uuid, name, description, barcode, price) values (86, 'Mint - Fresh', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 49416081384, 14.03);
-insert into items (uuid, name, description, barcode, price) values (87, 'Longos - Chicken Cordon Bleu', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 75504418691, 58.66);
-insert into items (uuid, name, description, barcode, price) values (88, 'Orange - Tangerine', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 33514988051, 42.41);
-insert into items (uuid, name, description, barcode, price) values (89, 'Juice - Cranberry, 341 Ml', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 34688449656, 4.9);
-insert into items (uuid, name, description, barcode, price) values (90, 'Pork - Caul Fat', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 95940521139, 55.68);
-insert into items (uuid, name, description, barcode, price) values (91, 'Bread - Pita, Mini', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 31032661309, 51.93);
-insert into items (uuid, name, description, barcode, price) values (92, 'Bacardi Limon', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 23837101808, 15.97);
-insert into items (uuid, name, description, barcode, price) values (93, 'Isomalt', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 37453181347, 80.84);
-insert into items (uuid, name, description, barcode, price) values (94, 'Sprouts Dikon', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 46583304220, 31.65);
-insert into items (uuid, name, description, barcode, price) values (95, 'Cheese - Brick With Pepper', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 28157416116, 27.99);
-insert into items (uuid, name, description, barcode, price) values (96, 'Bread - Mini Hamburger Bun', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 93282210639, 76.63);
-insert into items (uuid, name, description, barcode, price) values (97, 'Yogurt - Blueberry, 175 Gr', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 82218958176, 68.31);
-insert into items (uuid, name, description, barcode, price) values (98, 'Pork Loin Cutlets', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 23774867135, 9.33);
-insert into items (uuid, name, description, barcode, price) values (99, 'Sausage - Liver', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 58931377004, 31.7);
-insert into items (uuid, name, description, barcode, price) values (100, 'Bread - White Mini Epi', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 77830505171, 81.97);
-insert into items (uuid, name, description, barcode, price) values (101, 'Ginger - Pickled', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 99395557456, 87.3);
-insert into items (uuid, name, description, barcode, price) values (102, 'Nectarines', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 58725018174, 11.87);
-insert into items (uuid, name, description, barcode, price) values (103, 'Chocolate - Pistoles, Lactee, Milk', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 12009246818, 99.16);
-insert into items (uuid, name, description, barcode, price) values (104, 'Crab Meat Claw Pasteurise', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 19888673026, 43.42);
-insert into items (uuid, name, description, barcode, price) values (105, 'Appetizer - Assorted Box', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 40578104468, 61.17);
-insert into items (uuid, name, description, barcode, price) values (106, 'Pear - Packum', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 12942042311, 18.59);
-insert into items (uuid, name, description, barcode, price) values (107, 'Saskatoon Berries - Frozen', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 31809760212, 25.98);
-insert into items (uuid, name, description, barcode, price) values (108, 'Lemonade - Pineapple Passion', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 27389953481, 67.79);
-insert into items (uuid, name, description, barcode, price) values (109, 'Table Cloth 81x81 Colour', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 36376649941, 72.84);
-insert into items (uuid, name, description, barcode, price) values (110, 'Tea - Decaf 1 Cup', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 13509960540, 95.15);
-insert into items (uuid, name, description, barcode, price) values (111, 'Wine - Guy Sage Touraine', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 94122172160, 58.01);
-insert into items (uuid, name, description, barcode, price) values (112, 'Wine - Magnotta, White', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 62072838450, 33.0);
-insert into items (uuid, name, description, barcode, price) values (113, 'Juice - V8, Tomato', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 54035172375, 41.73);
-insert into items (uuid, name, description, barcode, price) values (114, 'Tofu - Firm', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 24645117471, 77.92);
-insert into items (uuid, name, description, barcode, price) values (115, 'Oranges - Navel, 72', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 94930855935, 78.83);
-insert into items (uuid, name, description, barcode, price) values (116, 'Wine - Jackson Triggs Okonagan', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 41748922509, 46.38);
-insert into items (uuid, name, description, barcode, price) values (117, 'Sauce - Chili', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 24117002382, 61.48);
-insert into items (uuid, name, description, barcode, price) values (118, 'Wine - Blue Nun Qualitatswein', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 91389679956, 71.12);
-insert into items (uuid, name, description, barcode, price) values (119, 'Crackers - Trio', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 38005331612, 71.54);
-insert into items (uuid, name, description, barcode, price) values (120, 'Bagelers - Cinn / Brown', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 23040055009, 28.67);
-insert into items (uuid, name, description, barcode, price) values (121, 'Tart Shells - Sweet, 3', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 25425134488, 73.55);
-insert into items (uuid, name, description, barcode, price) values (122, 'Scallops - 20/30', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 54428165744, 45.87);
-insert into items (uuid, name, description, barcode, price) values (123, 'Wine - Red, Pelee Island Merlot', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 75547234003, 66.37);
-insert into items (uuid, name, description, barcode, price) values (124, 'Cup Translucent 9 Oz', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 27828153393, 49.3);
-insert into items (uuid, name, description, barcode, price) values (125, 'The Pop Shoppe - Black Cherry', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 48783419616, 97.25);
-insert into items (uuid, name, description, barcode, price) values (126, 'Wine - Stoneliegh Sauvignon', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 31317032213, 76.35);
-insert into items (uuid, name, description, barcode, price) values (127, 'Garlic', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 46128061237, 30.27);
-insert into items (uuid, name, description, barcode, price) values (128, 'Doilies - 5, Paper', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 29149842997, 3.24);
-insert into items (uuid, name, description, barcode, price) values (129, 'Nantucket - Pomegranate Pear', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 35108478083, 99.49);
-insert into items (uuid, name, description, barcode, price) values (130, 'Spice - Onion Powder Granulated', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 49621874442, 41.65);
-insert into items (uuid, name, description, barcode, price) values (131, 'Lamb - Leg, Bone In', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 82449127264, 43.63);
-insert into items (uuid, name, description, barcode, price) values (132, 'Stock - Veal, Brown', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 39385090380, 12.61);
-insert into items (uuid, name, description, barcode, price) values (133, 'Longos - Chicken Cordon Bleu', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 37691095237, 22.93);
-insert into items (uuid, name, description, barcode, price) values (134, 'Yukon Jack', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 99290519251, 24.52);
-insert into items (uuid, name, description, barcode, price) values (135, 'Zucchini - Yellow', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 53891732356, 99.14);
-insert into items (uuid, name, description, barcode, price) values (136, 'Carroway Seed', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 80305007930, 74.94);
-insert into items (uuid, name, description, barcode, price) values (137, 'Wine - Trimbach Pinot Blanc', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 90354375915, 50.42);
-insert into items (uuid, name, description, barcode, price) values (138, 'Mangostein', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 51955782582, 4.64);
-insert into items (uuid, name, description, barcode, price) values (139, 'Sesame Seed Black', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 66829473132, 63.15);
-insert into items (uuid, name, description, barcode, price) values (140, 'Wine - Conde De Valdemar', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 31191636853, 91.0);
-insert into items (uuid, name, description, barcode, price) values (141, 'Ostrich - Fan Fillet', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 72403657023, 56.17);
-insert into items (uuid, name, description, barcode, price) values (142, 'Scallops - Live In Shell', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 65017790420, 73.73);
-insert into items (uuid, name, description, barcode, price) values (143, 'Cinnamon - Stick', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 11613521188, 33.59);
-insert into items (uuid, name, description, barcode, price) values (144, 'Wine - Wyndham Estate Bin 777', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 29187225817, 87.89);
-insert into items (uuid, name, description, barcode, price) values (145, 'Skirt - 29 Foot', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 46582333581, 60.72);
-insert into items (uuid, name, description, barcode, price) values (146, 'Soup Campbells Beef With Veg', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 94302414636, 20.6);
-insert into items (uuid, name, description, barcode, price) values (147, 'Muskox - French Rack', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 64673670042, 68.61);
-insert into items (uuid, name, description, barcode, price) values (148, 'Blueberries', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 57947227394, 83.72);
-insert into items (uuid, name, description, barcode, price) values (149, 'Muffin - Carrot Individual Wrap', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 40352271105, 87.53);
-insert into items (uuid, name, description, barcode, price) values (150, 'Coffee - Decaffeinato Coffee', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 62961361483, 71.58);
-insert into items (uuid, name, description, barcode, price) values (151, 'Ostrich - Prime Cut', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 19825131478, 96.18);
-insert into items (uuid, name, description, barcode, price) values (152, 'Pear - Asian', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 56265577523, 64.74);
-insert into items (uuid, name, description, barcode, price) values (153, 'Pepper - White, Ground', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 52838180681, 93.58);
-insert into items (uuid, name, description, barcode, price) values (154, 'Apple - Fuji', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 89137814629, 25.45);
-insert into items (uuid, name, description, barcode, price) values (155, 'Pie Shells 10', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 12372939763, 23.07);
-insert into items (uuid, name, description, barcode, price) values (156, 'Icecream Cone - Areo Chocolate', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 40673650599, 98.5);
-insert into items (uuid, name, description, barcode, price) values (157, 'Dill Weed - Dry', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 27085368965, 11.85);
-insert into items (uuid, name, description, barcode, price) values (158, 'Ham - Virginia', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 81782629057, 11.51);
-insert into items (uuid, name, description, barcode, price) values (159, 'Beer - Sleeman Fine Porter', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 31736356891, 16.43);
-insert into items (uuid, name, description, barcode, price) values (160, 'Pasta - Agnolotti - Butternut', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 51380456860, 98.98);
-insert into items (uuid, name, description, barcode, price) values (161, 'Cabbage - Green', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 23871299402, 81.11);
-insert into items (uuid, name, description, barcode, price) values (162, 'Chicken - Whole Roasting', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 86852944928, 19.25);
-insert into items (uuid, name, description, barcode, price) values (163, 'Wine - Lou Black Shiraz', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 74155451025, 91.91);
-insert into items (uuid, name, description, barcode, price) values (164, 'Lemonade - Pineapple Passion', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 63860804915, 20.48);
-insert into items (uuid, name, description, barcode, price) values (165, 'Mushroom - Shitake, Fresh', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 63568596468, 18.19);
-insert into items (uuid, name, description, barcode, price) values (166, 'Cheese - Boursin, Garlic / Herbs', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 27717584171, 87.8);
-insert into items (uuid, name, description, barcode, price) values (167, 'Bread - French Stick', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 97086762115, 38.23);
-insert into items (uuid, name, description, barcode, price) values (168, 'Cheese - Goat With Herbs', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 76628661587, 55.09);
-insert into items (uuid, name, description, barcode, price) values (169, 'Bread - Rolls, Corn', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 38562220707, 14.61);
-insert into items (uuid, name, description, barcode, price) values (170, 'Pasta - Angel Hair', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 89648276867, 45.92);
-insert into items (uuid, name, description, barcode, price) values (171, 'Apple - Granny Smith', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 11760733768, 87.25);
-insert into items (uuid, name, description, barcode, price) values (172, 'Jameson Irish Whiskey', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 74696442881, 38.26);
-insert into items (uuid, name, description, barcode, price) values (173, 'Wine - Sogrape Mateus Rose', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 12631304194, 3.38);
-insert into items (uuid, name, description, barcode, price) values (174, 'Appetizer - Lobster Phyllo Roll', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 79755101390, 55.1);
-insert into items (uuid, name, description, barcode, price) values (175, 'Flower - Leather Leaf Fern', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 30533444655, 93.61);
-insert into items (uuid, name, description, barcode, price) values (176, 'Tart - Pecan Butter Squares', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 70736793825, 82.18);
-insert into items (uuid, name, description, barcode, price) values (177, 'Chicken - Whole', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 57041097429, 88.2);
-insert into items (uuid, name, description, barcode, price) values (178, 'Capers - Ox Eye Daisy', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 71859062919, 41.57);
-insert into items (uuid, name, description, barcode, price) values (179, 'Salad Dressing', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 34138489444, 73.08);
-insert into items (uuid, name, description, barcode, price) values (180, 'Sprouts - Brussel', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 21464765884, 64.76);
-insert into items (uuid, name, description, barcode, price) values (181, 'Curry Paste - Green Masala', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 47546050162, 63.91);
-insert into items (uuid, name, description, barcode, price) values (182, 'Kaffir Lime Leaves', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 56821623100, 48.94);
-insert into items (uuid, name, description, barcode, price) values (183, 'Oil - Pumpkinseed', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 34185754080, 97.17);
-insert into items (uuid, name, description, barcode, price) values (184, 'Sorrel - Fresh', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 79763195891, 81.68);
-insert into items (uuid, name, description, barcode, price) values (185, 'Muffin - Carrot Individual Wrap', 'Fusce consequat. Nulla nisl. Nunc nisl.', 49295950858, 79.31);
-insert into items (uuid, name, description, barcode, price) values (186, 'Vinegar - Balsamic, White', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 52234075243, 86.81);
-insert into items (uuid, name, description, barcode, price) values (187, 'Pasta - Cappellini, Dry', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 78843534633, 44.53);
-insert into items (uuid, name, description, barcode, price) values (188, 'Tuna - Loin', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 69814303059, 12.83);
-insert into items (uuid, name, description, barcode, price) values (189, 'Shopper Bag - S - 4', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 93485845181, 66.54);
-insert into items (uuid, name, description, barcode, price) values (190, 'Chicken - Leg / Back Attach', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 36313163817, 44.94);
-insert into items (uuid, name, description, barcode, price) values (191, 'Cheese - Stilton', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 24086434152, 60.04);
-insert into items (uuid, name, description, barcode, price) values (192, 'Bread - Assorted Rolls', 'Fusce consequat. Nulla nisl. Nunc nisl.', 97248419543, 89.07);
-insert into items (uuid, name, description, barcode, price) values (193, 'Cheese - Goat', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 20051635858, 79.8);
-insert into items (uuid, name, description, barcode, price) values (194, 'Apple - Macintosh', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 13914907318, 84.87);
-insert into items (uuid, name, description, barcode, price) values (195, 'Versatainer Nc - 8288', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 33758767620, 15.76);
-insert into items (uuid, name, description, barcode, price) values (196, 'Shrimp - Black Tiger 26/30', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 68247774721, 45.7);
-insert into items (uuid, name, description, barcode, price) values (197, 'French Kiss Vanilla', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 93520170495, 99.49);
-insert into items (uuid, name, description, barcode, price) values (198, 'Lettuce - Frisee', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 30516468260, 34.55);
-insert into items (uuid, name, description, barcode, price) values (199, 'Flower - Leather Leaf Fern', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 92484630040, 80.01);
-insert into items (uuid, name, description, barcode, price) values (200, 'Ice Cream - Super Sandwich', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 81457103240, 84.85);
-insert into items (uuid, name, description, barcode, price) values (201, 'Couscous', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 33494071588, 16.25);
-insert into items (uuid, name, description, barcode, price) values (202, 'Wine - Montecillo Rioja Crianza', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 61760229718, 37.59);
-insert into items (uuid, name, description, barcode, price) values (203, 'Corn Shoots', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 35357421760, 29.54);
-insert into items (uuid, name, description, barcode, price) values (204, 'Cheese - Havarti, Salsa', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 79796011706, 48.24);
-insert into items (uuid, name, description, barcode, price) values (205, 'Wild Boar - Tenderloin', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 63219370209, 96.34);
-insert into items (uuid, name, description, barcode, price) values (206, 'Wine - Conde De Valdemar', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 48803368307, 58.32);
-insert into items (uuid, name, description, barcode, price) values (207, 'Rosemary - Fresh', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 25586707623, 28.94);
-insert into items (uuid, name, description, barcode, price) values (208, 'Parsley Italian - Fresh', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 26876672422, 91.63);
-insert into items (uuid, name, description, barcode, price) values (209, 'Pepper - Chipotle, Canned', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 10016844870, 61.86);
-insert into items (uuid, name, description, barcode, price) values (210, 'Veal - Ground', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 17093264988, 4.59);
-insert into items (uuid, name, description, barcode, price) values (211, 'Melon - Cantaloupe', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 97363472460, 93.75);
-insert into items (uuid, name, description, barcode, price) values (212, 'Pasta - Elbows, Macaroni, Dry', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 17519019026, 18.98);
-insert into items (uuid, name, description, barcode, price) values (213, 'Radish - Pickled', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 28390101255, 39.61);
-insert into items (uuid, name, description, barcode, price) values (214, 'Crab - Back Fin Meat, Canned', 'Fusce consequat. Nulla nisl. Nunc nisl.', 80108846878, 15.16);
-insert into items (uuid, name, description, barcode, price) values (215, 'Rabbit - Whole', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 16161692221, 68.0);
-insert into items (uuid, name, description, barcode, price) values (216, 'Garlic - Primerba, Paste', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 15618003321, 58.71);
-insert into items (uuid, name, description, barcode, price) values (217, 'Ham - Black Forest', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 37240892126, 36.48);
-insert into items (uuid, name, description, barcode, price) values (218, 'Bay Leaf Ground', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 70458321199, 92.75);
-insert into items (uuid, name, description, barcode, price) values (219, 'Appetizer - Escargot Puff', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 71210942542, 39.26);
-insert into items (uuid, name, description, barcode, price) values (220, 'Wine - Red, Mouton Cadet', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 32695962695, 37.5);
-insert into items (uuid, name, description, barcode, price) values (221, 'Capers - Ox Eye Daisy', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 28309648019, 98.34);
-insert into items (uuid, name, description, barcode, price) values (222, 'Artichoke - Fresh', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 59470942869, 8.72);
-insert into items (uuid, name, description, barcode, price) values (223, 'Wine - German Riesling', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 57911094883, 11.09);
-insert into items (uuid, name, description, barcode, price) values (224, 'Cardamon Seed / Pod', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 35294818657, 92.13);
-insert into items (uuid, name, description, barcode, price) values (225, 'Steampan - Foil', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 49122805378, 61.8);
-insert into items (uuid, name, description, barcode, price) values (226, 'Wine - Touraine Azay - Le - Rideau', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 70013285827, 95.27);
-insert into items (uuid, name, description, barcode, price) values (227, 'Milk - Chocolate 250 Ml', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 55203711074, 61.73);
-insert into items (uuid, name, description, barcode, price) values (228, 'Ham - Cooked Bayonne Tinned', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 59298425949, 16.56);
-insert into items (uuid, name, description, barcode, price) values (229, 'Beer - Sleemans Cream Ale', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 62548292166, 50.41);
-insert into items (uuid, name, description, barcode, price) values (230, 'Salt - Kosher', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 51948239116, 14.47);
-insert into items (uuid, name, description, barcode, price) values (231, 'Foil Cont Round', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 52654047655, 97.98);
-insert into items (uuid, name, description, barcode, price) values (232, 'Mushroom - Trumpet, Dry', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 35903916719, 86.69);
-insert into items (uuid, name, description, barcode, price) values (233, 'Muffin - Mix - Strawberry Rhubarb', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 74042358449, 1.5);
-insert into items (uuid, name, description, barcode, price) values (234, 'Beans - Fava Fresh', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 97948054082, 81.03);
-insert into items (uuid, name, description, barcode, price) values (235, 'Wine - Rubyport', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 22630962667, 31.6);
-insert into items (uuid, name, description, barcode, price) values (236, 'Pepper - Green Thai', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 42227222940, 59.45);
-insert into items (uuid, name, description, barcode, price) values (237, 'Spice - Chili Powder Mexican', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 99513724115, 16.4);
-insert into items (uuid, name, description, barcode, price) values (238, 'Coffee - Frthy Coffee Crisp', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 56240485784, 42.68);
-insert into items (uuid, name, description, barcode, price) values (239, 'Papadam', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 30547861766, 57.46);
-insert into items (uuid, name, description, barcode, price) values (240, 'Coffee Guatemala Dark', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 23010152456, 60.11);
-insert into items (uuid, name, description, barcode, price) values (241, 'Melon - Cantaloupe', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 53234958056, 9.37);
-insert into items (uuid, name, description, barcode, price) values (242, 'Milk - Skim', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 66710922545, 74.39);
-insert into items (uuid, name, description, barcode, price) values (243, 'Cod - Black Whole Fillet', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 78900241087, 7.14);
-insert into items (uuid, name, description, barcode, price) values (244, 'Lettuce - Lambs Mash', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 44827086188, 51.97);
-insert into items (uuid, name, description, barcode, price) values (245, 'Bread - Rolls, Rye', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 73604254540, 40.3);
-insert into items (uuid, name, description, barcode, price) values (246, 'Juice - V8, Tomato', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 88158954990, 63.78);
-insert into items (uuid, name, description, barcode, price) values (247, 'Pork - Sausage, Medium', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 76139812538, 37.16);
-insert into items (uuid, name, description, barcode, price) values (248, 'Beef - Top Sirloin - Aaa', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 89215677242, 44.45);
-insert into items (uuid, name, description, barcode, price) values (249, 'Mussels - Cultivated', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 91480359511, 91.52);
-insert into items (uuid, name, description, barcode, price) values (250, 'Cookies - Amaretto', 'Fusce consequat. Nulla nisl. Nunc nisl.', 52668778718, 93.28);
-insert into items (uuid, name, description, barcode, price) values (251, 'Champagne - Brights, Dry', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 80821149932, 67.84);
-insert into items (uuid, name, description, barcode, price) values (252, 'Cheese - Feta', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 72564095720, 21.31);
-insert into items (uuid, name, description, barcode, price) values (253, 'Wine - Cahors Ac 2000, Clos', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 90974570096, 39.88);
-insert into items (uuid, name, description, barcode, price) values (254, 'Lettuce - California Mix', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 34144685821, 85.95);
-insert into items (uuid, name, description, barcode, price) values (255, 'Cinnamon - Ground', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 77472015413, 6.66);
-insert into items (uuid, name, description, barcode, price) values (256, 'Ecolab - Medallion', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 75368953524, 66.04);
-insert into items (uuid, name, description, barcode, price) values (257, 'Sauce - Apple, Unsweetened', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 30537281341, 20.59);
-insert into items (uuid, name, description, barcode, price) values (258, 'Mushroom - King Eryingii', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 19940849517, 6.58);
-insert into items (uuid, name, description, barcode, price) values (259, 'Noodles - Cellophane, Thin', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 42690756412, 49.77);
-insert into items (uuid, name, description, barcode, price) values (260, 'Red Snapper - Fresh, Whole', 'Fusce consequat. Nulla nisl. Nunc nisl.', 36927027402, 67.23);
-insert into items (uuid, name, description, barcode, price) values (261, 'Hand Towel', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 44389235516, 53.42);
-insert into items (uuid, name, description, barcode, price) values (262, 'Baking Soda', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 34685787023, 53.71);
-insert into items (uuid, name, description, barcode, price) values (263, 'Vermouth - White, Cinzano', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 22268023654, 78.02);
-insert into items (uuid, name, description, barcode, price) values (264, 'Rice - 7 Grain Blend', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 72274733879, 99.85);
-insert into items (uuid, name, description, barcode, price) values (265, 'Food Colouring - Pink', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 18665234518, 87.24);
-insert into items (uuid, name, description, barcode, price) values (266, 'Nut - Pumpkin Seeds', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 31303070092, 31.7);
-insert into items (uuid, name, description, barcode, price) values (267, 'Wine - Crozes Hermitage E.', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 44460944803, 10.66);
-insert into items (uuid, name, description, barcode, price) values (268, 'Bonito Flakes - Toku Katsuo', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 57700670304, 39.83);
-insert into items (uuid, name, description, barcode, price) values (269, 'Cheese - Boursin, Garlic / Herbs', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 39704421355, 42.93);
-insert into items (uuid, name, description, barcode, price) values (270, 'Vaccum Bag - 14x20', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 84445262422, 65.26);
-insert into items (uuid, name, description, barcode, price) values (271, 'Carroway Seed', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 81597601797, 5.7);
-insert into items (uuid, name, description, barcode, price) values (272, 'Pasta - Rotini, Dry', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 84557437320, 77.74);
-insert into items (uuid, name, description, barcode, price) values (273, 'Foil Cont Round', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 67712450540, 40.99);
-insert into items (uuid, name, description, barcode, price) values (274, 'Mikes Hard Lemonade', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 99991661667, 69.63);
-insert into items (uuid, name, description, barcode, price) values (275, 'Wine - Red, Mouton Cadet', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 75887111694, 5.78);
-insert into items (uuid, name, description, barcode, price) values (276, 'Bread - White, Unsliced', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 74529966214, 20.83);
-insert into items (uuid, name, description, barcode, price) values (277, 'Pants Custom Dry Clean', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 19988684000, 47.52);
-insert into items (uuid, name, description, barcode, price) values (278, 'Beef - Striploin', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 20109536881, 90.14);
-insert into items (uuid, name, description, barcode, price) values (279, 'Wine - Acient Coast Caberne', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 14069217913, 20.57);
-insert into items (uuid, name, description, barcode, price) values (280, 'Cocoa Powder - Natural', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 99704617425, 40.3);
-insert into items (uuid, name, description, barcode, price) values (281, 'Egg - Salad Premix', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 33141538088, 3.68);
-insert into items (uuid, name, description, barcode, price) values (282, 'Maple Syrup', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 59721095806, 57.35);
-insert into items (uuid, name, description, barcode, price) values (283, 'V8 - Tropical Blend', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 66509433507, 94.84);
-insert into items (uuid, name, description, barcode, price) values (284, 'Appetizer - Crab And Brie', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 73319852055, 86.25);
-insert into items (uuid, name, description, barcode, price) values (285, 'Apple - Delicious, Golden', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 61255520203, 60.52);
-insert into items (uuid, name, description, barcode, price) values (286, 'Cheese - Pont Couvert', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 79989114876, 40.58);
-insert into items (uuid, name, description, barcode, price) values (287, 'Bread - Pain Au Liat X12', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 56432101326, 40.71);
-insert into items (uuid, name, description, barcode, price) values (288, 'Lettuce - Spring Mix', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 70274564069, 2.83);
-insert into items (uuid, name, description, barcode, price) values (289, 'Vinegar - Rice', 'Fusce consequat. Nulla nisl. Nunc nisl.', 10282193404, 24.65);
-insert into items (uuid, name, description, barcode, price) values (290, 'Lid - Translucent, 3.5 And 6 Oz', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 11736706615, 86.41);
-insert into items (uuid, name, description, barcode, price) values (291, 'Melon - Watermelon Yellow', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 85696956691, 94.55);
-insert into items (uuid, name, description, barcode, price) values (292, 'Beer - Heinekin', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 86201415918, 96.12);
-insert into items (uuid, name, description, barcode, price) values (293, 'Limes', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 45048716581, 84.12);
-insert into items (uuid, name, description, barcode, price) values (294, 'Quail Eggs - Canned', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 96042519517, 21.26);
-insert into items (uuid, name, description, barcode, price) values (295, 'Veal - Brisket, Provimi, Bone - In', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 89520514192, 2.96);
-insert into items (uuid, name, description, barcode, price) values (296, 'Cabbage - Savoy', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 72248992385, 91.81);
-insert into items (uuid, name, description, barcode, price) values (297, 'Beef - Flank Steak', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 63878361794, 93.53);
-insert into items (uuid, name, description, barcode, price) values (298, 'Apple - Northern Spy', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 43850175702, 86.49);
-insert into items (uuid, name, description, barcode, price) values (299, 'Cheese - Augre Des Champs', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 96586432618, 70.07);
-insert into items (uuid, name, description, barcode, price) values (300, 'Sausage - Breakfast', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 63218504513, 92.95);
-insert into items (uuid, name, description, barcode, price) values (301, 'Chicken - Whole Roasting', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 98406135142, 68.28);
-insert into items (uuid, name, description, barcode, price) values (302, 'Veal - Tenderloin, Untrimmed', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 96949521750, 3.42);
-insert into items (uuid, name, description, barcode, price) values (303, 'Cheese - Swiss Sliced', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 40166488159, 43.05);
-insert into items (uuid, name, description, barcode, price) values (304, 'Pasta - Fusili, Dry', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 35987621991, 44.63);
-insert into items (uuid, name, description, barcode, price) values (305, 'Chicken - Wieners', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 89255260417, 6.01);
-insert into items (uuid, name, description, barcode, price) values (306, 'Mousse - Mango', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 91902079969, 93.4);
-insert into items (uuid, name, description, barcode, price) values (307, 'Wine - Jaboulet Cotes Du Rhone', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 99946731961, 5.31);
-insert into items (uuid, name, description, barcode, price) values (308, 'Pastry - Lemon Danish - Mini', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 22535961087, 53.94);
-insert into items (uuid, name, description, barcode, price) values (309, 'Cheese - Bakers Cream Cheese', 'Fusce consequat. Nulla nisl. Nunc nisl.', 52564396748, 11.64);
-insert into items (uuid, name, description, barcode, price) values (310, 'Wine - Red, Black Opal Shiraz', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 31173394285, 70.53);
-insert into items (uuid, name, description, barcode, price) values (311, 'Crackers - Graham', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 16182623467, 52.67);
-insert into items (uuid, name, description, barcode, price) values (312, 'Spoon - Soup, Plastic', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 34391092862, 9.01);
-insert into items (uuid, name, description, barcode, price) values (313, 'Carrots - Purple, Organic', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 19446531133, 98.45);
-insert into items (uuid, name, description, barcode, price) values (314, 'Mangostein', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 32163809228, 8.74);
-insert into items (uuid, name, description, barcode, price) values (315, 'Kolrabi', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 36799240503, 62.13);
-insert into items (uuid, name, description, barcode, price) values (316, 'Beef - Tenderlion, Center Cut', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 44062229940, 26.79);
-insert into items (uuid, name, description, barcode, price) values (317, 'Rum - White, Gg White', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 87183365911, 22.38);
-insert into items (uuid, name, description, barcode, price) values (318, 'Lid - 0090 Clear', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 94580410390, 95.76);
-insert into items (uuid, name, description, barcode, price) values (319, 'Pastry - French Mini Assorted', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 54920282260, 26.89);
-insert into items (uuid, name, description, barcode, price) values (320, 'Jam - Marmalade, Orange', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 94984294038, 75.33);
-insert into items (uuid, name, description, barcode, price) values (321, 'Momiji Oroshi Chili Sauce', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 70753257313, 42.13);
-insert into items (uuid, name, description, barcode, price) values (322, 'Beer - Blue Light', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 64123376587, 67.06);
-insert into items (uuid, name, description, barcode, price) values (323, 'Soup Campbells - Italian Wedding', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 68146572638, 33.76);
-insert into items (uuid, name, description, barcode, price) values (324, 'Radish', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 92447705874, 99.69);
-insert into items (uuid, name, description, barcode, price) values (325, 'Salt And Pepper Mix - Black', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 33997946893, 64.02);
-insert into items (uuid, name, description, barcode, price) values (326, 'Pork - Caul Fat', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 69172843825, 12.95);
-insert into items (uuid, name, description, barcode, price) values (327, 'Pepper - Black, Crushed', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 34735074959, 20.96);
-insert into items (uuid, name, description, barcode, price) values (328, 'Capon - Breast, Wing On', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 58870936963, 52.17);
-insert into items (uuid, name, description, barcode, price) values (329, 'Wine - Duboeuf Beaujolais', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 60993224459, 77.57);
-insert into items (uuid, name, description, barcode, price) values (330, 'Chicken - White Meat, No Tender', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 88534479216, 5.23);
-insert into items (uuid, name, description, barcode, price) values (331, 'Nut - Pumpkin Seeds', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 15082608537, 42.2);
-insert into items (uuid, name, description, barcode, price) values (332, 'Pectin', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 89067768449, 38.1);
-insert into items (uuid, name, description, barcode, price) values (333, 'Cheese - Feta', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 54744818653, 87.9);
-insert into items (uuid, name, description, barcode, price) values (334, 'Oil - Macadamia', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 52111019572, 94.12);
-insert into items (uuid, name, description, barcode, price) values (335, 'Flour - Cake', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 74402263985, 68.81);
-insert into items (uuid, name, description, barcode, price) values (336, 'Rootbeer', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 33123546006, 96.57);
-insert into items (uuid, name, description, barcode, price) values (337, 'Tuna - Sushi Grade', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 71525504703, 67.13);
-insert into items (uuid, name, description, barcode, price) values (338, 'Bagel - Everything Presliced', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 65191454884, 6.3);
-insert into items (uuid, name, description, barcode, price) values (339, 'Water - Perrier', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 53067745127, 31.07);
-insert into items (uuid, name, description, barcode, price) values (340, 'Iced Tea Concentrate', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 68298546806, 20.99);
-insert into items (uuid, name, description, barcode, price) values (341, 'Goldschalger', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 45191414417, 93.84);
-insert into items (uuid, name, description, barcode, price) values (342, 'Wine - Barolo Fontanafredda', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 87593268531, 96.68);
-insert into items (uuid, name, description, barcode, price) values (343, 'Crab - Claws, 26 - 30', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 36894753333, 94.48);
-insert into items (uuid, name, description, barcode, price) values (344, 'Gin - Gilbeys London, Dry', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 29781956222, 48.99);
-insert into items (uuid, name, description, barcode, price) values (345, 'Crackers - Melba Toast', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 10902044290, 83.86);
-insert into items (uuid, name, description, barcode, price) values (346, 'Sugar - White Packet', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 23687487705, 14.56);
-insert into items (uuid, name, description, barcode, price) values (347, 'Container - Hngd Cll Blk 7x7x3', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 35109487662, 93.27);
-insert into items (uuid, name, description, barcode, price) values (348, 'Mix - Cappucino Cocktail', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 22324656476, 58.05);
-insert into items (uuid, name, description, barcode, price) values (349, 'Cheese - Mozzarella, Shredded', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 72410416715, 35.68);
-insert into items (uuid, name, description, barcode, price) values (350, 'Bread - Sour Sticks With Onion', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 97241509100, 47.09);
-insert into items (uuid, name, description, barcode, price) values (351, 'Cheese - St. Andre', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 74478824988, 66.8);
-insert into items (uuid, name, description, barcode, price) values (352, 'Croissant, Raw - Mini', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 32187849322, 52.68);
-insert into items (uuid, name, description, barcode, price) values (353, 'Mushroom - Shitake, Dry', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 97680561404, 5.42);
-insert into items (uuid, name, description, barcode, price) values (354, 'Oregano - Dry, Rubbed', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 24545493128, 51.75);
-insert into items (uuid, name, description, barcode, price) values (355, 'Flour - Chickpea', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 32054389946, 14.23);
-insert into items (uuid, name, description, barcode, price) values (356, 'Cake - Cake Sheet Macaroon', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 18079385554, 80.32);
-insert into items (uuid, name, description, barcode, price) values (357, 'Wine - Periguita Fonseca', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 62739777500, 27.3);
-insert into items (uuid, name, description, barcode, price) values (358, 'Smoked Paprika', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 58599858362, 51.46);
-insert into items (uuid, name, description, barcode, price) values (359, 'Beer - Muskoka Cream Ale', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 35799574820, 7.16);
-insert into items (uuid, name, description, barcode, price) values (360, 'Octopus', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 78354279126, 87.38);
-insert into items (uuid, name, description, barcode, price) values (361, 'Petite Baguette', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 63754939171, 63.22);
-insert into items (uuid, name, description, barcode, price) values (362, 'Sour Cream', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 90970752316, 84.34);
-insert into items (uuid, name, description, barcode, price) values (363, 'Pike - Frozen Fillet', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 48095861467, 50.84);
-insert into items (uuid, name, description, barcode, price) values (364, 'Celery Root', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 97436479144, 53.77);
-insert into items (uuid, name, description, barcode, price) values (365, 'Persimmons', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 83178271634, 50.4);
-insert into items (uuid, name, description, barcode, price) values (366, 'Bread - Bistro Sour', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 60776721797, 50.95);
-insert into items (uuid, name, description, barcode, price) values (367, 'Dc Hikiage Hira Huba', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 91056004982, 6.51);
-insert into items (uuid, name, description, barcode, price) values (368, 'Stock - Veal, White', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 72991586475, 16.41);
-insert into items (uuid, name, description, barcode, price) values (369, 'Bagel - Everything Presliced', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 53203073030, 97.44);
-insert into items (uuid, name, description, barcode, price) values (370, 'Glass - Juice Clear 5oz 55005', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 55670761887, 87.14);
-insert into items (uuid, name, description, barcode, price) values (371, 'Rappini - Andy Boy', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 99759771377, 23.86);
-insert into items (uuid, name, description, barcode, price) values (372, 'Scampi Tail', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 61608518198, 31.16);
-insert into items (uuid, name, description, barcode, price) values (373, 'Bread - Raisin Walnut Oval', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 21680267304, 17.59);
-insert into items (uuid, name, description, barcode, price) values (374, 'Bacardi Limon', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 78556828437, 71.87);
-insert into items (uuid, name, description, barcode, price) values (375, 'Compound - Raspberry', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 49305191320, 54.78);
-insert into items (uuid, name, description, barcode, price) values (376, 'Coriander - Seed', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 13601529441, 95.09);
-insert into items (uuid, name, description, barcode, price) values (377, 'Muffin - Banana Nut Individual', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 72439988375, 58.42);
-insert into items (uuid, name, description, barcode, price) values (378, 'Bread - Dark Rye, Loaf', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 65463445436, 41.59);
-insert into items (uuid, name, description, barcode, price) values (379, 'Pasta - Canelloni, Single Serve', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 75471080492, 32.26);
-insert into items (uuid, name, description, barcode, price) values (380, 'Graham Cracker Mix', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 54288941007, 18.1);
-insert into items (uuid, name, description, barcode, price) values (381, 'Ecolab - Solid Fusion', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 86609737784, 20.26);
-insert into items (uuid, name, description, barcode, price) values (382, 'Turkey - Breast, Boneless Sk On', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 60320563471, 84.36);
-insert into items (uuid, name, description, barcode, price) values (383, 'Ostrich - Prime Cut', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 65819463727, 98.64);
-insert into items (uuid, name, description, barcode, price) values (384, 'Ketchup - Tomato', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 88522334039, 31.5);
-insert into items (uuid, name, description, barcode, price) values (385, 'Grouper - Fresh', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 94780376657, 56.29);
-insert into items (uuid, name, description, barcode, price) values (386, 'Extract - Lemon', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 75304222144, 96.18);
-insert into items (uuid, name, description, barcode, price) values (387, 'Cheese - Bocconcini', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 74852880051, 70.46);
-insert into items (uuid, name, description, barcode, price) values (388, 'Beans - French', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 18336073829, 76.03);
-insert into items (uuid, name, description, barcode, price) values (389, 'Muffin Orange Individual', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 95753280306, 89.13);
-insert into items (uuid, name, description, barcode, price) values (390, 'Soupcontfoam16oz 116con', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 33263464559, 13.79);
-insert into items (uuid, name, description, barcode, price) values (391, 'Sesame Seed', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 30089523468, 78.9);
-insert into items (uuid, name, description, barcode, price) values (392, 'Lighter - Bbq', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 57881479345, 23.4);
-insert into items (uuid, name, description, barcode, price) values (393, 'Wine - Masi Valpolocell', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 40160382611, 56.38);
-insert into items (uuid, name, description, barcode, price) values (394, 'Water - Green Tea Refresher', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 17197552618, 68.15);
-insert into items (uuid, name, description, barcode, price) values (395, 'Pasta - Fusili, Dry', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 85825382013, 45.33);
-insert into items (uuid, name, description, barcode, price) values (396, 'Relish', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 81995241635, 93.38);
-insert into items (uuid, name, description, barcode, price) values (397, 'Wine - Balbach Riverside', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 45208879761, 88.47);
-insert into items (uuid, name, description, barcode, price) values (398, 'Longos - Penne With Pesto', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 96910946003, 88.42);
-insert into items (uuid, name, description, barcode, price) values (399, 'Ice Cream Bar - Hageen Daz To', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 74836266183, 70.59);
-insert into items (uuid, name, description, barcode, price) values (400, 'Veal - Kidney', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 25642776178, 30.02);
-insert into items (uuid, name, description, barcode, price) values (401, 'Swordfish Loin Portions', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 13457843082, 35.62);
-insert into items (uuid, name, description, barcode, price) values (402, 'Tomatoes - Hot House', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 32901947229, 19.98);
-insert into items (uuid, name, description, barcode, price) values (403, 'Soup - Canadian Pea, Dry Mix', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 87545168826, 13.52);
-insert into items (uuid, name, description, barcode, price) values (404, 'Gatorade - Xfactor Berry', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 55355643424, 33.28);
-insert into items (uuid, name, description, barcode, price) values (405, 'Bread - French Baquette', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 21461349692, 95.34);
-insert into items (uuid, name, description, barcode, price) values (406, 'External Supplier', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 95857723072, 68.41);
-insert into items (uuid, name, description, barcode, price) values (407, 'Sauce - Soya, Light', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 89796014702, 94.66);
-insert into items (uuid, name, description, barcode, price) values (408, 'Wine - Penfolds Koonuga Hill', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 12393882193, 26.68);
-insert into items (uuid, name, description, barcode, price) values (409, 'Sole - Fillet', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 74292003118, 69.01);
-insert into items (uuid, name, description, barcode, price) values (410, 'Quail - Jumbo', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 35363608540, 73.68);
-insert into items (uuid, name, description, barcode, price) values (411, 'Sour Cream', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 52879901960, 46.14);
-insert into items (uuid, name, description, barcode, price) values (412, 'Spring Roll Wrappers', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 68584851693, 28.76);
-insert into items (uuid, name, description, barcode, price) values (413, 'Bread - Olive', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 46799909166, 3.1);
-insert into items (uuid, name, description, barcode, price) values (414, 'Food Colouring - Red', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 15336556060, 25.06);
-insert into items (uuid, name, description, barcode, price) values (415, 'Wine - Rosso Del Veronese Igt', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 47460075584, 61.89);
-insert into items (uuid, name, description, barcode, price) values (416, 'Pork Loin Cutlets', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 40070933016, 16.11);
-insert into items (uuid, name, description, barcode, price) values (417, 'Oil - Canola', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 69622289785, 13.66);
-insert into items (uuid, name, description, barcode, price) values (418, 'Rabbit - Frozen', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 35846097174, 16.79);
-insert into items (uuid, name, description, barcode, price) values (419, 'Tea - Lemon Green Tea', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 71124234156, 98.03);
-insert into items (uuid, name, description, barcode, price) values (420, 'Chocolate - Unsweetened', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 82101438113, 36.53);
-insert into items (uuid, name, description, barcode, price) values (421, 'Container - Foam Dixie 12 Oz', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 80487724261, 82.04);
-insert into items (uuid, name, description, barcode, price) values (422, 'Rum - Dark, Bacardi, Black', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 33296640732, 19.49);
-insert into items (uuid, name, description, barcode, price) values (423, 'Brocolinni - Gaylan, Chinese', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 58244410955, 31.44);
-insert into items (uuid, name, description, barcode, price) values (424, 'Bread - Pain Au Liat X12', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 46075429185, 40.65);
-insert into items (uuid, name, description, barcode, price) values (425, 'Capicola - Hot', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 91885500934, 28.29);
-insert into items (uuid, name, description, barcode, price) values (426, 'Ecolab - Lime - A - Way 4/4 L', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 43609664409, 77.13);
-insert into items (uuid, name, description, barcode, price) values (427, 'Soup - Campbells Broccoli', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 10254713981, 85.63);
-insert into items (uuid, name, description, barcode, price) values (428, 'Bar Energy Chocchip', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 62377999495, 3.61);
-insert into items (uuid, name, description, barcode, price) values (429, 'Syrup - Golden, Lyles', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 30089974426, 88.66);
-insert into items (uuid, name, description, barcode, price) values (430, 'Thyme - Lemon, Fresh', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 47828321386, 94.04);
-insert into items (uuid, name, description, barcode, price) values (431, 'Roe - Lump Fish, Red', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 59400336168, 56.93);
-insert into items (uuid, name, description, barcode, price) values (432, 'Beef - Rouladin, Sliced', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 40131588667, 70.15);
-insert into items (uuid, name, description, barcode, price) values (433, 'Water - Spring Water 500ml', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 76442004411, 6.14);
-insert into items (uuid, name, description, barcode, price) values (434, 'Truffle Cups - Red', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 51507433132, 11.34);
-insert into items (uuid, name, description, barcode, price) values (435, 'Cornstarch', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 24319178693, 32.02);
-insert into items (uuid, name, description, barcode, price) values (436, 'Bar - Granola Trail Mix Fruit Nut', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 43674048954, 93.68);
-insert into items (uuid, name, description, barcode, price) values (437, 'Chicken - Base, Ultimate', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 85421890866, 30.77);
-insert into items (uuid, name, description, barcode, price) values (438, 'Eggroll', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 98744842886, 58.24);
-insert into items (uuid, name, description, barcode, price) values (439, 'Apple - Northern Spy', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 41412575262, 91.4);
-insert into items (uuid, name, description, barcode, price) values (440, 'Vermouth - Sweet, Cinzano', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 30695592493, 67.38);
-insert into items (uuid, name, description, barcode, price) values (441, 'Chicken - Leg / Back Attach', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 23502333581, 17.74);
-insert into items (uuid, name, description, barcode, price) values (442, 'Sugar - Monocystal / Rock', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 97104602545, 56.16);
-insert into items (uuid, name, description, barcode, price) values (443, 'Salad Dressing', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 22483561726, 12.74);
-insert into items (uuid, name, description, barcode, price) values (444, 'Hog / Sausage Casing - Pork', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 49243458696, 92.86);
-insert into items (uuid, name, description, barcode, price) values (445, 'Tray - Foam, Square 4 - S', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 17081584324, 65.7);
-insert into items (uuid, name, description, barcode, price) values (446, 'Maintenance Removal Charge', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 30823536820, 84.92);
-insert into items (uuid, name, description, barcode, price) values (447, 'Hummus - Spread', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 84137216077, 59.09);
-insert into items (uuid, name, description, barcode, price) values (448, 'Muffin - Blueberry Individual', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 14223029734, 19.31);
-insert into items (uuid, name, description, barcode, price) values (449, 'Olives - Morracan Dired', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 44558795561, 93.1);
-insert into items (uuid, name, description, barcode, price) values (450, 'Lentils - Green, Dry', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 71408836588, 3.36);
-insert into items (uuid, name, description, barcode, price) values (451, 'Melon - Watermelon, Seedless', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 61526129672, 49.97);
-insert into items (uuid, name, description, barcode, price) values (452, 'Wine - Harrow Estates, Vidal', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 24241300748, 58.5);
-insert into items (uuid, name, description, barcode, price) values (453, 'Pastry - Choclate Baked', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 17156783800, 69.57);
-insert into items (uuid, name, description, barcode, price) values (454, 'Longos - Lasagna Beef', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 51692141328, 97.65);
-insert into items (uuid, name, description, barcode, price) values (455, 'Beans - French', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 27946730550, 20.68);
-insert into items (uuid, name, description, barcode, price) values (456, 'Veal - Shank, Pieces', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 78765681948, 74.13);
-insert into items (uuid, name, description, barcode, price) values (457, 'Compound - Rum', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 81631955352, 42.3);
-insert into items (uuid, name, description, barcode, price) values (458, 'Versatainer Nc - 8288', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 26365394673, 85.96);
-insert into items (uuid, name, description, barcode, price) values (459, 'Sauce - Roasted Red Pepper', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 32636942565, 63.55);
-insert into items (uuid, name, description, barcode, price) values (460, 'Sauce - Chili', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 85823070465, 36.11);
-insert into items (uuid, name, description, barcode, price) values (461, 'Calypso - Pineapple Passion', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 27720307653, 44.23);
-insert into items (uuid, name, description, barcode, price) values (462, 'Flour - So Mix Cake White', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 21591116288, 32.22);
-insert into items (uuid, name, description, barcode, price) values (463, 'Chocolate Bar - Smarties', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 84969480711, 65.16);
-insert into items (uuid, name, description, barcode, price) values (464, 'Bar Bran Honey Nut', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 45530460063, 8.26);
-insert into items (uuid, name, description, barcode, price) values (465, 'Soap - Hand Soap', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 17549022297, 25.37);
-insert into items (uuid, name, description, barcode, price) values (466, 'Beef - Ground Medium', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 79026248074, 63.99);
-insert into items (uuid, name, description, barcode, price) values (467, 'Soup Campbells', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 87646030696, 25.42);
-insert into items (uuid, name, description, barcode, price) values (468, 'Salad Dressing', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 93964244227, 60.2);
-insert into items (uuid, name, description, barcode, price) values (469, 'Potatoes - Instant, Mashed', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 82507662811, 92.38);
-insert into items (uuid, name, description, barcode, price) values (470, 'Cape Capensis - Fillet', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 84773350402, 76.32);
-insert into items (uuid, name, description, barcode, price) values (471, 'Basil - Pesto Sauce', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 37304511005, 38.02);
-insert into items (uuid, name, description, barcode, price) values (472, 'Onions - Red', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 13892140920, 20.92);
-insert into items (uuid, name, description, barcode, price) values (473, 'Crab - Meat Combo', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 22253409199, 4.55);
-insert into items (uuid, name, description, barcode, price) values (474, 'Pancetta', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 59495592228, 83.28);
-insert into items (uuid, name, description, barcode, price) values (475, 'Beer - Alexander Kieths, Pale Ale', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 26290783587, 10.69);
-insert into items (uuid, name, description, barcode, price) values (476, 'Pecan Raisin - Tarts', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 62948732882, 46.64);
-insert into items (uuid, name, description, barcode, price) values (477, 'Veal - Bones', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 91110846364, 96.14);
-insert into items (uuid, name, description, barcode, price) values (478, 'Pepper - Cubanelle', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 83975241007, 45.55);
-insert into items (uuid, name, description, barcode, price) values (479, 'Beer - Blue Light', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 91212773456, 7.1);
-insert into items (uuid, name, description, barcode, price) values (480, 'Muffin - Mix - Creme Brule 15l', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 37732058743, 74.38);
-insert into items (uuid, name, description, barcode, price) values (481, 'Grouper - Fresh', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 26111666064, 33.67);
-insert into items (uuid, name, description, barcode, price) values (482, 'Orange - Tangerine', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 95459795964, 23.37);
-insert into items (uuid, name, description, barcode, price) values (483, 'Bread - Roll, Soft White Round', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 51147982154, 56.94);
-insert into items (uuid, name, description, barcode, price) values (484, 'Fish - Atlantic Salmon, Cold', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 70310992824, 61.5);
-insert into items (uuid, name, description, barcode, price) values (485, 'Food Colouring - Red', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 39249807154, 31.54);
-insert into items (uuid, name, description, barcode, price) values (486, 'Wine - Jackson Triggs Okonagan', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 47292572695, 64.62);
-insert into items (uuid, name, description, barcode, price) values (487, 'Mushroom - Chanterelle Frozen', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 15163013855, 65.81);
-insert into items (uuid, name, description, barcode, price) values (488, 'Lid - High Heat, Super Clear', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 76523794183, 23.45);
-insert into items (uuid, name, description, barcode, price) values (489, 'Glaze - Apricot', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 29338247393, 6.59);
-insert into items (uuid, name, description, barcode, price) values (490, 'Pasta - Agnolotti - Butternut', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 97585359299, 68.48);
-insert into items (uuid, name, description, barcode, price) values (491, 'Cheese - Havarti, Roasted Garlic', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 14552756661, 17.26);
-insert into items (uuid, name, description, barcode, price) values (492, 'Soup - Beef, Base Mix', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 61072583308, 4.36);
-insert into items (uuid, name, description, barcode, price) values (493, 'Veal - Brisket, Provimi, Bone - In', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 87320252704, 99.77);
-insert into items (uuid, name, description, barcode, price) values (494, 'Wine - Kwv Chenin Blanc South', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 20139890355, 52.86);
-insert into items (uuid, name, description, barcode, price) values (495, 'Lettuce - Romaine, Heart', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 86098680043, 40.39);
-insert into items (uuid, name, description, barcode, price) values (496, 'Ginger - Ground', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 46298482506, 9.82);
-insert into items (uuid, name, description, barcode, price) values (497, 'Pork - Tenderloin, Frozen', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 89399466707, 64.84);
-insert into items (uuid, name, description, barcode, price) values (498, 'Soy Protein', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 75382061088, 64.68);
-insert into items (uuid, name, description, barcode, price) values (499, 'Appetizer - Seafood Assortment', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 58264761304, 40.89);
-insert into items (uuid, name, description, barcode, price) values (500, 'Wine - Piper Heidsieck Brut', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 35860364357, 49.35);
+insert into items (uuid, name, description, barcode, price, make) values (1, 'Cheese - Parmesan Grated', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 60757331992, 40.66, 'ligula');
+insert into items (uuid, name, description, barcode, price, make) values (2, 'Chicken - Whole Roasting', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 86482146779, 2.34, 'vulputate');
+insert into items (uuid, name, description, barcode, price, make) values (3, 'Ranchero - Primerba, Paste', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+
+Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 19492408305, 46.53, 'cum');
+insert into items (uuid, name, description, barcode, price, make) values (4, 'Cape Capensis - Fillet', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
+
+Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 64855204205, 41.91, 'ac');
+insert into items (uuid, name, description, barcode, price, make) values (5, 'Muffin Batt - Carrot Spice', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 29568853547, 13.23, 'congue');
+insert into items (uuid, name, description, barcode, price, make) values (6, 'Fish - Artic Char, Cold Smoked', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 36492496247, 18.58, 'rhoncus');
+insert into items (uuid, name, description, barcode, price, make) values (7, 'Wine - Cotes Du Rhone Parallele', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 21076450978, 24.71, 'cum');
+insert into items (uuid, name, description, barcode, price, make) values (8, 'Soup - Campbells, Minestrone', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 19074207160, 19.84, 'duis');
+insert into items (uuid, name, description, barcode, price, make) values (9, 'Lamb - Shoulder', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
+
+In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 26006393060, 9.35, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (10, 'Wiberg Super Cure', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 58352976789, 31.54, 'id');
+insert into items (uuid, name, description, barcode, price, make) values (11, 'Tomatoes - Cherry', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
+
+Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 17768535997, 38.12, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (12, 'Vol Au Vents', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 84673894684, 26.25, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (13, 'Cauliflower', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
+
+In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 87810545269, 3.12, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (14, 'Soup - Base Broth Beef', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 27381419389, 1.84, 'primis');
+insert into items (uuid, name, description, barcode, price, make) values (15, 'Sausage - Liver', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 25683752679, 13.02, 'suspendisse');
+insert into items (uuid, name, description, barcode, price, make) values (16, 'Crab - Blue, Frozen', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 10549348655, 47.18, 'aliquet');
+insert into items (uuid, name, description, barcode, price, make) values (17, 'Sauce - Bernaise, Mix', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 34479411907, 41.27, 'orci');
+insert into items (uuid, name, description, barcode, price, make) values (18, 'Pants Custom Dry Clean', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 99066579646, 1.64, 'eu');
+insert into items (uuid, name, description, barcode, price, make) values (19, 'Tomato Paste', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 22585628491, 22.72, 'varius');
+insert into items (uuid, name, description, barcode, price, make) values (20, 'Bok Choy - Baby', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 75375404445, 44.44, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (21, 'Ranchero - Primerba, Paste', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.
+
+Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 99088889506, 3.89, 'rutrum');
+insert into items (uuid, name, description, barcode, price, make) values (22, 'Pumpkin - Seed', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 48287151923, 6.28, 'odio');
+insert into items (uuid, name, description, barcode, price, make) values (23, 'Salami - Genova', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 77455303864, 13.1, 'semper');
+insert into items (uuid, name, description, barcode, price, make) values (24, 'Extract - Almond', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
+
+In congue. Etiam justo. Etiam pretium iaculis justo.', 10979385662, 41.3, 'sit');
+insert into items (uuid, name, description, barcode, price, make) values (25, 'Oil - Olive Bertolli', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.', 37070675591, 13.82, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (26, 'Taro Root', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 37450463942, 14.16, 'ridiculus');
+insert into items (uuid, name, description, barcode, price, make) values (27, 'Nutmeg - Ground', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 26885044629, 43.93, 'potenti');
+insert into items (uuid, name, description, barcode, price, make) values (28, 'Chocolate - Sugar Free Semi Choc', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+
+Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 40865648415, 23.26, 'at');
+insert into items (uuid, name, description, barcode, price, make) values (29, 'Wine - Beaujolais Villages', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+
+Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 14165179397, 29.89, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (30, 'Bread - Roll, Italian', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 10200116364, 41.55, 'libero');
+insert into items (uuid, name, description, barcode, price, make) values (31, 'Spice - Pepper Portions', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
+
+In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 91414873316, 43.5, 'mattis');
+insert into items (uuid, name, description, barcode, price, make) values (32, 'Cleaner - Lime Away', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 98414216594, 17.04, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (33, 'Tea - Apple Green Tea', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 44720729831, 43.55, 'ligula');
+insert into items (uuid, name, description, barcode, price, make) values (34, 'Barley - Pearl', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
+
+Fusce consequat. Nulla nisl. Nunc nisl.', 35039310762, 8.63, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (35, 'Beef - Ground Medium', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 77347005498, 32.69, 'nunc');
+insert into items (uuid, name, description, barcode, price, make) values (36, 'Pepper - Orange', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 82957623652, 35.37, 'proin');
+insert into items (uuid, name, description, barcode, price, make) values (37, 'Sauce - Roasted Red Pepper', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
+
+Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 66029751866, 29.77, 'eros');
+insert into items (uuid, name, description, barcode, price, make) values (38, 'Sour Puss Sour Apple', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 41435210234, 38.81, 'sit');
+insert into items (uuid, name, description, barcode, price, make) values (39, 'Magnotta Bel Paese Red', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
+
+Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 81966005978, 16.32, 'consequat');
+insert into items (uuid, name, description, barcode, price, make) values (40, 'Towel Multifold', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
+
+Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 54747130572, 4.1, 'aenean');
+insert into items (uuid, name, description, barcode, price, make) values (41, 'Flower - Commercial Bronze', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 63711417009, 8.36, 'laoreet');
+insert into items (uuid, name, description, barcode, price, make) values (42, 'Longos - Penne With Pesto', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
+
+Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 42003869822, 42.03, 'varius');
+insert into items (uuid, name, description, barcode, price, make) values (43, 'Pasta - Orecchiette', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
+
+Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 60748964323, 7.26, 'risus');
+insert into items (uuid, name, description, barcode, price, make) values (44, 'Lemonade - Island Tea, 591 Ml', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 49437390355, 41.24, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (45, 'Dehydrated Kelp Kombo', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
+
+Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 34652672481, 2.97, 'sit');
+insert into items (uuid, name, description, barcode, price, make) values (46, 'Momiji Oroshi Chili Sauce', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 66718222514, 40.25, 'odio');
+insert into items (uuid, name, description, barcode, price, make) values (47, 'Aspic - Amber', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
+
+Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 83649661830, 30.92, 'quam');
+insert into items (uuid, name, description, barcode, price, make) values (48, 'Beer - Sleemans Honey Brown', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 36469873919, 45.81, 'tellus');
+insert into items (uuid, name, description, barcode, price, make) values (49, 'Wine - Sogrape Mateus Rose', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.
+
+Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 10622227178, 47.32, 'at');
+insert into items (uuid, name, description, barcode, price, make) values (50, 'Rum - White, Gg White', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 84430672879, 24.79, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (51, 'Rabbit - Saddles', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 40896891049, 46.55, 'porttitor');
+insert into items (uuid, name, description, barcode, price, make) values (52, 'Boogies', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 86897640412, 12.62, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (53, 'Pail For Lid 1537', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.
+
+Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 29233650294, 22.26, 'nisi');
+insert into items (uuid, name, description, barcode, price, make) values (54, 'Fish - Soup Base, Bouillon', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
+
+Sed ante. Vivamus tortor. Duis mattis egestas metus.', 94210548836, 29.24, 'orci');
+insert into items (uuid, name, description, barcode, price, make) values (55, 'Kahlua', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 15442939889, 20.7, 'mauris');
+insert into items (uuid, name, description, barcode, price, make) values (56, 'Tea - Black Currant', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
+
+Fusce consequat. Nulla nisl. Nunc nisl.', 36771444119, 29.1, 'felis');
+insert into items (uuid, name, description, barcode, price, make) values (57, 'Cake - Cheese Cake 9 Inch', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 78607796871, 2.1, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (58, 'Flour Dark Rye', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 74476296118, 36.14, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (59, 'Yogurt - Peach, 175 Gr', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 31833616541, 8.06, 'vitae');
+insert into items (uuid, name, description, barcode, price, make) values (60, 'Spinach - Frozen', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
+
+Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 85651701921, 13.75, 'eu');
+insert into items (uuid, name, description, barcode, price, make) values (61, 'Mustard - Dry, Powder', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+
+Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 35341437235, 42.16, 'auctor');
+insert into items (uuid, name, description, barcode, price, make) values (62, 'Muffin Mix - Chocolate Chip', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
+
+Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 98339160435, 11.07, 'ipsum');
+insert into items (uuid, name, description, barcode, price, make) values (63, 'Rambutan', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 41857232379, 12.37, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (64, 'Veal - Heart', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
+
+In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 39798805799, 3.02, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (65, 'Appetizer - Mango Chevre', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 22362077235, 5.71, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (66, 'Rice - Brown', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 27716346462, 20.6, 'nisi');
+insert into items (uuid, name, description, barcode, price, make) values (67, 'Glass Clear 7 Oz Xl', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.
+
+Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 19994509347, 21.96, 'a');
+insert into items (uuid, name, description, barcode, price, make) values (68, 'Yokaline', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
+
+Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 13731451704, 41.21, 'cursus');
+insert into items (uuid, name, description, barcode, price, make) values (69, 'Seaweed Green Sheets', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+
+Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 96373318337, 3.93, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (70, 'Pizza Pizza Dough', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
+
+Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 16856010091, 15.23, 'elit');
+insert into items (uuid, name, description, barcode, price, make) values (71, 'Bay Leaf Fresh', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 83215290161, 39.1, 'tristique');
+insert into items (uuid, name, description, barcode, price, make) values (72, 'Clam - Cherrystone', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 30153273066, 36.16, 'augue');
+insert into items (uuid, name, description, barcode, price, make) values (73, 'Sesame Seed Black', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.
+
+Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 40239320102, 27.49, 'eu');
+insert into items (uuid, name, description, barcode, price, make) values (74, 'Towel - Roll White', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
+
+Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 77192249807, 6.98, 'nibh');
+insert into items (uuid, name, description, barcode, price, make) values (75, 'Pears - Fiorelle', 'Fusce consequat. Nulla nisl. Nunc nisl.
+
+Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 63033398970, 21.17, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (76, 'Swiss Chard', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 11172083629, 18.48, 'libero');
+insert into items (uuid, name, description, barcode, price, make) values (77, 'Cognac - Courvaisier', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 36109315470, 39.04, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (78, 'Grapefruit - Pink', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
+
+Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 66749134736, 8.65, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (79, 'Remy Red', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 84418907560, 12.43, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (80, 'Soy Protein', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 70688213334, 48.02, 'vel');
+insert into items (uuid, name, description, barcode, price, make) values (81, 'Tea - Grapefruit Green Tea', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 31351293161, 17.06, 'congue');
+insert into items (uuid, name, description, barcode, price, make) values (82, 'Steampan - Lid For Half Size', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 73208665737, 45.71, 'fusce');
+insert into items (uuid, name, description, barcode, price, make) values (83, 'Cream - 18%', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 15116853050, 30.34, 'ac');
+insert into items (uuid, name, description, barcode, price, make) values (84, 'Soup Bowl Clear 8oz92008', 'Fusce consequat. Nulla nisl. Nunc nisl.', 65592505125, 32.2, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (85, 'V8 Splash Strawberry Banana', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 81393523617, 33.94, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (86, 'Muffin - Mix - Strawberry Rhubarb', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
+
+Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 47082496699, 4.58, 'turpis');
+insert into items (uuid, name, description, barcode, price, make) values (87, 'Flower - Commercial Bronze', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 31081489564, 47.33, 'habitasse');
+insert into items (uuid, name, description, barcode, price, make) values (88, 'Tart Shells - Barquettes, Savory', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 47212300113, 24.94, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (89, 'Longos - Grilled Chicken With', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+
+Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 23286837297, 18.47, 'scelerisque');
+insert into items (uuid, name, description, barcode, price, make) values (90, 'Rambutan', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+
+Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 14739007601, 19.72, 'ligula');
+insert into items (uuid, name, description, barcode, price, make) values (91, 'Wine - White, Riesling, Semi - Dry', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
+
+Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 59682288293, 10.26, 'nascetur');
+insert into items (uuid, name, description, barcode, price, make) values (92, 'Whmis - Spray Bottle Trigger', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
+
+Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 35258742552, 19.94, 'at');
+insert into items (uuid, name, description, barcode, price, make) values (93, 'Bread - Italian Corn Meal Poly', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 42843393872, 29.57, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (94, 'Cheese - Montery Jack', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 66119601942, 32.37, 'rutrum');
+insert into items (uuid, name, description, barcode, price, make) values (95, 'Bagel - 12 Grain Preslice', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
+
+Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 85097243799, 46.92, 'ante');
+insert into items (uuid, name, description, barcode, price, make) values (96, 'Pasta - Fettuccine, Egg, Fresh', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 46317637117, 27.37, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (97, 'Daikon Radish', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 23461245305, 41.39, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (98, 'Lid - 10,12,16 Oz', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 87780077033, 1.14, 'est');
+insert into items (uuid, name, description, barcode, price, make) values (99, 'Gelatine Leaves - Bulk', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 19619252416, 8.23, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (100, 'Bagel - Sesame Seed Presliced', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 42534417781, 5.27, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (101, 'Beer - Maudite', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 71420664055, 43.53, 'non');
+insert into items (uuid, name, description, barcode, price, make) values (102, 'Mushroom - Porcini, Dry', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+
+Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 85684845260, 29.4, 'convallis');
+insert into items (uuid, name, description, barcode, price, make) values (103, 'Pork - Suckling Pig', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 52554286359, 37.99, 'cubilia');
+insert into items (uuid, name, description, barcode, price, make) values (104, 'Table Cloth 62x120 White', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 37253593195, 23.13, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (105, 'Spice - Peppercorn Melange', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 15500774029, 27.08, 'luctus');
+insert into items (uuid, name, description, barcode, price, make) values (106, 'Sloe Gin - Mcguinness', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.
+
+Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 72674968573, 39.88, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (107, 'Sword Pick Asst', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
+
+Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 27286607305, 38.47, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (108, 'Pepper - Orange', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 65373780015, 15.46, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (109, 'Wine - Semi Dry Riesling Vineland', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 97224157282, 28.6, 'rhoncus');
+insert into items (uuid, name, description, barcode, price, make) values (110, 'Tea - Vanilla Chai', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
+
+Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 88036267528, 37.95, 'velit');
+insert into items (uuid, name, description, barcode, price, make) values (111, 'Tea - Mint', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 95121939633, 5.46, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (112, 'Yoplait Drink', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
+
+Fusce consequat. Nulla nisl. Nunc nisl.', 49123166391, 33.5, 'lectus');
+insert into items (uuid, name, description, barcode, price, make) values (113, 'Water - Spring Water, 355 Ml', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 78978655391, 23.44, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (114, 'Pork - Caul Fat', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
+
+Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 52905948708, 44.05, 'rhoncus');
+insert into items (uuid, name, description, barcode, price, make) values (115, 'Spice - Chili Powder Mexican', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 60604521344, 16.33, 'libero');
+insert into items (uuid, name, description, barcode, price, make) values (116, 'Pastry - Mini French Pastries', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 63704141024, 25.52, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (117, 'Crab - Back Fin Meat, Canned', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
+
+Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 66178853220, 29.62, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (118, 'Sugar - Splenda Sweetener', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 90941670524, 41.42, 'dui');
+insert into items (uuid, name, description, barcode, price, make) values (119, 'Pastry - Baked Scones - Mini', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 13708401967, 37.3, 'eros');
+insert into items (uuid, name, description, barcode, price, make) values (120, 'Mangoes', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
+
+Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 62980515627, 14.95, 'congue');
+insert into items (uuid, name, description, barcode, price, make) values (121, 'Cake - Night And Day Choclate', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
+
+Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 66735490070, 44.6, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (122, 'Sauce - Soy Low Sodium - 3.87l', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 67680197870, 12.13, 'diam');
+insert into items (uuid, name, description, barcode, price, make) values (123, 'Muffin Mix - Raisin Bran', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 85377306604, 11.83, 'id');
+insert into items (uuid, name, description, barcode, price, make) values (124, 'Container - Hngd Cll Blk 7x7x3', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
+
+Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 39209286575, 18.7, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (125, 'Teriyaki Sauce', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
+
+Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 78405850161, 11.67, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (126, 'Tomatoes - Yellow Hot House', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 28421742302, 43.32, 'gravida');
+insert into items (uuid, name, description, barcode, price, make) values (127, 'Smoked Tongue', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 33874289872, 19.89, 'aliquet');
+insert into items (uuid, name, description, barcode, price, make) values (128, 'Bread - Pumpernickle, Rounds', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 26771997586, 46.82, 'lorem');
+insert into items (uuid, name, description, barcode, price, make) values (129, 'Star Anise, Whole', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+
+Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 35117870354, 3.41, 'at');
+insert into items (uuid, name, description, barcode, price, make) values (130, 'Cleaner - Lime Away', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
+
+Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 78467631000, 16.92, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (131, 'Wine - Jafflin Bourgongone', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
+
+In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 11310682948, 25.67, 'ac');
+insert into items (uuid, name, description, barcode, price, make) values (132, 'Crackers - Melba Toast', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 93861223908, 10.97, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (133, 'Tia Maria', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+
+Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 67733925852, 36.33, 'nisl');
+insert into items (uuid, name, description, barcode, price, make) values (134, 'V8 Splash Strawberry Kiwi', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 37904609928, 9.93, 'nisl');
+insert into items (uuid, name, description, barcode, price, make) values (135, 'Cheese - Grana Padano', 'In congue. Etiam justo. Etiam pretium iaculis justo.
+
+In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 23458950875, 36.6, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (136, 'Lumpfish Black', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 89577301659, 44.8, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (137, 'Beer - Molson Excel', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 91575174462, 42.07, 'accumsan');
+insert into items (uuid, name, description, barcode, price, make) values (138, 'Cakes Assorted', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 11650696003, 18.45, 'sodales');
+insert into items (uuid, name, description, barcode, price, make) values (139, 'Soup - Knorr, Veg / Beef', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 57215336162, 39.23, 'odio');
+insert into items (uuid, name, description, barcode, price, make) values (140, 'Oats Large Flake', 'In congue. Etiam justo. Etiam pretium iaculis justo.
+
+In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 17921654403, 16.88, 'duis');
+insert into items (uuid, name, description, barcode, price, make) values (141, 'Yukon Jack', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 68792981665, 45.23, 'nunc');
+insert into items (uuid, name, description, barcode, price, make) values (142, 'Salami - Genova', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 17346555474, 41.35, 'elit');
+insert into items (uuid, name, description, barcode, price, make) values (143, 'Oregano - Dry, Rubbed', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 51800577988, 43.04, 'semper');
+insert into items (uuid, name, description, barcode, price, make) values (144, 'Foil Wrap', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 89689027044, 41.58, 'nibh');
+insert into items (uuid, name, description, barcode, price, make) values (145, 'Juice - Lime', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 77165773062, 49.99, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (146, 'Wine - Red, Marechal Foch', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
+
+Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 96780362622, 49.04, 'lobortis');
+insert into items (uuid, name, description, barcode, price, make) values (147, 'Momiji Oroshi Chili Sauce', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 17993317302, 10.45, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (148, 'Wine - Crozes Hermitage E.', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 32230169244, 29.83, 'viverra');
+insert into items (uuid, name, description, barcode, price, make) values (149, 'Towel Dispenser', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
+
+Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 50859175740, 41.59, 'orci');
+insert into items (uuid, name, description, barcode, price, make) values (150, 'Mackerel Whole Fresh', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
+
+Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 32680772620, 43.77, 'augue');
+insert into items (uuid, name, description, barcode, price, make) values (151, 'Trueblue - Blueberry', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 79910029494, 27.33, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (152, 'Shallots', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 36301770266, 39.63, 'ultrices');
+insert into items (uuid, name, description, barcode, price, make) values (153, 'Wine - Chianti Classico Riserva', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 45138734415, 29.56, 'duis');
+insert into items (uuid, name, description, barcode, price, make) values (154, 'Wanton Wrap', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 58745500162, 30.25, 'lorem');
+insert into items (uuid, name, description, barcode, price, make) values (155, 'Instant Coffee', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 15245865922, 35.62, 'habitasse');
+insert into items (uuid, name, description, barcode, price, make) values (156, 'Lettuce - Red Leaf', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 75980091487, 49.67, 'vulputate');
+insert into items (uuid, name, description, barcode, price, make) values (157, 'Cassis', 'Fusce consequat. Nulla nisl. Nunc nisl.
+
+Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 48515675843, 30.39, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (158, 'Miso - Soy Bean Paste', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
+
+Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 39156941710, 27.1, 'nullam');
+insert into items (uuid, name, description, barcode, price, make) values (159, 'Pork - Back, Long Cut, Boneless', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+
+Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 50854343157, 45.91, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (160, 'Apple - Northern Spy', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 90083652118, 40.05, 'tempus');
+insert into items (uuid, name, description, barcode, price, make) values (161, 'Egg - Salad Premix', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
+
+In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 34491003379, 9.6, 'sit');
+insert into items (uuid, name, description, barcode, price, make) values (162, 'Salt And Pepper Mix - White', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 99744506025, 28.34, 'orci');
+insert into items (uuid, name, description, barcode, price, make) values (163, 'Crackers - Soda / Saltins', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
+
+Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 82916586070, 16.58, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (164, 'Cleaner - Lime Away', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 13434701910, 7.98, 'habitasse');
+insert into items (uuid, name, description, barcode, price, make) values (165, 'Mushroom - Portebello', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 22193210869, 3.9, 'aenean');
+insert into items (uuid, name, description, barcode, price, make) values (166, 'Amarula Cream', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 18315121409, 1.88, 'mattis');
+insert into items (uuid, name, description, barcode, price, make) values (167, 'Pasta - Detalini, White, Fresh', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 90556460111, 42.85, 'dis');
+insert into items (uuid, name, description, barcode, price, make) values (168, 'Peach - Halves', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 70473589080, 41.82, 'nullam');
+insert into items (uuid, name, description, barcode, price, make) values (169, 'Beef - Top Butt Aaa', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 99886628043, 17.57, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (170, 'Juice - Orange, 341 Ml', 'Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 44065927826, 17.49, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (171, 'Compound - Raspberry', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 99249788312, 41.04, 'luctus');
+insert into items (uuid, name, description, barcode, price, make) values (172, 'Muffin Hinge Container 6', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 19870197888, 42.09, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (173, 'Beans - French', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 80805380644, 29.01, 'purus');
+insert into items (uuid, name, description, barcode, price, make) values (174, 'Rum - Mount Gay Eclipes', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.
+
+Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 44879480189, 11.82, 'nec');
+insert into items (uuid, name, description, barcode, price, make) values (175, 'Grand Marnier', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 44944135489, 9.15, 'velit');
+insert into items (uuid, name, description, barcode, price, make) values (176, 'Milk - Chocolate 500ml', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
+
+Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 35885327716, 5.75, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (177, 'Glove - Cutting', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
+
+Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 67481831701, 10.0, 'dapibus');
+insert into items (uuid, name, description, barcode, price, make) values (178, 'Cheese - Parmigiano Reggiano', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
+
+Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 62112565550, 43.43, 'magna');
+insert into items (uuid, name, description, barcode, price, make) values (179, 'Rice - Wild', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
+
+Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 98387809835, 18.31, 'tristique');
+insert into items (uuid, name, description, barcode, price, make) values (180, 'Wine - Magnotta - Red, Baco', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 90047665083, 34.01, 'condimentum');
+insert into items (uuid, name, description, barcode, price, make) values (181, 'Nut - Peanut, Roasted', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 16792510543, 33.59, 'hendrerit');
+insert into items (uuid, name, description, barcode, price, make) values (182, 'Pear - Asian', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+
+Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 39848959211, 48.68, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (183, 'Salami - Genova', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
+
+Fusce consequat. Nulla nisl. Nunc nisl.', 76601509447, 27.24, 'et');
+insert into items (uuid, name, description, barcode, price, make) values (184, 'Puff Pastry - Sheets', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 22130951652, 29.11, 'condimentum');
+insert into items (uuid, name, description, barcode, price, make) values (185, 'Vinegar - White Wine', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 79726598354, 32.21, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (186, 'Mustard - Pommery', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 27793407176, 44.85, 'purus');
+insert into items (uuid, name, description, barcode, price, make) values (187, 'Wine - Red, Mouton Cadet', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 18561739119, 3.46, 'aliquam');
+insert into items (uuid, name, description, barcode, price, make) values (188, 'Oil - Shortening,liqud, Fry', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 24047514053, 27.07, 'faucibus');
+insert into items (uuid, name, description, barcode, price, make) values (189, 'Pork - Chop, Frenched', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 25632225225, 20.64, 'integer');
+insert into items (uuid, name, description, barcode, price, make) values (190, 'Campari', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 88687968520, 15.64, 'posuere');
+insert into items (uuid, name, description, barcode, price, make) values (191, 'Nantucket - Pomegranate Pear', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
+
+Fusce consequat. Nulla nisl. Nunc nisl.', 35060112330, 47.31, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (192, 'Flour - Strong', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
+
+Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 66789552659, 13.35, 'fringilla');
+insert into items (uuid, name, description, barcode, price, make) values (193, 'Beans - French', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+
+Phasellus in felis. Donec semper sapien a libero. Nam dui.', 54812428739, 41.82, 'interdum');
+insert into items (uuid, name, description, barcode, price, make) values (194, 'Water - Spring 1.5lit', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.
+
+Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 28956990091, 19.95, 'at');
+insert into items (uuid, name, description, barcode, price, make) values (195, 'Sparkling Wine - Rose, Freixenet', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 32192208515, 1.13, 'vitae');
+insert into items (uuid, name, description, barcode, price, make) values (196, 'Pork - Bacon, Double Smoked', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 31633999737, 10.74, 'congue');
+insert into items (uuid, name, description, barcode, price, make) values (197, 'Corn Shoots', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 54161161572, 21.07, 'aliquet');
+insert into items (uuid, name, description, barcode, price, make) values (198, 'Pastry - Plain Baked Croissant', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
+
+In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 82880148691, 32.74, 'diam');
+insert into items (uuid, name, description, barcode, price, make) values (199, 'English Muffin', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+
+Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 79956999648, 37.09, 'suscipit');
+insert into items (uuid, name, description, barcode, price, make) values (200, 'French Pastry - Mini Chocolate', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
+
+Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 68800168256, 24.66, 'luctus');
+insert into items (uuid, name, description, barcode, price, make) values (201, 'Foil - Round Foil', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 26250141584, 34.68, 'maecenas');
+insert into items (uuid, name, description, barcode, price, make) values (202, 'Nescafe - Frothy French Vanilla', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 61816929499, 44.05, 'eros');
+insert into items (uuid, name, description, barcode, price, make) values (203, 'Mousse - Banana Chocolate', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.
+
+Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 33914898024, 8.29, 'condimentum');
+insert into items (uuid, name, description, barcode, price, make) values (204, 'Wine - Fontanafredda Barolo', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 16330481673, 38.55, 'quam');
+insert into items (uuid, name, description, barcode, price, make) values (205, 'Lettuce - Green Leaf', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 62257052338, 41.42, 'rhoncus');
+insert into items (uuid, name, description, barcode, price, make) values (206, 'Wine - Barolo Fontanafredda', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 81125623089, 14.42, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (207, 'Pastry - Key Limepoppy Seed Tea', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
+
+Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 36569399729, 14.02, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (208, 'Wine - Red, Cooking', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
+
+In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 88177806130, 31.13, 'elementum');
+insert into items (uuid, name, description, barcode, price, make) values (209, 'Wine - Cotes Du Rhone', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
+
+Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 27985270977, 36.64, 'viverra');
+insert into items (uuid, name, description, barcode, price, make) values (210, 'Toothpick Frilled', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 71246869150, 5.71, 'vel');
+insert into items (uuid, name, description, barcode, price, make) values (211, 'Tart Shells - Sweet, 3', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
+
+Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 17317471201, 35.74, 'ultrices');
+insert into items (uuid, name, description, barcode, price, make) values (212, 'Rice - Basmati', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
+
+In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 63141089854, 9.42, 'rhoncus');
+insert into items (uuid, name, description, barcode, price, make) values (213, 'Sugar - Palm', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 84893338644, 45.77, 'mauris');
+insert into items (uuid, name, description, barcode, price, make) values (214, 'Versatainer Nc - 9388', 'Fusce consequat. Nulla nisl. Nunc nisl.', 34031830698, 2.59, 'ante');
+insert into items (uuid, name, description, barcode, price, make) values (215, 'Lettuce - Romaine', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+
+Phasellus in felis. Donec semper sapien a libero. Nam dui.', 26605407453, 12.27, 'imperdiet');
+insert into items (uuid, name, description, barcode, price, make) values (216, 'Pastry - Chocolate Chip Muffin', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 20724774302, 29.44, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (217, 'Syrup - Chocolate', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
+
+Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 44212316279, 13.28, 'suspendisse');
+insert into items (uuid, name, description, barcode, price, make) values (218, 'Wine - Bouchard La Vignee Pinot', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.
+
+Fusce consequat. Nulla nisl. Nunc nisl.', 87659610648, 23.4, 'vitae');
+insert into items (uuid, name, description, barcode, price, make) values (219, 'Bread - Sour Sticks With Onion', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
+
+Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 71903177660, 28.3, 'est');
+insert into items (uuid, name, description, barcode, price, make) values (220, 'Sprouts - Peppercress', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 39438333937, 32.07, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (221, 'Lemonade - Island Tea, 591 Ml', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 75300886163, 12.91, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (222, 'Arctic Char - Fresh, Whole', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 30851165754, 40.73, 'dui');
+insert into items (uuid, name, description, barcode, price, make) values (223, 'Pur Value', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 99993247366, 15.61, 'suscipit');
+insert into items (uuid, name, description, barcode, price, make) values (224, 'Compound - Mocha', 'Fusce consequat. Nulla nisl. Nunc nisl.
+
+Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 15360354229, 42.8, 'tempus');
+insert into items (uuid, name, description, barcode, price, make) values (225, 'Tart Shells - Savory, 2', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 15236753365, 19.66, 'duis');
+insert into items (uuid, name, description, barcode, price, make) values (226, 'Soup - Campbells, Butternut', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 32059818569, 15.67, 'eros');
+insert into items (uuid, name, description, barcode, price, make) values (227, 'Vermouth - Sweet, Cinzano', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
+
+Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 19445504443, 23.41, 'venenatis');
+insert into items (uuid, name, description, barcode, price, make) values (228, 'Wine - German Riesling', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 75004004509, 18.14, 'porttitor');
+insert into items (uuid, name, description, barcode, price, make) values (229, 'Beer - Labatt Blue', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
+
+Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 59450214482, 22.87, 'et');
+insert into items (uuid, name, description, barcode, price, make) values (230, 'Sauce Tomato Pouch', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
+
+Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 87154364631, 1.46, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (231, 'Pork - Ham, Virginia', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.
+
+Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 64055269647, 42.4, 'aliquet');
+insert into items (uuid, name, description, barcode, price, make) values (232, 'Tea - Herbal Orange Spice', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 42964976215, 28.58, 'ligula');
+insert into items (uuid, name, description, barcode, price, make) values (233, 'Chicken - Leg / Back Attach', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 23325388517, 8.1, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (234, 'Extract - Raspberry', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 28383005473, 36.72, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (235, 'Cheese - Perron Cheddar', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
+
+Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 15122764945, 28.48, 'tincidunt');
+insert into items (uuid, name, description, barcode, price, make) values (236, 'Pepper - Green, Chili', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
+
+Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 11078193717, 45.62, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (237, 'Coconut - Shredded, Unsweet', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 29413022734, 28.8, 'felis');
+insert into items (uuid, name, description, barcode, price, make) values (238, 'Lid - 16 Oz And 32 Oz', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 46096514721, 39.83, 'vulputate');
+insert into items (uuid, name, description, barcode, price, make) values (239, 'Bread Sour Rolls', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 56853984872, 13.77, 'magna');
+insert into items (uuid, name, description, barcode, price, make) values (240, 'Bread - White, Unsliced', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 70443458183, 35.91, 'leo');
+insert into items (uuid, name, description, barcode, price, make) values (241, 'Island Oasis - Wildberry', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 65285703896, 23.92, 'urna');
+insert into items (uuid, name, description, barcode, price, make) values (242, 'Onion - Dried', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 93501150075, 42.72, 'metus');
+insert into items (uuid, name, description, barcode, price, make) values (243, 'Buffalo - Short Rib Fresh', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 48137770140, 16.37, 'massa');
+insert into items (uuid, name, description, barcode, price, make) values (244, 'Placemat - Scallop, White', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 58888814660, 43.51, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (245, 'Kaffir Lime Leaves', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 43596877537, 42.66, 'elit');
+insert into items (uuid, name, description, barcode, price, make) values (246, 'Beer - Sleemans Honey Brown', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 12814241851, 39.86, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (247, 'Beets - Candy Cane, Organic', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
+
+Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 27448138469, 6.62, 'duis');
+insert into items (uuid, name, description, barcode, price, make) values (248, 'Squid U5 - Thailand', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 71386520190, 27.52, 'purus');
+insert into items (uuid, name, description, barcode, price, make) values (249, 'Pastry - Choclate Baked', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 81300439496, 44.81, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (250, 'Spinach - Spinach Leaf', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 77671670676, 15.47, 'sit');
+insert into items (uuid, name, description, barcode, price, make) values (251, 'Trueblue - Blueberry 12x473ml', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 32201608222, 27.37, 'donec');
+insert into items (uuid, name, description, barcode, price, make) values (252, 'Basil - Dry, Rubbed', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 34300149780, 4.7, 'aliquam');
+insert into items (uuid, name, description, barcode, price, make) values (253, 'Pepper - Green, Chili', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
+
+In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 44558281296, 14.89, 'nisi');
+insert into items (uuid, name, description, barcode, price, make) values (254, 'Wine - Red Oakridge Merlot', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 80439101497, 3.83, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (255, 'Vol Au Vents', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
+
+Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 36236195265, 44.31, 'maecenas');
+insert into items (uuid, name, description, barcode, price, make) values (256, 'Bread - Rolls, Corn', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 86108996215, 41.14, 'nullam');
+insert into items (uuid, name, description, barcode, price, make) values (257, 'Jicama', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 14414105020, 24.43, 'tincidunt');
+insert into items (uuid, name, description, barcode, price, make) values (258, 'Cherries - Bing, Canned', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+
+Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 22947740643, 13.02, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (259, 'Wine - Crozes Hermitage E.', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 81159393715, 27.96, 'interdum');
+insert into items (uuid, name, description, barcode, price, make) values (260, 'Cabbage - Green', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.
+
+Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 74259524096, 34.69, 'neque');
+insert into items (uuid, name, description, barcode, price, make) values (261, 'Salmon - Atlantic, No Skin', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 25770924325, 24.95, 'consequat');
+insert into items (uuid, name, description, barcode, price, make) values (262, 'Appetizer - Lobster Phyllo Roll', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 43631507918, 6.03, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (263, 'Bagel - 12 Grain Preslice', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+
+Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 80858686994, 1.3, 'accumsan');
+insert into items (uuid, name, description, barcode, price, make) values (264, 'Pastry - Chocolate Chip Muffin', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+
+Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 52297894759, 28.56, 'magna');
+insert into items (uuid, name, description, barcode, price, make) values (265, 'Pork - Hock And Feet Attached', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
+
+Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 72193216099, 31.79, 'nec');
+insert into items (uuid, name, description, barcode, price, make) values (266, 'Beer - Creemore', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 96488503782, 13.28, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (267, 'Bandage - Fexible 1x3', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 90974360051, 8.93, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (268, 'Truffle Shells - Semi - Sweet', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 82929504327, 31.3, 'dui');
+insert into items (uuid, name, description, barcode, price, make) values (269, 'Beer - Moosehead', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 33062736726, 21.97, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (270, 'Sprouts Dikon', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 14883836302, 6.67, 'venenatis');
+insert into items (uuid, name, description, barcode, price, make) values (271, 'Apple - Northern Spy', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 32192209412, 45.32, 'non');
+insert into items (uuid, name, description, barcode, price, make) values (272, 'Oysters - Smoked', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 75371573448, 32.84, 'eu');
+insert into items (uuid, name, description, barcode, price, make) values (273, 'Bread - Roll, Italian', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+
+Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 97272758616, 16.46, 'ac');
+insert into items (uuid, name, description, barcode, price, make) values (274, 'Muffin - Mix - Creme Brule 15l', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 72494830326, 1.81, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (275, 'Pepper - Red Bell', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 26723222870, 39.04, 'semper');
+insert into items (uuid, name, description, barcode, price, make) values (276, 'Kolrabi', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
+
+Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 22977898065, 39.55, 'auctor');
+insert into items (uuid, name, description, barcode, price, make) values (277, 'Cream - 35%', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 58028502699, 44.89, 'metus');
+insert into items (uuid, name, description, barcode, price, make) values (278, 'Muffin Orange Individual', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 65732768484, 47.16, 'lacus');
+insert into items (uuid, name, description, barcode, price, make) values (279, 'Mustard - Individual Pkg', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 41299635049, 36.14, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (280, 'Spice - Pepper Portions', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 42461050891, 34.85, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (281, 'Bread - White, Sliced', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 47390837672, 49.16, 'aenean');
+insert into items (uuid, name, description, barcode, price, make) values (282, 'Paper Cocktail Umberlla 80 - 180', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 30499834397, 21.69, 'augue');
+insert into items (uuid, name, description, barcode, price, make) values (283, 'Tart Shells - Savory, 3', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
+
+Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 12625841901, 38.75, 'elit');
+insert into items (uuid, name, description, barcode, price, make) values (284, 'Monkfish Fresh - Skin Off', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 35537798861, 6.84, 'dictumst');
+insert into items (uuid, name, description, barcode, price, make) values (285, 'Cod - Fillets', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 45229331589, 32.86, 'viverra');
+insert into items (uuid, name, description, barcode, price, make) values (286, 'Mustard - Individual Pkg', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
+
+Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 90925493052, 32.32, 'feugiat');
+insert into items (uuid, name, description, barcode, price, make) values (287, 'Juice - Cranberry 284ml', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 77641459644, 16.89, 'pretium');
+insert into items (uuid, name, description, barcode, price, make) values (288, 'Oil - Safflower', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.', 27259274307, 43.37, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (289, 'Muskox - French Rack', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 43304697978, 41.11, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (290, 'Dill Weed - Dry', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 94911022995, 23.11, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (291, 'Petite Baguette', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
+
+Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 55123980323, 22.78, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (292, 'Beer - Moosehead', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+
+Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 52345387665, 20.67, 'diam');
+insert into items (uuid, name, description, barcode, price, make) values (293, 'Pickerel - Fillets', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 66481630116, 41.58, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (294, 'Alize Red Passion', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 70616787701, 45.46, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (295, 'Ecolab Silver Fusion', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 57939313994, 29.53, 'odio');
+insert into items (uuid, name, description, barcode, price, make) values (296, 'Tia Maria', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 38499151167, 37.92, 'condimentum');
+insert into items (uuid, name, description, barcode, price, make) values (297, 'Bread - Sour Sticks With Onion', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
+
+Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 36244506699, 49.59, 'luctus');
+insert into items (uuid, name, description, barcode, price, make) values (298, 'Seedlings - Clamshell', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+
+Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 42491677275, 11.41, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (299, 'Wine - Mondavi Coastal Private', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 88072052742, 39.3, 'curabitur');
+insert into items (uuid, name, description, barcode, price, make) values (300, 'Coffee - Dark Roast', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
+
+Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 38028464149, 10.2, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (301, 'Longos - Chicken Curried', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+
+Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 55670543638, 18.81, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (302, 'Appetizer - Asian Shrimp Roll', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+
+Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 85883650968, 44.03, 'proin');
+insert into items (uuid, name, description, barcode, price, make) values (303, 'Doilies - 5, Paper', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+
+Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 47587774346, 28.8, 'lobortis');
+insert into items (uuid, name, description, barcode, price, make) values (304, 'Pork - Tenderloin, Fresh', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 34013463931, 41.39, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (305, 'Dikon', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
+
+In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 47163905906, 48.87, 'lectus');
+insert into items (uuid, name, description, barcode, price, make) values (306, 'Beef - Chuck, Boneless', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
+
+Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 92109657049, 39.63, 'mauris');
+insert into items (uuid, name, description, barcode, price, make) values (307, 'Soup Campbells - Italian Wedding', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.
+
+Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 62608509248, 46.44, 'mattis');
+insert into items (uuid, name, description, barcode, price, make) values (308, 'Garam Marsala', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 25791409681, 39.82, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (309, 'Vinegar - Tarragon', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 78408725049, 4.28, 'aliquet');
+insert into items (uuid, name, description, barcode, price, make) values (310, 'Beef - Short Loin', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
+
+In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 85331267902, 11.64, 'congue');
+insert into items (uuid, name, description, barcode, price, make) values (311, 'Napkin White - Starched', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 63103274430, 2.46, 'maecenas');
+insert into items (uuid, name, description, barcode, price, make) values (312, 'Tea - Decaf 1 Cup', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 36125831650, 47.58, 'convallis');
+insert into items (uuid, name, description, barcode, price, make) values (313, 'Halibut - Fletches', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
+
+In congue. Etiam justo. Etiam pretium iaculis justo.', 13301378117, 3.82, 'ante');
+insert into items (uuid, name, description, barcode, price, make) values (314, 'Gooseberry', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.
+
+Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 26710290056, 9.61, 'vestibulum');
+insert into items (uuid, name, description, barcode, price, make) values (315, 'Sausage - Meat', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 88685280872, 22.4, 'suspendisse');
+insert into items (uuid, name, description, barcode, price, make) values (316, 'Cheese - Victor Et Berthold', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+
+Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 50519661877, 24.04, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (317, 'Pike - Frozen Fillet', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.', 78440417865, 40.2, 'elementum');
+insert into items (uuid, name, description, barcode, price, make) values (318, 'Chicken - Leg, Boneless', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 19012063861, 33.66, 'tristique');
+insert into items (uuid, name, description, barcode, price, make) values (319, 'Soup - Knorr, Veg / Beef', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 25040742200, 48.98, 'id');
+insert into items (uuid, name, description, barcode, price, make) values (320, 'Beef - Cooked, Corned', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 64392248201, 39.35, 'donec');
+insert into items (uuid, name, description, barcode, price, make) values (321, 'Tea - English Breakfast', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 38157294330, 2.69, 'blandit');
+insert into items (uuid, name, description, barcode, price, make) values (322, 'Liquid Aminios Acid - Braggs', 'Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 36278252717, 8.3, 'augue');
+insert into items (uuid, name, description, barcode, price, make) values (323, 'Muffin - Mix - Creme Brule 15l', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 56280910235, 28.59, 'felis');
+insert into items (uuid, name, description, barcode, price, make) values (324, 'Bacardi Limon', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
+
+Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 17558363599, 35.08, 'ac');
+insert into items (uuid, name, description, barcode, price, make) values (325, 'Cookies - Englishbay Oatmeal', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 86510421553, 35.73, 'lorem');
+insert into items (uuid, name, description, barcode, price, make) values (326, 'Cookie - Oatmeal', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
+
+Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 58290106725, 8.73, 'metus');
+insert into items (uuid, name, description, barcode, price, make) values (327, 'Cumin - Ground', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.
+
+Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 42008013121, 30.68, 'diam');
+insert into items (uuid, name, description, barcode, price, make) values (328, 'Flower - Leather Leaf Fern', 'Fusce consequat. Nulla nisl. Nunc nisl.', 72878142358, 42.93, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (329, 'Mushroom - Trumpet, Dry', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.
+
+Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 19693121078, 6.64, 'duis');
+insert into items (uuid, name, description, barcode, price, make) values (330, 'Potatoes - Yukon Gold, 80 Ct', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+
+Phasellus in felis. Donec semper sapien a libero. Nam dui.', 52131976051, 14.48, 'vulputate');
+insert into items (uuid, name, description, barcode, price, make) values (331, 'Ecolab - Ster Bac', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 84610316711, 12.08, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (332, 'Cheese - Parmigiano Reggiano', 'Fusce consequat. Nulla nisl. Nunc nisl.', 65714316177, 2.5, 'consequat');
+insert into items (uuid, name, description, barcode, price, make) values (333, 'Wine - Merlot Vina Carmen', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.
+
+Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 29401325681, 38.24, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (334, 'Broom And Brush Rack Black', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
+
+Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 73440793654, 45.3, 'scelerisque');
+insert into items (uuid, name, description, barcode, price, make) values (335, 'Marjoram - Dried, Rubbed', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 84904201444, 36.89, 'ac');
+insert into items (uuid, name, description, barcode, price, make) values (336, 'Broom - Corn', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 76519403219, 14.4, 'augue');
+insert into items (uuid, name, description, barcode, price, make) values (337, 'Salmon - Atlantic, Fresh, Whole', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+
+Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 55866760962, 15.83, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (338, 'Mix - Cocktail Strawberry Daiquiri', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.
+
+Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 52052546471, 9.2, 'quam');
+insert into items (uuid, name, description, barcode, price, make) values (339, 'Milk - 1%', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 20921665612, 43.85, 'massa');
+insert into items (uuid, name, description, barcode, price, make) values (340, 'Split Peas - Yellow, Dry', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
+
+Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 44211123562, 39.17, 'mattis');
+insert into items (uuid, name, description, barcode, price, make) values (341, 'Bagel - 12 Grain Preslice', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 33103869890, 20.58, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (342, 'Fuji Apples', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 18152400479, 29.34, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (343, 'Arctic Char - Fresh, Whole', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.
+
+Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 57158070261, 29.35, 'elit');
+insert into items (uuid, name, description, barcode, price, make) values (344, 'Pepper - Green', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+
+Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 60161161426, 18.09, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (345, 'Pastry - Trippleberry Muffin - Mini', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.
+
+Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 44775335527, 36.81, 'tincidunt');
+insert into items (uuid, name, description, barcode, price, make) values (346, 'Crab - Dungeness, Whole', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 91757299917, 35.4, 'quisque');
+insert into items (uuid, name, description, barcode, price, make) values (347, 'Shrimp - Black Tiger 16/20', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 35646596451, 27.84, 'hendrerit');
+insert into items (uuid, name, description, barcode, price, make) values (348, 'Garlic - Elephant', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+
+Phasellus in felis. Donec semper sapien a libero. Nam dui.', 91885554980, 38.15, 'aliquet');
+insert into items (uuid, name, description, barcode, price, make) values (349, 'Potatoes - Purple, Organic', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 77707510004, 11.17, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (350, 'Lettuce - Baby Salad Greens', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 19795354126, 41.6, 'dolor');
+insert into items (uuid, name, description, barcode, price, make) values (351, 'Squeeze Bottle', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
+
+Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 24363892322, 2.03, 'elit');
+insert into items (uuid, name, description, barcode, price, make) values (352, 'Cheese - Victor Et Berthold', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.
+
+Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 60545864125, 22.7, 'ut');
+insert into items (uuid, name, description, barcode, price, make) values (353, 'Pasta - Cheese / Spinach Bauletti', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 87842406418, 28.1, 'augue');
+insert into items (uuid, name, description, barcode, price, make) values (354, 'Mudslide', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
+
+In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 33503350821, 4.78, 'auctor');
+insert into items (uuid, name, description, barcode, price, make) values (355, 'Bread - Multigrain, Loaf', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 35473859942, 29.32, 'dui');
+insert into items (uuid, name, description, barcode, price, make) values (356, 'Beer - True North Lager', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+
+Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 66444227233, 45.99, 'nonummy');
+insert into items (uuid, name, description, barcode, price, make) values (357, 'Roe - Lump Fish, Black', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.
+
+Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 84265405400, 29.85, 'nibh');
+insert into items (uuid, name, description, barcode, price, make) values (358, 'Chinese Lemon Pork', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 20539698525, 35.61, 'dui');
+insert into items (uuid, name, description, barcode, price, make) values (359, 'Cookie Dough - Peanut Butter', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.
+
+Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 35749552407, 25.74, 'maecenas');
+insert into items (uuid, name, description, barcode, price, make) values (360, 'Roe - Flying Fish', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
+
+In congue. Etiam justo. Etiam pretium iaculis justo.', 44952036296, 42.31, 'odio');
+insert into items (uuid, name, description, barcode, price, make) values (361, 'Beans - Butter Lrg Lima', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 10791637874, 38.06, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (362, 'Compound - Orange', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+
+Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 45062563000, 33.13, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (363, 'Wooden Mop Handle', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+
+Phasellus in felis. Donec semper sapien a libero. Nam dui.', 15891984623, 40.41, 'nisi');
+insert into items (uuid, name, description, barcode, price, make) values (364, 'Oil - Peanut', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 76518756280, 21.0, 'magnis');
+insert into items (uuid, name, description, barcode, price, make) values (365, 'Sauce - Hollandaise', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.
+
+Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 35097816859, 13.59, 'nunc');
+insert into items (uuid, name, description, barcode, price, make) values (366, 'Eggs - Extra Large', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.', 47380563481, 42.02, 'non');
+insert into items (uuid, name, description, barcode, price, make) values (367, 'Flour - Corn, Fine', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
+
+In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 91337663797, 3.43, 'dapibus');
+insert into items (uuid, name, description, barcode, price, make) values (368, 'Sugar - Splenda Sweetener', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.
+
+Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 68640791563, 31.52, 'sit');
+insert into items (uuid, name, description, barcode, price, make) values (369, 'Scallop - St. Jaques', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.', 46325033564, 12.19, 'luctus');
+insert into items (uuid, name, description, barcode, price, make) values (370, 'Emulsifier', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 22411668797, 28.94, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (371, 'Wine - Red, Pelee Island Merlot', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 50587274914, 21.27, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (372, 'Cake - Box Window 10x10x2.5', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 23631188460, 25.04, 'est');
+insert into items (uuid, name, description, barcode, price, make) values (373, 'Glycerine', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
+
+Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 30588126304, 2.91, 'proin');
+insert into items (uuid, name, description, barcode, price, make) values (374, 'Sauerkraut', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 60519588443, 39.73, 'viverra');
+insert into items (uuid, name, description, barcode, price, make) values (375, 'Irish Cream - Butterscotch', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.
+
+Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.', 54657335228, 25.41, 'mi');
+insert into items (uuid, name, description, barcode, price, make) values (376, 'Venison - Ground', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 60075639784, 18.55, 'lectus');
+insert into items (uuid, name, description, barcode, price, make) values (377, 'Tomato - Plum With Basil', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.
+
+Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 36662202494, 24.48, 'a');
+insert into items (uuid, name, description, barcode, price, make) values (378, 'Capers - Ox Eye Daisy', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
+
+Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 67376198623, 1.38, 'turpis');
+insert into items (uuid, name, description, barcode, price, make) values (379, 'Sage - Fresh', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 94105384078, 25.26, 'viverra');
+insert into items (uuid, name, description, barcode, price, make) values (380, 'Eggwhite Frozen', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
+
+Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 42569587745, 41.5, 'hac');
+insert into items (uuid, name, description, barcode, price, make) values (381, 'Yeast Dry - Fermipan', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+
+Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 22697314830, 15.09, 'sollicitudin');
+insert into items (uuid, name, description, barcode, price, make) values (382, 'Wine - Zinfandel Rosenblum', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.', 52197497820, 1.61, 'rutrum');
+insert into items (uuid, name, description, barcode, price, make) values (383, 'Soup - Campbells, Cream Of', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 96161300906, 10.35, 'etiam');
+insert into items (uuid, name, description, barcode, price, make) values (384, 'Pasta - Fettuccine, Dry', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 11011411134, 47.71, 'ridiculus');
+insert into items (uuid, name, description, barcode, price, make) values (385, 'Lobster - Baby, Boiled', 'Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.
+
+Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.', 76468543409, 46.63, 'cubilia');
+insert into items (uuid, name, description, barcode, price, make) values (386, 'Wine - White, Gewurtzraminer', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+
+Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 29980984972, 15.01, 'quam');
+insert into items (uuid, name, description, barcode, price, make) values (387, 'Lambcasing', 'Fusce consequat. Nulla nisl. Nunc nisl.', 18644411998, 1.05, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (388, 'Wine - Black Tower Qr', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 69839683302, 30.84, 'mauris');
+insert into items (uuid, name, description, barcode, price, make) values (389, 'Garlic', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 54721182627, 1.05, 'tristique');
+insert into items (uuid, name, description, barcode, price, make) values (390, 'Wine - Casillero Deldiablo', 'In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 33676004707, 37.1, 'ridiculus');
+insert into items (uuid, name, description, barcode, price, make) values (391, 'Gatorade - Xfactor Berry', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.
+
+Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 69408305367, 9.0, 'dolor');
+insert into items (uuid, name, description, barcode, price, make) values (392, 'Pheasants - Whole', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
+
+Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 95205324537, 13.71, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (393, 'Sesame Seed', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 19878970183, 11.68, 'consectetuer');
+insert into items (uuid, name, description, barcode, price, make) values (394, 'Pork - Side Ribs', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 71877165580, 44.92, 'ut');
+insert into items (uuid, name, description, barcode, price, make) values (395, 'Curry Powder Madras', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.
+
+Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 74568603508, 26.41, 'non');
+insert into items (uuid, name, description, barcode, price, make) values (396, 'Celery', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 37818789236, 17.41, 'pellentesque');
+insert into items (uuid, name, description, barcode, price, make) values (397, 'Mushroom - Trumpet, Dry', 'Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.
+
+Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.', 98538206131, 7.61, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (398, 'Shrimp - Black Tiger 8 - 12', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+
+Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 89451922508, 33.09, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (399, 'Whmis - Spray Bottle Trigger', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
+
+Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 25074592363, 41.54, 'molestie');
+insert into items (uuid, name, description, barcode, price, make) values (400, 'Steel Wool S.o.s', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.
+
+Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 63916146658, 23.95, 'dui');
+insert into items (uuid, name, description, barcode, price, make) values (401, 'Plate - Foam, Bread And Butter', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 20987449064, 41.58, 'urna');
+insert into items (uuid, name, description, barcode, price, make) values (402, 'Beef - Striploin', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 30523152632, 33.99, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (403, 'Steam Pan - Half Size Deep', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 41715334557, 35.41, 'dis');
+insert into items (uuid, name, description, barcode, price, make) values (404, 'Soup Campbells Beef With Veg', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 33227043977, 44.26, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (405, 'Soup - Clam Chowder, Dry Mix', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 88215890425, 21.61, 'mi');
+insert into items (uuid, name, description, barcode, price, make) values (406, 'Eggwhite Frozen', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 93664637878, 5.7, 'accumsan');
+insert into items (uuid, name, description, barcode, price, make) values (407, 'Gingerale - Diet - Schweppes', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
+
+Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 96800852355, 33.15, 'nam');
+insert into items (uuid, name, description, barcode, price, make) values (408, 'Beef - Bresaola', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 49351966654, 43.0, 'nulla');
+insert into items (uuid, name, description, barcode, price, make) values (409, 'Graham Cracker Mix', 'In congue. Etiam justo. Etiam pretium iaculis justo.
+
+In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 57861680665, 45.95, 'est');
+insert into items (uuid, name, description, barcode, price, make) values (410, 'Wine - Piper Heidsieck Brut', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.
+
+Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 94658737206, 6.11, 'convallis');
+insert into items (uuid, name, description, barcode, price, make) values (411, 'Pork - Loin, Center Cut', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 85286273756, 39.62, 'orci');
+insert into items (uuid, name, description, barcode, price, make) values (412, 'Venison - Racks Frenched', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.
+
+Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.', 64468849180, 38.19, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (413, 'Yogurt - Peach, 175 Gr', 'Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.', 23349084927, 22.33, 'morbi');
+insert into items (uuid, name, description, barcode, price, make) values (414, 'Soup - Base Broth Beef', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.
+
+Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 49839132999, 43.05, 'neque');
+insert into items (uuid, name, description, barcode, price, make) values (415, 'Lambcasing', 'Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 51385941982, 7.29, 'suspendisse');
+insert into items (uuid, name, description, barcode, price, make) values (416, 'Beer - Camerons Cream Ale', 'Phasellus in felis. Donec semper sapien a libero. Nam dui.', 79148189793, 35.61, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (417, 'Jagermeister', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 76272574867, 6.36, 'potenti');
+insert into items (uuid, name, description, barcode, price, make) values (418, 'Table Cloth 62x114 White', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 55076618608, 6.12, 'ipsum');
+insert into items (uuid, name, description, barcode, price, make) values (419, 'Skirt - 24 Foot', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 90183816074, 7.06, 'tristique');
+insert into items (uuid, name, description, barcode, price, make) values (420, 'Paste - Black Olive', 'In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 33097426061, 16.17, 'diam');
+insert into items (uuid, name, description, barcode, price, make) values (421, 'Wine - Savigny - Les - Beaune', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 44825824668, 41.12, 'integer');
+insert into items (uuid, name, description, barcode, price, make) values (422, 'Turkey - Ground. Lean', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 39321452799, 8.38, 'lorem');
+insert into items (uuid, name, description, barcode, price, make) values (423, 'Hot Choc Vending', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 24307483723, 36.17, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (424, 'Chips - Doritos', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 24602895347, 27.51, 'varius');
+insert into items (uuid, name, description, barcode, price, make) values (425, 'Juice - Prune', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 58301928441, 22.0, 'integer');
+insert into items (uuid, name, description, barcode, price, make) values (426, 'Wine - Beringer Founders Estate', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.', 82713953295, 29.91, 'curae');
+insert into items (uuid, name, description, barcode, price, make) values (427, 'Sugar - Brown, Individual', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 98461010246, 41.9, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (428, 'Muffin Batt - Choc Chk', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+
+Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 58933938841, 7.85, 'eleifend');
+insert into items (uuid, name, description, barcode, price, make) values (429, 'Ecolab Silver Fusion', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
+
+Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 26438446131, 32.64, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (430, 'Wine - Acient Coast Caberne', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.', 51543235821, 34.62, 'ipsum');
+insert into items (uuid, name, description, barcode, price, make) values (431, 'Vanilla Beans', 'Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.
+
+Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 66953956739, 29.47, 'id');
+insert into items (uuid, name, description, barcode, price, make) values (432, 'Wine - Balbach Riverside', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 60431083482, 23.71, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (433, 'Compound - Raspberry', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 82648409733, 19.08, 'commodo');
+insert into items (uuid, name, description, barcode, price, make) values (434, 'Longos - Lasagna Veg', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 49766311101, 40.3, 'feugiat');
+insert into items (uuid, name, description, barcode, price, make) values (435, 'Mushroom - Chanterelle Frozen', 'In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 84965625733, 11.0, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (436, 'Raspberries - Fresh', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.
+
+Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.', 19794424148, 29.04, 'placerat');
+insert into items (uuid, name, description, barcode, price, make) values (437, 'Doilies - 7, Paper', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.
+
+Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.', 88173654946, 17.1, 'lobortis');
+insert into items (uuid, name, description, barcode, price, make) values (438, 'Pepper - Cayenne', 'Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.
+
+Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', 73330411991, 45.32, 'porttitor');
+insert into items (uuid, name, description, barcode, price, make) values (439, 'Macaroons - Homestyle Two Bit', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.
+
+Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 97620365432, 46.93, 'non');
+insert into items (uuid, name, description, barcode, price, make) values (440, 'Sprouts Dikon', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 98261236519, 14.13, 'nec');
+insert into items (uuid, name, description, barcode, price, make) values (441, 'Beef - Short Ribs', 'In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.
+
+Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', 31379567240, 27.16, 'blandit');
+insert into items (uuid, name, description, barcode, price, make) values (442, 'Blueberries - Frozen', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 82567665399, 47.14, 'ultrices');
+insert into items (uuid, name, description, barcode, price, make) values (443, 'Pepper - Jalapeno', 'Fusce consequat. Nulla nisl. Nunc nisl.', 37051692598, 9.62, 'id');
+insert into items (uuid, name, description, barcode, price, make) values (444, 'Mushroom - Lg - Cello', 'Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 36541304077, 30.7, 'congue');
+insert into items (uuid, name, description, barcode, price, make) values (445, 'Pastry - Key Limepoppy Seed Tea', 'Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.
+
+In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.', 94401420713, 3.06, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (446, 'Cake - Miini Cheesecake Cherry', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 93705168202, 25.26, 'suspendisse');
+insert into items (uuid, name, description, barcode, price, make) values (447, 'Coffee - Egg Nog Capuccino', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti.
+
+Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.', 69788655619, 5.99, 'vehicula');
+insert into items (uuid, name, description, barcode, price, make) values (448, 'Nougat - Paste / Cream', 'Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.', 75737391955, 8.9, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (449, 'Salt - Celery', 'Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 65570212707, 23.95, 'sagittis');
+insert into items (uuid, name, description, barcode, price, make) values (450, 'Chocolate - Chips Compound', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
+
+Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 32521827187, 4.98, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (451, 'Cheese - Brie,danish', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.
+
+Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 23913117962, 19.78, 'eget');
+insert into items (uuid, name, description, barcode, price, make) values (452, 'Latex Rubber Gloves Size 9', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.
+
+Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.', 26712147756, 45.7, 'pharetra');
+insert into items (uuid, name, description, barcode, price, make) values (453, 'Chivas Regal - 12 Year Old', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.', 37816653730, 15.58, 'libero');
+insert into items (uuid, name, description, barcode, price, make) values (454, 'Table Cloth 53x69 White', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+
+Phasellus in felis. Donec semper sapien a libero. Nam dui.', 82593284609, 15.67, 'non');
+insert into items (uuid, name, description, barcode, price, make) values (455, 'Beef - Ground Medium', 'Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 93236044839, 10.94, 'in');
+insert into items (uuid, name, description, barcode, price, make) values (456, 'Chips - Doritos', 'In congue. Etiam justo. Etiam pretium iaculis justo.
+
+In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 90704081105, 1.13, 'odio');
+insert into items (uuid, name, description, barcode, price, make) values (457, 'Beef - Bones, Marrow', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 55111763056, 18.03, 'amet');
+insert into items (uuid, name, description, barcode, price, make) values (458, 'Yogurt - Strawberry, 175 Gr', 'Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.
+
+Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.', 19382107608, 40.86, 'enim');
+insert into items (uuid, name, description, barcode, price, make) values (459, 'Breakfast Quesadillas', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 36782831222, 33.23, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (460, 'Crackers - Soda / Saltins', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.', 29979481193, 42.32, 'mauris');
+insert into items (uuid, name, description, barcode, price, make) values (461, 'Sauce - Cranberry', 'Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 59972847957, 11.48, 'nullam');
+insert into items (uuid, name, description, barcode, price, make) values (462, 'Muffin - Mix - Mango Sour Cherry', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.
+
+Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.', 41429575780, 31.23, 'gravida');
+insert into items (uuid, name, description, barcode, price, make) values (463, 'Myers Planters Punch', 'Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est.
+
+Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.', 29192209396, 21.82, 'purus');
+insert into items (uuid, name, description, barcode, price, make) values (464, 'Beer - Labatt Blue', 'Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.
+
+Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.', 34960517785, 25.77, 'volutpat');
+insert into items (uuid, name, description, barcode, price, make) values (465, 'Wine - Mondavi Coastal Private', 'Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.
+
+In congue. Etiam justo. Etiam pretium iaculis justo.', 37753753925, 14.93, 'molestie');
+insert into items (uuid, name, description, barcode, price, make) values (466, 'Green Tea Refresher', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.
+
+Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 62870664749, 18.41, 'iaculis');
+insert into items (uuid, name, description, barcode, price, make) values (467, 'Yeast - Fresh, Fleischman', 'Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.
+
+In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.', 13860893434, 18.15, 'at');
+insert into items (uuid, name, description, barcode, price, make) values (468, 'Jameson Irish Whiskey', 'Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.
+
+Phasellus in felis. Donec semper sapien a libero. Nam dui.', 59166015104, 29.8, 'pede');
+insert into items (uuid, name, description, barcode, price, make) values (469, 'Pepper - Sorrano', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.
+
+Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.', 50324685124, 23.54, 'mus');
+insert into items (uuid, name, description, barcode, price, make) values (470, 'Oil - Truffle, Black', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.
+
+Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.', 99798884335, 42.21, 'erat');
+insert into items (uuid, name, description, barcode, price, make) values (471, 'Basil - Primerba, Paste', 'Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.', 75654396315, 8.29, 'est');
+insert into items (uuid, name, description, barcode, price, make) values (472, 'Seedlings - Buckwheat, Organic', 'Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.', 47558160730, 46.84, 'ultrices');
+insert into items (uuid, name, description, barcode, price, make) values (473, 'Napkin - Dinner, White', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 93006181442, 38.13, 'a');
+insert into items (uuid, name, description, barcode, price, make) values (474, 'Truffle Cups Green', 'Fusce consequat. Nulla nisl. Nunc nisl.', 98286894954, 22.56, 'eu');
+insert into items (uuid, name, description, barcode, price, make) values (475, 'Napkin Colour', 'Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.', 82943277783, 25.63, 'neque');
+insert into items (uuid, name, description, barcode, price, make) values (476, 'Beef - Chuck, Boneless', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 52858303913, 12.7, 'nunc');
+insert into items (uuid, name, description, barcode, price, make) values (477, 'Cheese - Blue', 'Praesent blandit. Nam nulla. Integer pede justo, lacinia eget, tincidunt eget, tempus vel, pede.
+
+Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 95104164521, 7.79, 'quis');
+insert into items (uuid, name, description, barcode, price, make) values (478, 'Lid - 0090 Clear', 'Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.', 18509927411, 12.49, 'massa');
+insert into items (uuid, name, description, barcode, price, make) values (479, 'Salt And Pepper Mix - Black', 'Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.
+
+Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.', 19842174132, 42.81, 'sed');
+insert into items (uuid, name, description, barcode, price, make) values (480, 'Cookies Almond Hazelnut', 'Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.', 85808145015, 46.2, 'turpis');
+insert into items (uuid, name, description, barcode, price, make) values (481, 'Pike - Frozen Fillet', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.', 38772324050, 11.06, 'praesent');
+insert into items (uuid, name, description, barcode, price, make) values (482, 'Ecolab - Solid Fusion', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 90693016471, 44.72, 'libero');
+insert into items (uuid, name, description, barcode, price, make) values (483, 'Tea - Orange Pekoe', 'Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.', 47496362452, 27.3, 'semper');
+insert into items (uuid, name, description, barcode, price, make) values (484, 'Stock - Veal, Brown', 'Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 24989255087, 31.92, 'nisi');
+insert into items (uuid, name, description, barcode, price, make) values (485, 'Soup - Campbells, Creamy', 'Fusce consequat. Nulla nisl. Nunc nisl.', 43729546600, 44.54, 'luctus');
+insert into items (uuid, name, description, barcode, price, make) values (486, 'Soup - Chicken And Wild Rice', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 89424450262, 5.87, 'mauris');
+insert into items (uuid, name, description, barcode, price, make) values (487, 'Paste - Black Olive', 'Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.
+
+Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.', 87457763762, 39.86, 'consequat');
+insert into items (uuid, name, description, barcode, price, make) values (488, 'V8 Splash Strawberry Kiwi', 'Sed ante. Vivamus tortor. Duis mattis egestas metus.', 26008758012, 31.03, 'lectus');
+insert into items (uuid, name, description, barcode, price, make) values (489, 'Salt - Table', 'Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.
+
+In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.', 37426552072, 46.66, 'turpis');
+insert into items (uuid, name, description, barcode, price, make) values (490, 'Tilapia - Fillets', 'Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.
+
+Sed ante. Vivamus tortor. Duis mattis egestas metus.', 53969877313, 48.78, 'eu');
+insert into items (uuid, name, description, barcode, price, make) values (491, 'Shrimp - Prawn', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.
+
+Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 71427075249, 23.5, 'sapien');
+insert into items (uuid, name, description, barcode, price, make) values (492, 'Ranchero - Primerba, Paste', 'Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+
+Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.', 34398034181, 42.19, 'tincidunt');
+insert into items (uuid, name, description, barcode, price, make) values (493, 'Tart Shells - Sweet, 3', 'Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.', 64066018761, 24.89, 'curabitur');
+insert into items (uuid, name, description, barcode, price, make) values (494, 'Rice Paper', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
+
+Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 46698829702, 11.06, 'lectus');
+insert into items (uuid, name, description, barcode, price, make) values (495, 'Juice - Tomato, 48 Oz', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 49114861816, 32.18, 'rutrum');
+insert into items (uuid, name, description, barcode, price, make) values (496, 'Pop Shoppe Cream Soda', 'In congue. Etiam justo. Etiam pretium iaculis justo.', 98371692573, 12.64, 'justo');
+insert into items (uuid, name, description, barcode, price, make) values (497, 'Pastry - Plain Baked Croissant', 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', 85977375842, 24.13, 'donec');
+insert into items (uuid, name, description, barcode, price, make) values (498, 'Cheese - Oka', 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.
+
+Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.', 97151123634, 41.73, 'aliquet');
+insert into items (uuid, name, description, barcode, price, make) values (499, 'Pie Pecan', 'Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+
+Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.', 30451371031, 21.17, 'erat');
+insert into items (uuid, name, description, barcode, price, make) values (500, 'Bread - English Muffin', 'In congue. Etiam justo. Etiam pretium iaculis justo.
+
+In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus.', 80420323298, 39.59, 'orci');
+
 
 insert into transactions (uuid, token, user_uuid) values (1, '13vap5E7W7NcW1Hez6tqH9GX393FQK3pcS', 32);
 insert into transactions (uuid, token, user_uuid) values (2, '1HGrZUVvSMGnPKAPkhcrrFr73TYdrUXoCv', 4);

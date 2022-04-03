@@ -13,12 +13,11 @@ class Item(
     val name: String,
     val description: String,
     val barcode: Number,
-    val price: Double
+    val price: Double,
+    val make: String
 ) {
     @Transient
     var quantity = 1
-
-
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -36,9 +35,8 @@ class Item(
     }
 
     override fun toString(): String {
-        return "Item(uuid='$uuid', name='$name', description='$description', barcode=$barcode, price=$price, quantity=$quantity)"
+        return "Item(uuid='$uuid', name='$name', description='$description', barcode=$barcode, price=$price, make='$make', quantity=$quantity)"
     }
-
 
     companion object {
         private val gson = Gson()

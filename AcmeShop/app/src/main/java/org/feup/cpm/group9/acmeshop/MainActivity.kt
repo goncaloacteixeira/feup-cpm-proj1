@@ -14,8 +14,13 @@ class MainActivity : AppCompatActivity() {
 
     private val startForResultLogin = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val user = result.data?.extras?.get("result")
-            Log.i(TAG, "Login Result: $user")
+            val loginUser: LoginUser = result.data?.extras?.get("result") as LoginUser
+            Log.i(TAG, "Login Result: $loginUser")
+            val intent = Intent(this, HomePageActivity::class.java)
+            intent.putExtra("user", loginUser)
+            intent.putExtra("uuid", loginUser.uuid)
+            startActivity(intent)
+            finish()
         }
     }
 

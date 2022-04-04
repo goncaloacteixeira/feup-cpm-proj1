@@ -21,7 +21,7 @@ class LoginActivity : AppCompatActivity() {
             val password = findViewById<EditText>(R.id.login_password_edt).text.toString()
 
             Log.i(TAG, "onCreate: login for: $email, $password")
-            User.login(this, email, password) { user ->
+            LoginUser.login(this, email, password) { user ->
                 Log.i(TAG, "onCreate: Login Result: $user")
                 if (user != null) {
                     Toast.makeText(this, "User logged in: UUID: ${user.uuid}", Toast.LENGTH_LONG).show()

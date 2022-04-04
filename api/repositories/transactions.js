@@ -1,5 +1,4 @@
 const dao = require('./dao');
-const {token} = require("morgan");
 
 exports.getPastTransactions = async (user_uuid) => {
   return await dao.all(
@@ -15,6 +14,13 @@ exports.getItemsForTransaction = async (tr_uuid) => {
   );
 }
 
+exports.getTransactionByUUID = async (tr_uuid) => {
+  return await dao.get(
+    "SELECT * FROM transactions WHERE uuid = ?",
+    [tr_uuid]
+  )
+}
+
 exports.getTransactionByToken = async (tr_token) => {
   return await dao.get(
     "SELECT * FROM transactions WHERE token = ?",
@@ -27,4 +33,18 @@ exports.validateToken = async (tr_token) => {
     "UPDATE transactions SET token_valid = false WHERE token = ?",
     [tr_token]
   );
+}
+
+exports.addTransaction = async ({tr_uuid, token, user_uuid}) => {
+  return await dao.run(
+      "INSERT INTO transactions(uuid, token, user_uuid) VALUES (?,?,?)",
+      [tr_uuid, token, user_uuid]
+  )
+}
+
+exports.addTransactionItem = async ({tr_uuid, item_uuid}) => {
+  return await dao.run(
+      "INSERT INTO transaction_items(transaction_uuid, item_uuid) VALUES (?,?)",
+      [tr_uuid, item_uuid]
+  )
 }

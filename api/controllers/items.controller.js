@@ -2,10 +2,15 @@ const repository =  require('../repositories/items');
 
 exports.getAllItems = async (req, res) => {
   let items = await repository.getAllItems();
-  return res.send({items});
+  return res.json(items);
 };
 
-exports.getItemById = async (req, res) => {
-  let item = await repository.getItemById(req.params.id)
-  return res.send({item});
+exports.getItemByUUID = async (req, res) => {
+  let item = await repository.getItemByUUID(req.params.uuid)
+  return res.json(item);
+}
+
+exports.getItemByBarcode = async (req, res) => {
+  let item = await repository.getItemByBarcode(req.params.barcode.substring(0, 11))
+  return res.json(item);
 }

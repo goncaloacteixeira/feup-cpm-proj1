@@ -1,6 +1,8 @@
 const users = require('../repositories/users');
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
+const {getPastTransactions, getItemsForTransaction} = require("../repositories/transactions");
+const transactions = require("../repositories/transactions");
 const saltRounds = 10;
 
 exports.registerUser = async (req, res) => {
@@ -46,6 +48,7 @@ exports.loginUser = async (req, res) => {
   let properties = [
     'email',
     'password',
+    'public_key'
   ];
 
   for (let property of properties) {
@@ -61,6 +64,8 @@ exports.loginUser = async (req, res) => {
     }
     bcrypt.compare(req.body.password, user.password, async function (err, result) {
       if (result) {
+        await users.updatePublicKey(user.uuid, req.body.public_key)
+        user.public_key = req.body.public_key
         return res.json({message: "OK", content: user})
       } else {
         return res.json({message: "ERROR", content: "Wrong password."});
@@ -74,6 +79,12 @@ exports.loginUser = async (req, res) => {
 
 exports.getUserByUUID = async (req, res) => {
   let user = await users.getUserByUUID(req.params.uuid);
+  let transactions = await getPastTransactions(req.params.uuid);
+  for (let tr of transactions) {
+    tr.items = await getItemsForTransaction(tr.uuid);
+  }
+  user.transactions = transactions
+  console.log(user)
   return res.json(user);
 };
 

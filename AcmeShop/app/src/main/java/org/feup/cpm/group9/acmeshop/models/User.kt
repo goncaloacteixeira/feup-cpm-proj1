@@ -33,12 +33,21 @@ class User(
     @Transient
     lateinit var transactions: List<Transaction>
 
-    data class Purchase(
-        @SerializedName("user_uuid")
-        val userUUID: String,
-        val items: ArrayList<Item>,
+    class Purchase(
+        @SerializedName("user_uuid") val userUUID: String,
+        items: ArrayList<Item>,
         val signature: String
-    )
+    ) {
+        private val items: ArrayList<Item> = ArrayList()
+
+        init {
+            for (item in items) {
+                for (i in 1..item.quantity) {
+                    this.items.add(item)
+                }
+            }
+        }
+    }
 
     companion object {
         private val gson = Gson()
@@ -59,8 +68,8 @@ class User(
 
                     for (i in 0 until transactionsArray.length()) {
                         val transaction = transactionsArray.getJSONObject(i)
-                        val itemsType = object : TypeToken<List<Item>>() {}.type
-                        val itemsList = gson.fromJson<List<Item>>(transaction.getJSONArray("items").toString(), itemsType)
+                        val itemsType = object : TypeToken<ArrayList<Item>>() {}.type
+                        val itemsList = gson.fromJson<ArrayList<Item>>(transaction.getJSONArray("items").toString(), itemsType)
                         transactionsList[i].items = itemsList
                     }
 
@@ -101,8 +110,8 @@ class User(
 
                     if (response.getString("message") == "OK") {
                         val transaction = gson.fromJson(response.getJSONObject("content").toString(), Transaction::class.java)
-                        val itemsType = object : TypeToken<List<Item>>() {}.type
-                        val itemsList = gson.fromJson<List<Item>>(response.getJSONObject("content").getJSONArray("items").toString(), itemsType)
+                        val itemsType = object : TypeToken<ArrayList<Item>>() {}.type
+                        val itemsList = gson.fromJson<ArrayList<Item>>(response.getJSONObject("content").getJSONArray("items").toString(), itemsType)
                         transaction.items = itemsList
                         transaction.token = Crypto.decryptToken(transaction.token)
 

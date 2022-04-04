@@ -11,8 +11,11 @@ import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.models.Item
 
 
-class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemClickListener: (Item, CurrentTransactionAdapter) -> Unit, val payCallback: (ArrayList<Item>) -> Unit)
-    : RecyclerView.Adapter<CurrentTransactionAdapter.ViewHolder>() {
+class CurrentTransactionAdapter(
+    private val itemList: ArrayList<Item>,
+    val itemClickListener: (Item, CurrentTransactionAdapter) -> Unit,
+    val onPayClickListener: (ArrayList<Item>) -> Unit
+) : RecyclerView.Adapter<CurrentTransactionAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == R.layout.item_row) {
             val view = LayoutInflater.from(parent.context)
@@ -38,15 +41,19 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
 
             holder.name.text = itemViewModel.name
             holder.make.text = itemViewModel.make.uppercase()
-            holder.price.text = holder.itemView.context!!.getString(R.string.price_template_eur, itemViewModel.price * itemViewModel.quantity)
+            holder.price.text = holder.itemView.context!!.getString(
+                R.string.price_template_eur,
+                itemViewModel.price * itemViewModel.quantity
+            )
             holder.quantity.text = itemViewModel.quantity.toString()
 
             holder.itemView.setOnClickListener { itemClickListener(itemViewModel, this) }
         } else {
             holder.bind(null)
-            holder.button.text = holder.itemView.context!!.getString(R.string.pay_template_eur, calculateTotal())
+            holder.button.text =
+                holder.itemView.context!!.getString(R.string.pay_template_eur, calculateTotal())
             holder.button.setOnClickListener {
-                payCallback(itemList)
+                onPayClickListener(itemList)
             }
         }
     }
@@ -109,5 +116,6 @@ class CurrentTransactionAdapter(private val itemList: ArrayList<Item>, val itemC
         } else {
             notifyItemChanged(index)
         }
+        notifyItemChanged(itemList.size)
     }
 }

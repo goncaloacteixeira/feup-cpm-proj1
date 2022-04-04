@@ -4,12 +4,15 @@ import android.content.Context
 import android.util.Log
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
 import org.feup.cpm.group9.acmeshop.API_URL
+import java.io.Serializable
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Transaction(
     val uuid: String,
@@ -19,8 +22,9 @@ class Transaction(
     @SerializedName("token_valid")
     val tokenValid: Number,
     @Transient
-    var items: List<Item>
-) {
+    var items: ArrayList<Item>,
+    val timestamp: String
+) : Serializable {
     companion object {
         private val gson = Gson()
 
@@ -38,8 +42,8 @@ class Transaction(
 
                     for (i in 0 until response.length()) {
                         val transaction = response.getJSONObject(i)
-                        val itemsType = object : TypeToken<List<Item>>() {}.type
-                        val itemsList = gson.fromJson<List<Item>>(transaction.getJSONArray("items").toString(), itemsType)
+                        val itemsType = object : TypeToken<ArrayList<Item>>() {}.type
+                        val itemsList = gson.fromJson<ArrayList<Item>>(transaction.getJSONArray("items").toString(), itemsType)
                         transactionsList[i].items = itemsList
                     }
 
@@ -51,6 +55,12 @@ class Transaction(
                 })
 
             queue.add(request)
+        }
+
+        fun formatTimestamp(timestamp: String): String {
+            val parser = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK)
+            val formatter = SimpleDateFormat("dd/MM", Locale.UK)
+            return formatter.format(parser.parse(timestamp)!!)
         }
     }
 

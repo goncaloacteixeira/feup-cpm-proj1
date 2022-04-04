@@ -1,6 +1,7 @@
 package org.feup.cpm.group9.acmeshop.ui.home
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,11 +21,13 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
 import com.journeyapps.barcodescanner.ScanOptions
 import org.feup.cpm.group9.acmeshop.R
+import org.feup.cpm.group9.acmeshop.TransactionActivity
 import org.feup.cpm.group9.acmeshop.adapters.CurrentTransactionAdapter
 import org.feup.cpm.group9.acmeshop.databinding.FragmentHomeBinding
 import org.feup.cpm.group9.acmeshop.models.Item
 import org.feup.cpm.group9.acmeshop.models.User
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -77,15 +80,7 @@ class HomeFragment : Fragment() {
         val data = ArrayList<Item>()
 
         // This will pass the ArrayList to our Adapter
-        val adapter = CurrentTransactionAdapter(data, this::showDialog) {
-            User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, it) { tr ->
-                if (tr != null) {
-                    Toast.makeText(context, "Transaction completed: ${tr.uuid}", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(context, "Transaction failed!", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+        val adapter = CurrentTransactionAdapter(data, this::showDialog, this::pay)
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter
@@ -159,6 +154,23 @@ class HomeFragment : Fragment() {
         }
 
         dialog.show()
+    }
+
+    private fun pay(items: ArrayList<Item>) {
+        User.pay(requireContext(), requireActivity().intent.extras?.get("uuid") as String, items) { tr ->
+            if (tr != null) {
+                // Start Transaction Activity
+                val intent = Intent(requireContext(), TransactionActivity::class.java)
+                intent.putExtra("transaction", tr)
+                intent.putExtra("items", tr.items)
+
+                Toast.makeText(context, "Transaction completed", Toast.LENGTH_LONG).show()
+
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "Transaction failed!", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     override fun onDestroyView() {

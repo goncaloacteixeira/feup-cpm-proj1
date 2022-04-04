@@ -15,6 +15,9 @@
         android:theme="@style/Theme.AcmeShop"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".TransactionActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomePageActivity"
             android:exported="false"
             android:label="@string/title_activity_home_page"

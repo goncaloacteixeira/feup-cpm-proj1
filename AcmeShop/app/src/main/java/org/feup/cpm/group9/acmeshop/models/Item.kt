@@ -7,6 +7,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import org.feup.cpm.group9.acmeshop.API_URL
+import java.io.Serializable
 
 class Item(
     val uuid: String,
@@ -15,7 +16,7 @@ class Item(
     val barcode: Number,
     val price: Double,
     val make: String
-) {
+) : Serializable {
     @Transient
     var quantity = 1
 

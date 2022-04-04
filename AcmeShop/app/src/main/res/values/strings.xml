@@ -38,6 +38,11 @@
     <string name="edit_basket_item">Edit Basket Item</string>
     <string name="remove_item">Remove Item</string>
 
+    <!-- Transaction Activity -->
+    <string name="your_transaction_on">Your Transaction on %s</string>
+    <string name="show_qr_code">QR Code</string>
+    <string name="nfc">NFC</string>
+
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>

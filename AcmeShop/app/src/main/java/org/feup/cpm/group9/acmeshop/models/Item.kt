@@ -51,6 +51,7 @@ class Item(
                 { response ->
                     Log.i("Item", "getItemByUUID: Response is: $response")
                     val item = gson.fromJson(response.toString(), Item::class.java)
+                    item.quantity = 1
                     callback(item)
                 },
                 { error ->

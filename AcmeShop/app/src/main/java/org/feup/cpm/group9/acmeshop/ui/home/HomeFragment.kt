@@ -4,10 +4,7 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
+import android.view.*
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -37,6 +34,7 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var adapter: CurrentTransactionAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +50,15 @@ class HomeFragment : Fragment() {
         val homeViewModel : HomeViewModel by lazy {
             ViewModelProvider(this, factory)[HomeViewModel::class.java]
         }
+
+        // ArrayList of class ItemsViewModel
+        val data = ArrayList<Item>()
+
+        // This will pass the ArrayList to our Adapter
+        adapter = CurrentTransactionAdapter(data, this::showDialog, this::pay)
+
+        // define a menu for the fragment
+        setHasOptionsMenu(true)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -69,18 +76,33 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.home_page, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_dev_add_item -> {
+                val id = (0..500).random().toString()
+                Item.getItemByUUID(requireContext(), id) {
+                    if (it != null) {
+                        adapter.addItem(it!!)
+                    }
+                }
+            }
+        }
+
+        return false
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // getting the recyclerview by its id
         val recyclerview = view.findViewById<RecyclerView>(R.id.home_current_transaction_rv)
 
         // this creates a vertical layout Manager
         recyclerview.layoutManager = LinearLayoutManager(requireContext())
-
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<Item>()
-
-        // This will pass the ArrayList to our Adapter
-        val adapter = CurrentTransactionAdapter(data, this::showDialog, this::pay)
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter

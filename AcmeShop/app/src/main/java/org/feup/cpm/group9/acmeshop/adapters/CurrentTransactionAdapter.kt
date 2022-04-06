@@ -103,6 +103,12 @@ class CurrentTransactionAdapter(
         notifyItemChanged(itemList.size)
     }
 
+    fun setItems(items: List<Item>) {
+        itemList.clear()
+        itemList.addAll(items)
+        notifyDataSetChanged()
+    }
+
     fun updateItem(item: Item) {
         val index = itemList.indexOf(item)
         if (item.quantity == 0) {

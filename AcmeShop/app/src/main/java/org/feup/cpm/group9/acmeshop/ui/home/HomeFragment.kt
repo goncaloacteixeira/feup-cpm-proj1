@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
@@ -20,6 +21,7 @@ import com.journeyapps.barcodescanner.ScanOptions
 import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.TransactionActivity
 import org.feup.cpm.group9.acmeshop.adapters.CurrentTransactionAdapter
+import org.feup.cpm.group9.acmeshop.database.AppDatabase
 import org.feup.cpm.group9.acmeshop.databinding.FragmentHomeBinding
 import org.feup.cpm.group9.acmeshop.models.Item
 import org.feup.cpm.group9.acmeshop.models.User
@@ -30,6 +32,7 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
     private val TAG = "HomeFragment"
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var db: AppDatabase
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -50,6 +53,8 @@ class HomeFragment : Fragment() {
         val homeViewModel : HomeViewModel by lazy {
             ViewModelProvider(this, factory)[HomeViewModel::class.java]
         }
+
+        db = AppDatabase.getInstance(requireContext())
 
         // ArrayList of class ItemsViewModel
         val data = ArrayList<Item>()
@@ -73,6 +78,10 @@ class HomeFragment : Fragment() {
             numberTransactions.text = it.transactions.size.toString()
         }
 
+        homeViewModel.getPurchaseItems().observe(viewLifecycleOwner) {
+            adapter.setItems(it)
+        }
+
         return root
     }
 
@@ -88,7 +97,8 @@ class HomeFragment : Fragment() {
                 val id = (0..500).random().toString()
                 Item.getItemByUUID(requireContext(), id) {
                     if (it != null) {
-                        adapter.addItem(it!!)
+                        db.itemDao().insertAll(it)
+                        // adapter.addItem(it!!)
                     }
                 }
             }
@@ -119,7 +129,7 @@ class HomeFragment : Fragment() {
 
                 Item.getItemByBarcode(requireContext(), result.contents.toLong()) {item ->
                     if (item != null) {
-                        adapter.addItem(item)
+                        db.itemDao().insertAll(item)
                     }
                 }
             }

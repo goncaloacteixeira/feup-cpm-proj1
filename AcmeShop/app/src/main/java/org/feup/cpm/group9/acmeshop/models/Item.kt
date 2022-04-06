@@ -2,6 +2,8 @@ package org.feup.cpm.group9.acmeshop.models
 
 import android.content.Context
 import android.util.Log
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -9,11 +11,13 @@ import com.google.gson.Gson
 import org.feup.cpm.group9.acmeshop.API_URL
 import java.io.Serializable
 
+@Entity(tableName = "purchase_items")
 class Item(
+    @PrimaryKey
     val uuid: String,
     val name: String,
     val description: String,
-    val barcode: Number,
+    val barcode: Long,
     val price: Double,
     val make: String
 ) : Serializable {

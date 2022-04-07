@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanIntentResult
@@ -20,6 +21,7 @@ import com.journeyapps.barcodescanner.ScanOptions
 import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.TransactionActivity
 import org.feup.cpm.group9.acmeshop.adapters.CurrentTransactionAdapter
+import org.feup.cpm.group9.acmeshop.database.AppDatabase
 import org.feup.cpm.group9.acmeshop.databinding.FragmentHomeBinding
 import org.feup.cpm.group9.acmeshop.models.Item
 import org.feup.cpm.group9.acmeshop.models.User
@@ -30,11 +32,13 @@ import kotlin.collections.ArrayList
 class HomeFragment : Fragment() {
     private val TAG = "HomeFragment"
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var db: AppDatabase
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var adapter: CurrentTransactionAdapter
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,9 +51,10 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val homeViewModel : HomeViewModel by lazy {
-            ViewModelProvider(this, factory)[HomeViewModel::class.java]
-        }
+        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
+
+        db = AppDatabase.getInstance(requireContext())
 
         // ArrayList of class ItemsViewModel
         val data = ArrayList<Item>()
@@ -73,6 +78,11 @@ class HomeFragment : Fragment() {
             numberTransactions.text = it.transactions.size.toString()
         }
 
+        homeViewModel.getPurchaseItems().observe(viewLifecycleOwner) {
+            Log.d(TAG, "onCreateView: new update: $it")
+            adapter.setItems(it)
+        }
+
         return root
     }
 
@@ -88,7 +98,7 @@ class HomeFragment : Fragment() {
                 val id = (0..500).random().toString()
                 Item.getItemByUUID(requireContext(), id) {
                     if (it != null) {
-                        adapter.addItem(it!!)
+                        db.itemDao().insertAll(it)
                     }
                 }
             }
@@ -119,7 +129,7 @@ class HomeFragment : Fragment() {
 
                 Item.getItemByBarcode(requireContext(), result.contents.toLong()) {item ->
                     if (item != null) {
-                        adapter.addItem(item)
+                        db.itemDao().insertAll(item)
                     }
                 }
             }
@@ -137,7 +147,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun showDialog(item: Item, adapter: CurrentTransactionAdapter) {
+    private fun showDialog(item: Item) {
         val dialog = Dialog(requireContext())
         
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -160,7 +170,7 @@ class HomeFragment : Fragment() {
             quantity.text = (quantity.text.toString().toInt() + 1).toString()
         }
         decreaseBtn.setOnClickListener {
-            if (quantity.text.toString().toInt() >= 1) {
+            if (quantity.text.toString().toInt() > 1) {
                 quantity.text = (quantity.text.toString().toInt() - 1).toString()
             }
         }
@@ -172,7 +182,13 @@ class HomeFragment : Fragment() {
         dialog.setOnDismissListener {
             Log.d(TAG, "showDialog: dismissed")
             item.quantity = quantity.text.toString().toInt()
-            adapter.updateItem(item)
+
+            if (item.quantity == 0) {
+                db.itemDao().remove(item)
+            } else {
+                Log.d(TAG, "showDialog: updated: $item")
+                db.itemDao().update(item)
+            }
         }
 
         dialog.show()
@@ -189,6 +205,9 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context, "Transaction completed", Toast.LENGTH_LONG).show()
 
                 startActivity(intent)
+
+                db.itemDao().clearTable()
+                homeViewModel.updateUser( requireActivity().intent.extras?.get("uuid") as String)
             } else {
                 Toast.makeText(context, "Transaction failed!", Toast.LENGTH_LONG).show()
             }

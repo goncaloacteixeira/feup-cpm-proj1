@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.feup.cpm.group9.acmeshop.R
 import org.feup.cpm.group9.acmeshop.models.Transaction
 
-class TransactionsAdapter(private val itemList: ArrayList<Transaction>): RecyclerView.Adapter<TransactionsAdapter.ViewHolder>() {
+class TransactionsAdapter(private val itemList: ArrayList<Transaction>, private val onItemClickListener: (Transaction) -> Unit): RecyclerView.Adapter<TransactionsAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -25,6 +25,8 @@ class TransactionsAdapter(private val itemList: ArrayList<Transaction>): Recycle
         holder.datetime.text = Transaction.formatTimestampToDateTime(transaction.timestamp)
         holder.total.text = holder.itemView.context!!.getString(R.string.price_template_eur, transaction.totalPrice)
         holder.items.text = holder.itemView.context!!.getString(R.string.number_items_template, transaction.items.size)
+
+        holder.itemView.setOnClickListener { onItemClickListener(transaction) }
     }
 
     override fun getItemCount(): Int {

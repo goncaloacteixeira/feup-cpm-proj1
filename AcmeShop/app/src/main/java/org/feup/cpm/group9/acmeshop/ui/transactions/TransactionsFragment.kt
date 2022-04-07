@@ -1,5 +1,6 @@
 package org.feup.cpm.group9.acmeshop.ui.transactions
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.feup.cpm.group9.acmeshop.R
+import org.feup.cpm.group9.acmeshop.TransactionActivity
 import org.feup.cpm.group9.acmeshop.adapters.TransactionsAdapter
 import org.feup.cpm.group9.acmeshop.databinding.FragmentTransactionsBinding
+import org.feup.cpm.group9.acmeshop.models.Transaction
 import org.feup.cpm.group9.acmeshop.ui.home.HomeViewModel
 
 class TransactionsFragment : Fragment() {
@@ -41,7 +44,7 @@ class TransactionsFragment : Fragment() {
         _binding = FragmentTransactionsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        adapter = TransactionsAdapter(arrayListOf())
+        adapter = TransactionsAdapter(arrayListOf(), this::openTransaction)
 
         transactionsViewModel.user.observe(viewLifecycleOwner) {
             adapter.setItems(it.transactions)
@@ -62,6 +65,12 @@ class TransactionsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun openTransaction(transaction: Transaction) {
+        val intent = Intent(requireContext(), TransactionActivity::class.java)
+        intent.putExtra("transaction", transaction)
+        intent.putExtra("items", transaction.items)
+        startActivity(intent)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

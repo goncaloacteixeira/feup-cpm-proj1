@@ -2,4 +2,7 @@
     <string name="app_name">Acme Shop Terminal</string>
     <string name="show_qr_code">QR Code</string>
     <string name="nfc">NFC</string>
+    <string name="price_template_eur">%.02f€</string>
+
+    <string name="your_transaction_on">Your Transaction on %s</string>
 </resources>

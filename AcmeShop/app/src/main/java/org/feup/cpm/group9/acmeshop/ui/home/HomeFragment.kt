@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private lateinit var adapter: CurrentTransactionAdapter
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,9 +51,8 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val homeViewModel : HomeViewModel by lazy {
-            ViewModelProvider(this, factory)[HomeViewModel::class.java]
-        }
+        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
 
         db = AppDatabase.getInstance(requireContext())
 
@@ -79,6 +79,7 @@ class HomeFragment : Fragment() {
         }
 
         homeViewModel.getPurchaseItems().observe(viewLifecycleOwner) {
+            Log.d(TAG, "onCreateView: new update: $it")
             adapter.setItems(it)
         }
 
@@ -98,7 +99,6 @@ class HomeFragment : Fragment() {
                 Item.getItemByUUID(requireContext(), id) {
                     if (it != null) {
                         db.itemDao().insertAll(it)
-                        // adapter.addItem(it!!)
                     }
                 }
             }
@@ -147,7 +147,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun showDialog(item: Item, adapter: CurrentTransactionAdapter) {
+    private fun showDialog(item: Item) {
         val dialog = Dialog(requireContext())
         
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -170,7 +170,7 @@ class HomeFragment : Fragment() {
             quantity.text = (quantity.text.toString().toInt() + 1).toString()
         }
         decreaseBtn.setOnClickListener {
-            if (quantity.text.toString().toInt() >= 1) {
+            if (quantity.text.toString().toInt() > 1) {
                 quantity.text = (quantity.text.toString().toInt() - 1).toString()
             }
         }
@@ -182,7 +182,13 @@ class HomeFragment : Fragment() {
         dialog.setOnDismissListener {
             Log.d(TAG, "showDialog: dismissed")
             item.quantity = quantity.text.toString().toInt()
-            adapter.updateItem(item)
+
+            if (item.quantity == 0) {
+                db.itemDao().remove(item)
+            } else {
+                Log.d(TAG, "showDialog: updated: $item")
+                db.itemDao().update(item)
+            }
         }
 
         dialog.show()
@@ -199,6 +205,9 @@ class HomeFragment : Fragment() {
                 Toast.makeText(context, "Transaction completed", Toast.LENGTH_LONG).show()
 
                 startActivity(intent)
+
+                db.itemDao().clearTable()
+                homeViewModel.updateUser( requireActivity().intent.extras?.get("uuid") as String)
             } else {
                 Toast.makeText(context, "Transaction failed!", Toast.LENGTH_LONG).show()
             }

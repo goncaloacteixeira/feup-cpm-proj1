@@ -1,9 +1,7 @@
 package org.feup.cpm.group9.acmeshop.database.daos
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import org.feup.cpm.group9.acmeshop.models.Item
 import org.feup.cpm.group9.acmeshop.models.User
 
@@ -14,4 +12,13 @@ interface ItemDao {
 
     @Insert
     fun insertAll(vararg users: Item)
+
+    @Query("DELETE FROM purchase_items")
+    fun clearTable()
+
+    @Delete
+    fun remove(item: Item)
+
+    @Update
+    fun update(item: Item)
 }

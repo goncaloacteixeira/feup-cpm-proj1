@@ -21,7 +21,6 @@ class Item(
     val price: Double,
     val make: String
 ) : Serializable {
-    @Transient
     var quantity = 1
 
     override fun equals(other: Any?): Boolean {

@@ -13,7 +13,7 @@ import org.feup.cpm.group9.acmeshop.models.Item
 
 class CurrentTransactionAdapter(
     private val itemList: ArrayList<Item>,
-    val itemClickListener: (Item, CurrentTransactionAdapter) -> Unit,
+    val itemClickListener: (Item) -> Unit,
     val onPayClickListener: (ArrayList<Item>) -> Unit
 ) : RecyclerView.Adapter<CurrentTransactionAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -47,7 +47,7 @@ class CurrentTransactionAdapter(
             )
             holder.quantity.text = itemViewModel.quantity.toString()
 
-            holder.itemView.setOnClickListener { itemClickListener(itemViewModel, this) }
+            holder.itemView.setOnClickListener { itemClickListener(itemViewModel) }
         } else {
             holder.bind(null)
             holder.button.text =
@@ -90,38 +90,9 @@ class CurrentTransactionAdapter(
         return total
     }
 
-    fun addItem(item: Item) {
-        Log.d("HomeAdapter", "addItem: $item")
-        if (itemList.contains(item)) {
-            val index = itemList.indexOf(item)
-            itemList[index].quantity++
-            notifyItemChanged(index)
-        } else {
-            itemList.add(item)
-            notifyItemInserted(itemList.size)
-        }
-        notifyItemChanged(itemList.size)
-    }
-
     fun setItems(items: List<Item>) {
         itemList.clear()
         itemList.addAll(items)
         notifyDataSetChanged()
-    }
-
-    fun updateItem(item: Item) {
-        val index = itemList.indexOf(item)
-        if (item.quantity == 0) {
-            itemList.removeAt(index)
-            if (itemList.isEmpty()) {
-                itemList.clear()
-                notifyDataSetChanged()
-            } else {
-                notifyItemRemoved(index)
-            }
-        } else {
-            notifyItemChanged(index)
-        }
-        notifyItemChanged(itemList.size)
     }
 }

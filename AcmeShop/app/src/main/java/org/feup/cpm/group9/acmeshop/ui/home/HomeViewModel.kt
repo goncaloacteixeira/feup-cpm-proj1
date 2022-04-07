@@ -28,6 +28,12 @@ class HomeViewModel(application: Application, uuid: String) : AndroidViewModel(a
         return itemDao.getCurrentPurchaseItems()
     }
 
+    fun updateUser(uuid: String) {
+        User.getUser(getApplication(), uuid) {
+            _user.value = it
+        }
+    }
+
     val text: LiveData<String> = _text
     val user: LiveData<User> = _user
 }

@@ -209,7 +209,7 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
 
                 db.itemDao().clearTable()
-                homeViewModel.updateUser( requireActivity().intent.extras?.get("uuid") as String)
+                homeViewModel.updateUser(requireActivity().intent.extras?.get("uuid") as String)
             } else {
                 Toast.makeText(context, "Transaction failed!", Toast.LENGTH_LONG).show()
             }

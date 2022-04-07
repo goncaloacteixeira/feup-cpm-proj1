@@ -57,9 +57,21 @@ class Transaction(
             queue.add(request)
         }
 
-        fun formatTimestamp(timestamp: String): String {
-            val parser = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK)
+        fun formatTimestampToDate(timestamp: String): String {
+            val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
             val formatter = SimpleDateFormat("dd/MM", Locale.UK)
+            return formatter.format(parser.parse(timestamp)!!)
+        }
+
+        fun formatTimestampToTime(timestamp: String): String {
+            val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.UK)
+            val formatter = SimpleDateFormat("hh:mm", Locale.UK)
+            return formatter.format(parser.parse(timestamp)!!)
+        }
+
+        fun formatTimestampToDateTime(timestamp: String): String {
+            val parser = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.UK)
+            val formatter = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.UK)
             return formatter.format(parser.parse(timestamp)!!)
         }
     }

@@ -38,7 +38,7 @@ create table "transactions"
     uuid        text primary key,
     token       text unique not null,
     total_price numeric     not null default 0,
-    timestamp   timestamp   not null default current_timestamp,
+    timestamp   timestamp   not null default (datetime('now','localtime')),
     user_uuid   text     not null,
     token_valid boolean  not null default true,
     constraint user_fk foreign key (user_uuid) references users (uuid) on delete cascade

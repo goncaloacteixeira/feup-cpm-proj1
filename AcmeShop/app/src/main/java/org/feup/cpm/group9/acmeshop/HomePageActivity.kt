@@ -2,7 +2,6 @@ package org.feup.cpm.group9.acmeshop
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.Menu
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -36,7 +35,7 @@ class HomePageActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_home, R.id.nav_transactions
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

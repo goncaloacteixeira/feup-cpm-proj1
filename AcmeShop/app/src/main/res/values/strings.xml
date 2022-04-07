@@ -7,6 +7,7 @@
     <string name="hello_user">Hi %s!</string>
     <string name="price_template_eur">%.02f€</string>
     <string name="pay_template_eur">Pay %.02f€</string>
+    <string name="number_items_template">%d items</string>
     <string name="pay">Pay</string>
 
     <!-- SignUp Strings -->
@@ -47,4 +48,5 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_transactions">Transactions</string>
 </resources>

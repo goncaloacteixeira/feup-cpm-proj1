@@ -157,11 +157,13 @@ class HomeFragment : Fragment() {
         val make = dialog.findViewById(R.id.basket_item_make) as TextView
         val description = dialog.findViewById(R.id.basket_item_description) as TextView
         val quantity = dialog.findViewById(R.id.basket_item_quantity) as TextView
+        val price = dialog.findViewById(R.id.basket_item_price) as TextView
 
         name.text = item.name
         make.text = item.make.uppercase()
         description.text = item.description
         quantity.text = item.quantity.toString()
+        price.text = requireContext().getString(R.string.price_template_eur, item.price)
 
         val increaseBtn = dialog.findViewById<Button>(R.id.basket_increase_btn)
         val decreaseBtn = dialog.findViewById<Button>(R.id.basket_decrease_btn)
@@ -207,7 +209,7 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
 
                 db.itemDao().clearTable()
-                homeViewModel.updateUser( requireActivity().intent.extras?.get("uuid") as String)
+                homeViewModel.updateUser(requireActivity().intent.extras?.get("uuid") as String)
             } else {
                 Toast.makeText(context, "Transaction failed!", Toast.LENGTH_LONG).show()
             }

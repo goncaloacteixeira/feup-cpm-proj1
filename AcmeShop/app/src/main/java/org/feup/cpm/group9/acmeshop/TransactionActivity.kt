@@ -5,7 +5,6 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.ImageView
@@ -38,7 +37,7 @@ class TransactionActivity : AppCompatActivity() {
         Log.i(TAG, "onCreate: transaction: $transaction, items: $items")
 
         val title = findViewById<TextView>(R.id.transaction_title)
-        title.text = getString(R.string.your_transaction_on, Transaction.formatTimestamp(transaction.timestamp))
+        title.text = getString(R.string.your_transaction_on, Transaction.formatTimestampToDate(transaction.timestamp))
 
         val total = findViewById<TextView>(R.id.transaction_total)
         total.text = getString(R.string.price_template_eur, transaction.totalPrice)

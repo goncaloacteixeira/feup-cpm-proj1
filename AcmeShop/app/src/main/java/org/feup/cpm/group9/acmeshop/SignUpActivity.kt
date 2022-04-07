@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 
 class SignUpActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
             val password = findViewById<EditText>(R.id.user_password_edt).text.toString()
             val confirmPassword = findViewById<EditText>(R.id.user_confirm_password_edt).text.toString()
             val cardNumber = findViewById<EditText>(R.id.user_card_number_edt).text.toString().toDouble()
-            val cardType = findViewById<EditText>(R.id.user_card_type_edt).text.toString()
+            val cardType = findViewById<Spinner>(R.id.user_card_type_edt).selectedItem.toString().lowercase()
             val cardValidity = findViewById<EditText>(R.id.user_card_validity_edt).text.toString()
 
             val user = LoginUser(name, address, email, vat, password, confirmPassword, cardNumber, cardType, cardValidity)

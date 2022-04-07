@@ -86,6 +86,11 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        homeViewModel.updateUser(requireActivity().intent.extras?.get("uuid") as String)
+        super.onResume()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Inflate the menu; this adds items to the action bar if it is present.
         inflater.inflate(R.menu.home_page, menu)

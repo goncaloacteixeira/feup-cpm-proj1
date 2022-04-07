@@ -6,84 +6,129 @@
     android:layout_height="match_parent"
     tools:context=".SignUpActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/basic_info"
+        android:textColor="?attr/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/user_name_edt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:orientation="vertical"
+        android:ems="10"
+        android:hint="@string/name_lbl"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <EditText
-            android:id="@+id/user_name_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/name_lbl"
-            android:inputType="textPersonName"
-            android:minHeight="48dp" />
+    <EditText
+        android:id="@+id/user_email_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/email_lbl"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_name_edt" />
 
-        <EditText
-            android:id="@+id/user_address_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/address_lbl"
-            android:inputType="textPostalAddress"
-            android:minHeight="48dp" />
+    <EditText
+        android:id="@+id/user_password_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/password_lbl"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_vat_edt" />
 
-        <EditText
-            android:id="@+id/user_email_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/email_lbl"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp" />
+    <EditText
+        android:id="@+id/user_confirm_password_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/confirm_password_lbl"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_password_edt" />
 
-        <EditText
-            android:id="@+id/user_vat_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/vat_lbl"
-            android:inputType="number"
-            android:minHeight="48dp" />
+    <EditText
+        android:id="@+id/user_address_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/address_lbl"
+        android:inputType="textPostalAddress"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_email_edt" />
 
-        <EditText
-            android:id="@+id/user_password_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/password_lbl"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
+    <EditText
+        android:id="@+id/user_vat_edt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="@string/vat_lbl"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_address_edt" />
 
-        <EditText
-            android:id="@+id/user_confirm_password_edt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/confirm_password_lbl"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/payment_info"
+        android:textColor="?attr/colorPrimaryDark"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/user_confirm_password_edt"
+        app:layout_constraintTop_toBottomOf="@+id/user_confirm_password_edt" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
         <EditText
             android:id="@+id/user_card_number_edt"
@@ -98,32 +143,37 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/user_card_number_edt">
 
-            <EditText
+            <Spinner
                 android:id="@+id/user_card_type_edt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0"
                 android:ems="10"
-                android:minHeight="48dp"
+                android:entries="@array/card_types"
                 android:hint="@string/card_type_lbl"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:minHeight="48dp"
+                android:spinnerMode="dropdown" />
 
             <EditText
                 android:id="@+id/user_card_validity_edt"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginTop="8dp"
+                android:layout_weight="0"
                 android:ems="10"
-                android:minHeight="48dp"
                 android:hint="@string/card_validity_lbl"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:minHeight="48dp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

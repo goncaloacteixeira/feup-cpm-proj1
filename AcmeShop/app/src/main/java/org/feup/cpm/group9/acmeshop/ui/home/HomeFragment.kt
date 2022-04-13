@@ -97,13 +97,19 @@ class HomeFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
             R.id.action_dev_add_item -> {
                 val id = (0..500).random().toString()
-                Item.getItemByUUID(requireContext(), id) {
-                    if (it != null) {
-                        db.itemDao().insertAll(it)
+                Item.getItemByUUID(requireContext(), id) { item ->
+                    if (item != null) {
+                        val aux = db.itemDao().getByUUID(item.uuid);
+                        if (aux != null) {
+                            aux.quantity++;
+                            db.itemDao().update(aux)
+                        } else {
+                            db.itemDao().insertAll(item)
+                        }
                     }
                 }
             }
@@ -134,7 +140,13 @@ class HomeFragment : Fragment() {
 
                 Item.getItemByBarcode(requireContext(), result.contents.toLong()) {item ->
                     if (item != null) {
-                        db.itemDao().insertAll(item)
+                        val aux = db.itemDao().getByUUID(item.uuid);
+                        if (aux != null) {
+                            aux.quantity++;
+                            db.itemDao().update(aux)
+                        } else {
+                            db.itemDao().insertAll(item)
+                        }
                     }
                 }
             }

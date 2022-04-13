@@ -30,16 +30,16 @@ exports.validateToken = async (req, res) => {
 
         await transactions.validateToken(token);
 
-        return res.send({
+        return res.json({message: "OK", content:{
             uuid: uuid,
             user: user,
             timestamp: timestamp,
             total_price: total_price,
             items: items
-        })
+        }})
     } else {
         console.log("Token not valid. TR UUID:", uuid);
-        return res.status(400).send("Token not valid.");
+        return res.json({message: "ERROR"});
     }
 }
 

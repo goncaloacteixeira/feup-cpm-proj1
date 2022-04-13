@@ -5,4 +5,5 @@
     <string name="price_template_eur">%.02f€</string>
 
     <string name="your_transaction_on">Your Transaction on %s</string>
+    <string name="waiting">Waiting…</string>
 </resources>

@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
             options.setBarcodeImageEnabled(true)
             qrCodeLauncher.launch(options)
         }
+        findViewById<Button>(R.id.nfc_btn).setOnClickListener {
+            val intent = Intent(this, NFCReaderActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun startTransactionActivity(transaction: Transaction) {

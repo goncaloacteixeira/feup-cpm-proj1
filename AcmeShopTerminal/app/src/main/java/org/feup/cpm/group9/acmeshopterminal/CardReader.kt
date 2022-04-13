@@ -7,7 +7,7 @@ import android.util.Log
 import java.io.IOException
 import java.util.*
 
-private const val AID = "F222222222"
+private const val AID = "F0010203040506"
 private const val SELECT_APDU_HEADER = "00A40400"
 private val SELECT_OK_SW = byteArrayOf(0x90.toByte(), 0x00.toByte())
 

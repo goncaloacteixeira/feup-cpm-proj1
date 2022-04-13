@@ -2,6 +2,7 @@ package org.feup.cpm.group9.acmeshop
 
 
 import android.app.Dialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -56,7 +57,9 @@ class TransactionActivity : AppCompatActivity() {
             showQRCode(transaction.token)
         }
         nfcBtn.setOnClickListener {
-            Toast.makeText(this, "NFC not yet implemented!", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, NFCCardActivity::class.java)
+            intent.putExtra("token", transaction.token)
+            startActivity(intent)
         }
     }
 

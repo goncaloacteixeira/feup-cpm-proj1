@@ -1,4 +1,7 @@
 <resources>
+    <string name="service_name">Token Card</string>
+    <string name="card_title">Token</string>
+
     <string name="app_name">Acme Shop</string>
     <string name="login_lbl">Login</string>
     <string name="signup_lbl">Sign Up</string>

@@ -10,6 +10,9 @@ interface ItemDao {
     @Query("SELECT * FROM purchase_items")
     fun getCurrentPurchaseItems(): LiveData<List<Item>>
 
+    @Query("SELECT * FROM purchase_items WHERE uuid = :uuid LIMIT 1")
+    fun getByUUID(uuid: String): Item?
+
     @Insert
     fun insertAll(vararg users: Item)
 

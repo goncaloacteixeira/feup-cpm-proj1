@@ -14,7 +14,7 @@ The API is built on NodeJS (javascript) with ExpressJS as the engine for the HTT
 
 Instructions on how to run the API server and frontend application can be found [here](./api/README.md).
 
-## Consumer & Terminak Applications
+## Consumer & Terminal Applications
 
 These applications are built on Kotlin with Android SKD 24.
 

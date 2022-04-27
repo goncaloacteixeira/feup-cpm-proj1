@@ -49,6 +49,13 @@ exports.processPayment = async (req, res) => {
 
     let {public_key} = await getUserByUUID(user_uuid)
 
+    // assume the transaction succeeds on 95% of the cases
+    let val = Math.random();
+    if (val >= 0.95) {
+        return res.json({message: "ERROR"})
+    }
+
+
     let publicKey = "-----BEGIN PUBLIC KEY-----\n" + public_key + "-----END PUBLIC KEY-----"
     const verifier = crypto.createVerify('RSA-SHA256')
     verifier.update(user_uuid)

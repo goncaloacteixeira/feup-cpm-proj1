@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React from "react";
 import axios from "axios";
@@ -9,8 +8,8 @@ var JsBarcode = require('jsbarcode');
 var { createCanvas } = require("canvas");
 
 const columns = [
-  { field: 'name', headerName: 'Name', minWidth: 250},
-  { field: 'description', headerName: 'Description', minWidth: 300 },
+  { field: 'name', headerName: 'Name', minWidth: 300},
+  { field: 'description', headerName: 'Description', minWidth: 650 },
   { field: 'price', headerName: 'Price', minWidth: 100,
     renderCell: (params) => params.value + "€"},
   { field: 'make', headerName: 'Make', minWidth: 250},
@@ -22,7 +21,7 @@ const columns = [
       const onClick = (e) => {
         e.stopPropagation(); // don't select this row after clicking
 
-        var canvas = createCanvas(200, 200);
+        createCanvas(200, 200);
 
         JsBarcode("#barcode", params.value, {format: 'UPC', flat: true})
       };
